@@ -1,37 +1,41 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const Header = styled.header`
-    width: 100%;
-    margin: 0 auto;
-    background-color: #ffffff;
-`
+export const SHeader = styled("header")`
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-export const HeaderContainer = styled.div`
-    max-width: 1440px;
-    width: 100%;
-    display: block;
-    display: 'flex';
-    justify-content: 'space-between';
-    align-items: 'center';
-    padding: '10px 40px';
-    border-bottom: '1px solid #eee';
-`
+export const SLogo = styled("div")`
+  font-size: 1.25rem;
+  font-weight: bold;
+`;
 
-export const HeaderBlock = styled.div`
-    height: 70px;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-between;
-    position: relative;
-    top: 0;
-    left: 0;
-    padding: 0 10px;
-`
-export const HeaderLogo = styled.div``
+export const SNav = styled("nav")`
+  display: flex;
+  gap: 1.5rem;
+`;
 
-export const HeaderLogoImg = styled.img`
-    width: 144px;
-    height: 19px;
-    padding: 23px 120px;
-`
+export const SNavLink = styled("a")`
+  color: #4b5563;
+  text-decoration: none;
+  &:hover {
+    color: black;
+  }
+`;
+
+export const SActiveLink = styled("a")`
+  color: #16a34a;
+  font-weight: 500;
+  text-decoration: none;
+`;
+
+export const SLogoutBtn = styled("button")`
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+`;

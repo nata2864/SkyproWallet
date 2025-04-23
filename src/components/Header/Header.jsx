@@ -1,22 +1,25 @@
-
-import * as S from './Header.styled'
-import { Link } from 'react-router-dom'
+import {
+  SHeader,
+  SLogo,
+  SNav,
+  SActiveLink,
+  SNavLink,
+  SLogoutBtn,
+} from "./Header.styled";
+import WalletLogo from "../../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 export default function Header() {
-    return (
-        <S.Header>
-            <S.HeaderBlock>
-                <S.HeaderLogo>
-                    <Link to="#" target="_self">
-                        {' '}
-                        <S.HeaderLogoImg
-                            src="public/logo.svg"
-                            alt="logo"
-                        ></S.HeaderLogoImg>
-                    </Link>
-                </S.HeaderLogo>
-            </S.HeaderBlock>
-        </S.Header>
-    )
+  return (
+    <SHeader>
+      <SLogo>
+        <img src={WalletLogo} alt="logo" />
+      </SLogo>
+      <SNav>
+        <SActiveLink href="#">Мои расходы</SActiveLink>
+        <SNavLink href="#">Анализ расходов</SNavLink>
+      </SNav>
+      <SLogoutBtn>Выйти</SLogoutBtn>
+    </SHeader>
+  );
 }
-
