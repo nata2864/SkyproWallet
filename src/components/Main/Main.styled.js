@@ -41,7 +41,7 @@ export const SLogoutBtn = styled("button")`
 `;
 
 export const SMain = styled("main")`
-  padding: 2rem;
+  margin-top: 20px;
   display: flex;
   gap: 1.5rem;
 `;

@@ -2,11 +2,10 @@ import styled from "styled-components";
 
 export const SHeader = styled("header")`
   background: white;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 20px;
 `;
 
 export const SLogo = styled("div")`

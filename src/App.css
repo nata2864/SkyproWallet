@@ -4,7 +4,7 @@
   padding: 2rem;
   text-align: center;
 }
-
+/* root паддинг не дает поставить бэкграунд и мешает моим стилям в мэйне и хедере (Ерлан) */
 .logo {
   height: 6em;
   padding: 1.5em;
