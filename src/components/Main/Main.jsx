@@ -1,8 +1,10 @@
+import * as S from "./Main.styled"
+
 function Main() {
   return (
-    <div>
+    <S.Main>
       <p>Это главная страница</p>
-    </div>
+    </S.Main>
   );
 }
 
