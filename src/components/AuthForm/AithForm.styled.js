@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { textSizes } from "../../const";
 // import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
@@ -38,22 +38,16 @@ export const ModalBlok = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
-  @media (max-width: 375px) {
-    max-width: 368px;
-    width: 100%;
-    padding: 0 16px;
-    border-radius: none;
-    border: none;
-    box-shadow: none;
-  }
+
 `;
 
 export const Title = styled.h2`
   text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 30px;
-  letter-spacing: -0.6px;
+  
+  font-weight: ${textSizes.largeH2.fontWeight};
+  font-size: ${textSizes.largeH2.fontSize};
+  line-height: 100%;
+
   margin-bottom: 20px;
 `;
 export const Form = styled.form`
@@ -72,32 +66,10 @@ export const Input = styled.input`
   outline: none;
   padding: 10px 8px;
   margin-bottom: 7px;
-  &::placeholder {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.28px;
-    color: #94a6be;
-  }
-  & ::-moz-placeholder {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.28px;
-    color: #94a6be;
-  }
+
 `;
 
-// export const AuthButton = styled(Button)`
-//   margin-top: 13px;
-//   margin-bottom: 20px;
 
-//   @media (max-width: 375px) {
-//     height: 40px;
-//   }
-// `;
 
 export const TextGroep = styled.div`
   text-align: center;
@@ -106,10 +78,10 @@ export const TextGroep = styled.div`
 
 export const ModalText = styled.p`
   color: rgba(148, 166, 190, 0.4);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 150%;
-  letter-spacing: -0.14px;
+  font-weight: ${textSizes.small.fontWeight};
+  font-size: ${textSizes.small.fontSize};
+  line-height: 100%;
+
 `;
 
 // export const ModalLink = styled(Link)`

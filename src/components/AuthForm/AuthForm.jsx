@@ -1,6 +1,5 @@
 import * as S from "./AithForm.styled";
 
-
 function AuthForm({ isSignUp }) {
   return (
     <S.Wrapper>
@@ -10,7 +9,7 @@ function AuthForm({ isSignUp }) {
             <div>
               <S.Title>{isSignUp ? "Регистрация" : "Вход"}</S.Title>
             </div>
-            <S.Form >
+            <S.Form>
               {isSignUp && (
                 <S.Input
                   type="text"
@@ -33,23 +32,20 @@ function AuthForm({ isSignUp }) {
                 placeholder="Пароль"
               />
               <button>{isSignUp ? "Зарегистрироваться" : "Войти"}</button>
-                <S.TextGroep>
+              <S.TextGroep>
                 {isSignUp && (
                   <div>
-                    <S.ModalText>
-                      Уже есть аккаунт? Войдите здесь
-                    </S.ModalText>
+                    <S.ModalText>Уже есть аккаунт? Войдите здесь</S.ModalText>
                   </div>
                 )}
                 {!isSignUp && (
                   <div>
                     <S.ModalText>
-                      Нужно зарегистрироваться?
-                      Регистрируйтесь здесь
+                      Нужно зарегистрироваться? Регистрируйтесь здесь
                     </S.ModalText>
                   </div>
-                )} 
-               </S.TextGroep> 
+                )}
+              </S.TextGroep>
             </S.Form>
           </S.ModalBlok>
         </S.Modal>
