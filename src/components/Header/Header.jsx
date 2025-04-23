@@ -1,10 +1,22 @@
-function Header() {
+
+import * as S from './Header.styled'
+import { Link } from 'react-router-dom'
+
+export default function Header() {
     return (
-      <div>
-        <p>Header</p>
-      </div>
-    );
-  }
-  
-  export default Header;
-  
+        <S.Header>
+            <S.HeaderBlock>
+                <S.HeaderLogo>
+                    <Link to="#" target="_self">
+                        {' '}
+                        <S.HeaderLogoImg
+                            src="public/logo.svg"
+                            alt="logo"
+                        ></S.HeaderLogoImg>
+                    </Link>
+                </S.HeaderLogo>
+            </S.HeaderBlock>
+        </S.Header>
+    )
+}
+
