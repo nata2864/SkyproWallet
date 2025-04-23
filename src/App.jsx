@@ -1,4 +1,5 @@
 import "./App.css";
+
 import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <>
       <div>
         <MainPage />
+       
       </div>
     </>
   );
