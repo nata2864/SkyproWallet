@@ -12,14 +12,14 @@ import {
   STag,
   SSubmitBtn,
 } from "./Main.styled";
-import MiniBucket from "../../assets/first-box/mini-bucket.svg";
-import MiniPen from "../../assets/first-box/mini-pen.svg";
-import MiniCar from "../../assets/second-box/mini-car.svg";
-import MiniFood from "../../assets/second-box/mini-food.svg";
-import MiniGames from "../../assets/second-box/mini-games.svg";
-import MiniHouse from "../../assets/second-box/mini-house.svg";
-import MiniOther from "../../assets/second-box/mini-other.svg";
-import MiniTeacher from "../../assets/second-box/mini-teacher.svg";
+import MiniBucket from "../../../public/first-box/mini-bucket.svg";
+import MiniPen from "../../../public/first-box/mini-pen.svg";
+import MiniCar from "../../../public/second-box/mini-car.svg";
+import MiniFood from "../../../public/second-box/mini-food.svg";
+import MiniGames from "../../../public/second-box/mini-games.svg";
+import MiniHouse from "../../../public/second-box/mini-house.svg";
+import MiniOther from "../../../public/second-box/mini-other.svg";
+import MiniTeacher from "../../../public/second-box/mini-teacher.svg";
 function Main() {
   return (
     <>

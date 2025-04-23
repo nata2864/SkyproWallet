@@ -6,7 +6,7 @@ import {
   SNavLink,
   SLogoutBtn,
 } from "./Header.styled";
-import WalletLogo from "../../assets/logo.svg";
+import WalletLogo from "../../../public/logo.svg";
 
 export default function Header() {
   return (
