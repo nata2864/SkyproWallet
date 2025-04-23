@@ -35,3 +35,22 @@ export const HeaderLogoImg = styled.img`
     height: 19px;
     padding: 23px 120px;
 `
+
+export const HeaderNav = styled.nav`
+    display: 'flex';
+    gap: '40px';
+    align-items: 'center';
+`
+export const HeaderLinks = styled.div`
+    display: flex;
+    gap: 48px;
+`
+export const HeaderLinkText = styled.p`
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 170%;
+    letter-spacing: 0px;
+    text-align: center;
+`
+
+
