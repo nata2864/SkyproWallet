@@ -1,18 +1,18 @@
-import { useState } from 'react'
 
-import { GlobalStyles } from './GlobalStyles.styled'
-import './App.css'
-import Header from './components/Header/Header'
+import "./App.css";
+
+import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
-    const [count, setCount] = useState(0)
-
-    return (
-        <>
-            <GlobalStyles />
-            <Header></Header>
-        </>
-    )
+  return (
+    <>
+      <div>
+        <MainPage />
+       
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
+
