@@ -32,3 +32,15 @@ export const RoutesApp = {
   LOGIN: "/login",
  
 };
+
+//Обьект ошибок
+export const textErrors = {
+  signInAndSignUpError:
+    "Упс! Введенные вами данные не корректны. Введите данные корректно и повторите попытку.",
+
+  addExpenseError: "Ошибка добавления расхода",
+  updateExpenseError: "Ошибка редактирования расхода",
+  deleteExpenseError: "Ошибка удаления расхода",
+  getExpenseError: "Ошибка при загрузке расходов",
+  addExpense: "Ошибка при обновлении расходов",
+};
