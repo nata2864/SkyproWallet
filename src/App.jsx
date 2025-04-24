@@ -1,13 +1,13 @@
 import "./App.css";
-
-import MainPage from "./pages/MainPage/MainPage";
+import AppRoutes from "./AppRoutes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
       <div>
-        <MainPage />
-       
+        <AppRoutes />
+        <ToastContainer autoClose={1500} />
       </div>
     </>
   );
