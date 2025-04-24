@@ -6,7 +6,7 @@ import { useNavigate
  } from "react-router-dom";
  import { RoutesApp } from "../../const";
 
-function AuthForm({ isSignUp, setIsAuth }) {
+function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
 
   // состояние полей
@@ -79,7 +79,7 @@ function AuthForm({ isSignUp, setIsAuth }) {
       if (isSignUp) {
         navigate(RoutesApp.SIGN_IN); // <-- перейти на вход после регистрации
       } else {
-        setIsAuth(true);
+        // setIsAuth(true);
         localStorage.setItem("userInfo", JSON.stringify(data));
         navigate(RoutesApp.MAIN); // <-- войти, если не регистрация
       }
