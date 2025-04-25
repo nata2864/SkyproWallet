@@ -1,6 +1,6 @@
-import styled from "styled-components";
-
+import styled from 'styled-components'
 
 export const Main = styled.div`
-color: red
+    color: red;
+    background-color: #fff;
 `
