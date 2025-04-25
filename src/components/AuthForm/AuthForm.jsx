@@ -102,7 +102,7 @@ function AuthForm({ isSignUp, setIsAuth}) {
               {isSignUp && (
                 <S.Input
                   type="text"
-                  name="first-name"
+                  name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Имя"
@@ -127,13 +127,20 @@ function AuthForm({ isSignUp, setIsAuth}) {
               <S.TextGroep>
                 {isSignUp && (
                   <div>
-                    <S.ModalText>Уже есть аккаунт? Войдите здесь</S.ModalText>
+                    <S.ModalText>Уже есть аккаунт?
+                    <S.ModalLink to={RoutesApp.SIGN_IN}>
+                      
+                       Войдите здесь
+                       
+                       </S.ModalLink>
+                       </S.ModalText>
                   </div>
                 )}
                 {!isSignUp && (
                   <div>
                     <S.ModalText>
-                      Нужно зарегистрироваться? Регистрируйтесь здесь
+                      Нужно зарегистрироваться? 
+                      <S.ModalLink to={RoutesApp.SIGN_UP}>Регистрируйтесь здесь</S.ModalLink>
                     </S.ModalText>
                   </div>
                 )}
