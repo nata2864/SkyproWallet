@@ -2,6 +2,13 @@ import { createGlobalStyle } from 'styled-components'
 
 
 export const GlobalStyles = createGlobalStyle`
+
+  :root {
+    --color-primary: #1fa46c;
+    --color-secondary: #333;
+    --font-main: Montserrat, sans-serif;
+  }
+
    /* * {
     margin: 0;
     padding: 0;

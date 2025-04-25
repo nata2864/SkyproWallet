@@ -1,5 +1,6 @@
 import * as S from './AithForm.styled'
 import Button from '../Button/Button'
+import Input from '../Input/Input'
 
 function AuthForm({ isSignUp }) {
     return (
@@ -21,19 +22,32 @@ function AuthForm({ isSignUp }) {
                                     placeholder="Имя"
                                 />
                             )}
-
+{/* 
                             <S.Input
                                 type="email"
                                 name="login"
                                 id="loginReg"
                                 placeholder="Эл. почта"
-                            />
-                            <S.Input
+                            /> */}
+
+<Input
+            variant='desktop'
+            type="email"
+            placeholder='Введите email'
+            state='green'
+            ></Input>
+            <Input
+            variant='desktop'
+            type="password"
+            placeholder='Введите пароль'
+            state='red'
+            ></Input>
+                            {/* <S.Input
                                 type="password"
                                 name="password"
                                 id="passwordFirst"
                                 placeholder="Пароль"
-                            />
+                            /> */}
                             <Button
                                 variant={'desktop'}
                                 text={isSignUp ? 'Зарегистрироваться' : 'Войти'}

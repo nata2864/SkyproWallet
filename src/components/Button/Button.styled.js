@@ -4,7 +4,7 @@ import { textSizes } from '../../const'
 export const Button = styled.button`
     width: ${({ variant }) =>
         variant === 'desktop'
-            ? '313px'
+            ? '100%'
             : variant === 'mobile'
             ? '343px'
             : variant === 'tablet'
@@ -14,12 +14,10 @@ export const Button = styled.button`
     border-radius: 6px;
     padding: 12px;
 
-
-
-    background-color:  ${({ error }) => error ? '#999999' :  '#1fa46c'};
+    background-color: ${({ error }) => (error ? '#999999' : '#1fa46c')};
     color: #fff;
-    font-family: Montserrat;
-    font-weight: ${textSizes.small.fontWeight};
+    font-family: var(--font-main);
+    font-weight: ${textSizes.medium.fontWeight};
     font-size: ${textSizes.small.fontSize};
     line-height: 100%;
     letter-spacing: 0px;
