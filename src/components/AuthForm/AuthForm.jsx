@@ -5,11 +5,15 @@ import { toast } from "react-toastify";
 import { useNavigate
  } from "react-router-dom";
  import { RoutesApp } from "../../const";
+ import { AuthContext
+  } from "../../context/AuthContext";
+  import { useContext } from "react";
 
-function AuthForm({ isSignUp, setIsAuth}) {
+function AuthForm({ isSignUp}) {
   const navigate = useNavigate();
+  const { updateUserInfo } = useContext(AuthContext);
 
-  // состояние полей
+ 
   const [formData, setFormData] = useState({
     name: "",
     login: "",
@@ -77,11 +81,10 @@ function AuthForm({ isSignUp, setIsAuth}) {
 
     if (data) {
       if (isSignUp) {
-        navigate(RoutesApp.SIGN_IN); // <-- перейти на вход после регистрации
+        navigate(RoutesApp.SIGN_IN);
       } else {
-        setIsAuth(true);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        navigate(RoutesApp.MAIN); // <-- войти, если не регистрация
+        updateUserInfo(data);
+        navigate(RoutesApp.MAIN); 
       }
     }
     } catch (err) {
