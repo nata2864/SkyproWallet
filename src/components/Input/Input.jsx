@@ -1,14 +1,15 @@
-import { Input } from "./Input.styled";
+import { BasisInput } from "./Input.styled";
 
 export default function({variant, state, placeholder,type}) {
-    return (
+    return (<BasisInput>
 
- <Input
- variant={variant}
- state={state}
- placeholder={placeholder}
- type={type}
- ></Input>
+    </BasisInput>
+//  <Input
+//  variant={variant}
+//  state={state}
+//  placeholder={placeholder}
+//  type={type}
+//  ></Input>
 
     )
 }
