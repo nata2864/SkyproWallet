@@ -3,6 +3,10 @@ export const textSizes = {
     fontSize: "12px",
     fontWeight: "400",
   },
+  smallHeader: {
+    fontSize: "14px",
+    fontWeight: "400",
+  },
   medium: {
     fontSize: "16px",
     fontWeight: "600",
@@ -18,10 +22,8 @@ export const textSizes = {
   },
 };
 
-
 // Апи для регистрации и авторизации пользователя
 export const API_URL = "https://wedev-api.sky.pro/api/user";
-
 
 // Eindpoints для адресной строки
 export const RoutesApp = {
@@ -30,7 +32,6 @@ export const RoutesApp = {
   SIGN_UP: "/sign-up",
   NOT_FOUND: "/*",
   LOGIN: "/login",
- 
 };
 
 //Обьект ошибок
@@ -43,4 +44,19 @@ export const textErrors = {
   deleteExpenseError: "Ошибка удаления расхода",
   getExpenseError: "Ошибка при загрузке расходов",
   addExpense: "Ошибка при обновлении расходов",
+};
+
+export const inputColors = {
+  static: {
+    background: "transparent",
+    border: "#999999",
+  },
+  active: {
+    background: " #DBFFE9",
+    border: "#1FA46C",
+  },
+  error: {
+    background: " #FFEBEB",
+    border: "#F25050",
+  },
 };
