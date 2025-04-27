@@ -103,7 +103,7 @@ function AuthForm({ isSignUp}) {
             </div>
             <S.Form onSubmit={handleSubmit}>
               {isSignUp && (
-                <S.Input
+                <S.InputAuthForm
                   type="text"
                   name="name"
                   value={formData.name}
@@ -112,14 +112,14 @@ function AuthForm({ isSignUp}) {
                 />
               )}
 
-              <S.Input
+              <S.InputAuthForm
                 type="email"
                 name="login"
                 value={formData.login}
                 onChange={handleChange}
                 placeholder="Эл. почта"
               />
-              <S.Input
+              <S.InputAuthForm
                 type="password"
                 name="password"
                 value={formData.password}
