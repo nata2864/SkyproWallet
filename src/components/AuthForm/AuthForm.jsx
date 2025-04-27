@@ -27,6 +27,24 @@ function AuthForm({ isSignUp}) {
     password: false,
   });
 
+
+
+  const [focus, setFocus] = useState({
+    name: false,
+    login: false,
+    password: false,
+  });
+
+  const handleFocus = (field) => {
+    setFocus((prev) => ({ ...prev, [field]: true }));
+  };
+  
+  const handleBlur = (field) => {
+    setFocus((prev) => ({ ...prev, [field]: false }));
+  };
+  
+
+
    // функция валидации
    const validateForm = () => {
     const newErrors = { name: "", login: "", password: "" };
@@ -109,6 +127,10 @@ function AuthForm({ isSignUp}) {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Имя"
+                  onFocus={() => handleFocus("name")}
+      onBlur={() => handleBlur("name")}
+                  isFocused={focus.name}
+                  hasError={errors.name}
                 />
               )}
 
@@ -118,6 +140,10 @@ function AuthForm({ isSignUp}) {
                 value={formData.login}
                 onChange={handleChange}
                 placeholder="Эл. почта"
+                onFocus={() => handleFocus("login")}
+                onBlur={() => handleBlur("login")}
+                isFocused={focus.login}
+                hasError={errors.login}
               />
               <S.InputAuthForm
                 type="password"
@@ -125,6 +151,10 @@ function AuthForm({ isSignUp}) {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="Пароль"
+                onFocus={() => handleFocus("password")}
+    onBlur={() => handleBlur("password")}
+                isFocused={focus.password}
+                hasError={errors.password}
               />
               <S.Button type="submit">{isSignUp ? "Зарегистрироваться" : "Войти"}</S.Button>
               <S.TextGroep>
