@@ -126,26 +126,19 @@ function AuthForm({ isSignUp}) {
                 onChange={handleChange}
                 placeholder="Пароль"
               />
-              <button type="submit">{isSignUp ? "Зарегистрироваться" : "Войти"}</button>
+              <S.Button type="submit">{isSignUp ? "Зарегистрироваться" : "Войти"}</S.Button>
               <S.TextGroep>
                 {isSignUp && (
-                  <div>
-                    <S.ModalText>Уже есть аккаунт?
-                    <S.ModalLink to={RoutesApp.SIGN_IN}>
-                      
-                       Войдите здесь
-                       
-                       </S.ModalLink>
-                       </S.ModalText>
-                  </div>
+                 <>
+                 <S.ModalText>Уже есть аккаунт?</S.ModalText>
+                 <S.ModalLink to={RoutesApp.SIGN_IN}>Войдите здесь</S.ModalLink>
+               </>
                 )}
                 {!isSignUp && (
-                  <div>
-                    <S.ModalText>
-                      Нужно зарегистрироваться? 
-                      <S.ModalLink to={RoutesApp.SIGN_UP}>Регистрируйтесь здесь</S.ModalLink>
-                    </S.ModalText>
-                  </div>
+                  <>
+                  <S.ModalText>Нужно зарегистрироваться?</S.ModalText>
+                  <S.ModalLink to={RoutesApp.SIGN_UP}>Регистрируйтесь здесь</S.ModalLink>
+                </>
                 )}
               </S.TextGroep>
             </S.Form>
