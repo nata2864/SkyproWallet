@@ -20,7 +20,6 @@ export const Input = styled.input`
             : state === 'white'
             ? '#999999'
             : '#999999'};
-   
 
     background-color: ${({ state }) =>
         state === 'red'
@@ -31,7 +30,7 @@ export const Input = styled.input`
             ? '#fff'
             : '#ffff'};
     color: #000;
-    padding-left: 12px;
+
     font-family: var(--font-main);
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
@@ -39,17 +38,15 @@ export const Input = styled.input`
     letter-spacing: 0px;
     text-align: left;
     vertical-align: middle;
-    border: 1px solid ${({ state }) =>
-        state === 'red'
-            ? '#F25050'
-            : state === 'green'
-            ? '#1FA46C'
-            : state === 'white'
-            ? '#999999'
-            : '#999999'};
+    border: 1px solid
+        ${({ state }) =>
+            state === 'red'
+                ? '#F25050'
+                : state === 'green'
+                ? '#1FA46C'
+                : state === 'white'
+                ? '#999999'
+                : '#999999'};
     outline: none;
- 
-
-
-    
+    text-indent: 12px;
 `

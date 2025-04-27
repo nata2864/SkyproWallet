@@ -9,10 +9,10 @@ function MainPage() {
     return (
         <Wrapper>
             <GlobalStyles />
-            <Header />
+            <Header isSignUp={isSignUp}/>
             <Main />
           
-            <AuthForm isSignUp={isSignUp} />
+            {/* <AuthForm isSignUp={isSignUp} /> */}
         </Wrapper>
     )
 }

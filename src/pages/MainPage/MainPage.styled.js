@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     max-width: 100%;
@@ -6,5 +6,4 @@ export const Wrapper = styled.div`
     min-height: 100vh;
     overflow: hidden;
     background-color: #f1f1f1;
-    `
-    
+`
