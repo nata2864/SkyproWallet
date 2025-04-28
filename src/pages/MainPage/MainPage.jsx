@@ -1,20 +1,12 @@
-import Header from '../../components/Header/Header'
-import Main from '../../components/Main/Main'
-import AuthForm from '../../components/AuthForm/AuthForm'
-import { GlobalStyles } from '../../GlobalStyles.styled'
-import { Wrapper } from './MainPage.styled'
+
+import Main from "../../components/Main/Main";
 
 function MainPage() {
-    const isSignUp = false
-    return (
-        <Wrapper>
-            <GlobalStyles />
-            <Header />
-            <Main />
-          
-            <AuthForm isSignUp={isSignUp} />
-        </Wrapper>
-    )
+  return (
+    <div>
+      <Main />
+    </div>
+  );
 }
 
 export default MainPage

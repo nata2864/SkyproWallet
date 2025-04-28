@@ -111,7 +111,6 @@ function AuthForm({ isSignUp}) {
     }
   };
 
-
   return (
     <S.Wrapper>
       <S.Container>
