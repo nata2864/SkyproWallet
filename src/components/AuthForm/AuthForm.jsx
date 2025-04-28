@@ -1,24 +1,22 @@
 import * as S from "./AithForm.styled";
-import { signIn,signUp } from "../../services/auth";
+import { signIn, signUp } from "../../services/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate
- } from "react-router-dom";
- import { RoutesApp } from "../../const";
- import { AuthContext
-  } from "../../context/AuthContext";
-  import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { RoutesApp } from "../../const";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
+import { textErrors } from "../../const";
 
-function AuthForm({ isSignUp}) {
+function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
 
- 
   const [formData, setFormData] = useState({
     name: "",
     login: "",
     password: "",
-  }); 
+  });
 
   // состояние ошибок
   const [errors, setErrors] = useState({
@@ -26,8 +24,6 @@ function AuthForm({ isSignUp}) {
     login: false,
     password: false,
   });
-
-
 
   const [focus, setFocus] = useState({
     name: false,
@@ -38,78 +34,78 @@ function AuthForm({ isSignUp}) {
   const handleFocus = (field) => {
     setFocus((prev) => ({ ...prev, [field]: true }));
   };
-  
+
   const handleBlur = (field) => {
     setFocus((prev) => ({ ...prev, [field]: false }));
   };
-  
 
-
-   // функция валидации
-   const validateForm = () => {
+  // функция валидации
+  const validateForm = () => {
     const newErrors = { name: "", login: "", password: "" };
     let isValid = true;
 
-    if (isSignUp && !formData.name.trim()) {
-       newErrors.name = true;
-       toast.error("Заполните все поля");
-       isValid = false;
-    }
+    const isNameInvalid = isSignUp && !formData.name.trim();
+    const isLoginInvalid = !formData.login.trim();
+    const isPasswordInvalid = !formData.password.trim();
 
-    if (!formData.login.trim()) {
-       newErrors.login = true;
-       toast.error("Заполните все поля");
-       isValid = false;
-    }
+    if (isNameInvalid || isLoginInvalid || isPasswordInvalid) {
+      if (isNameInvalid) newErrors.name = true;
+      if (isLoginInvalid) newErrors.login = true;
+      if (isPasswordInvalid) newErrors.password = true;
 
-    if (!formData.password.trim()) {
-       newErrors.password = true;
-       toast.error("Заполните все поля");
-       isValid = false;
+      isValid = false;
+
+      toast.error(textErrors.signInAndSignUpError);
     }
 
     setErrors(newErrors);
-    return isValid;
- };
 
- // функция, которая отслеживает в полях изменения 
-   // и меняет состояние компонента
-   const handleChange = (e) => {
+    return isValid;
+  };
+
+  // функция, которая отслеживает в полях изменения
+  // и меняет состояние компонента
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
-       ...formData,
-       [name]: value,
+      ...formData,
+      [name]: value,
     });
     setErrors({ ...errors, [name]: false });
-  
- };
+
+    // Если потребуется скинуть цвет ошибки остальных инпутов при редактировании одного из них
+    // setErrors({
+    //   name: false,
+    //   login: false,
+    //   password: false,
+    // });
+  };
 
   // функция отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-  
-       return;
-    }
- try { 
-   
-    const data = !isSignUp
-       ? await signIn({ login: formData.login, password: formData.password })
-       : await signUp(formData);
 
-    if (data) {
-      if (isSignUp) {
-        navigate(RoutesApp.SIGN_IN);
-      } else {
-        updateUserInfo(data);
-        navigate(RoutesApp.MAIN); 
-      }
+    if (!validateForm()) {
+      return;
     }
+
+    try {
+      const data = !isSignUp
+        ? await signIn({ login: formData.login, password: formData.password })
+        : await signUp(formData);
+
+      if (data) {
+        if (isSignUp) {
+          navigate(RoutesApp.SIGN_IN);
+        } else {
+          updateUserInfo(data);
+          navigate(RoutesApp.MAIN);
+        }
+      }
     } catch (err) {
       toast.error(err.message || "Что-то пошло не так");
     }
   };
-
 
   return (
     <S.Wrapper>
@@ -128,7 +124,7 @@ function AuthForm({ isSignUp}) {
                   onChange={handleChange}
                   placeholder="Имя"
                   onFocus={() => handleFocus("name")}
-      onBlur={() => handleBlur("name")}
+                  onBlur={() => handleBlur("name")}
                   isFocused={focus.name}
                   hasError={errors.name}
                 />
@@ -152,23 +148,29 @@ function AuthForm({ isSignUp}) {
                 onChange={handleChange}
                 placeholder="Пароль"
                 onFocus={() => handleFocus("password")}
-    onBlur={() => handleBlur("password")}
+                onBlur={() => handleBlur("password")}
                 isFocused={focus.password}
                 hasError={errors.password}
               />
-              <S.Button type="submit">{isSignUp ? "Зарегистрироваться" : "Войти"}</S.Button>
+              <S.AuthButton type="submit">
+                {isSignUp ? "Зарегистрироваться" : "Войти"}
+              </S.AuthButton>
               <S.TextGroep>
                 {isSignUp && (
-                 <>
-                 <S.ModalText>Уже есть аккаунт?</S.ModalText>
-                 <S.ModalLink to={RoutesApp.SIGN_IN}>Войдите здесь</S.ModalLink>
-               </>
+                  <>
+                    <S.ModalText>Уже есть аккаунт?</S.ModalText>
+                    <S.ModalLink to={RoutesApp.SIGN_IN}>
+                      Войдите здесь
+                    </S.ModalLink>
+                  </>
                 )}
                 {!isSignUp && (
                   <>
-                  <S.ModalText>Нужно зарегистрироваться?</S.ModalText>
-                  <S.ModalLink to={RoutesApp.SIGN_UP}>Регистрируйтесь здесь</S.ModalLink>
-                </>
+                    <S.ModalText>Нужно зарегистрироваться?</S.ModalText>
+                    <S.ModalLink to={RoutesApp.SIGN_UP}>
+                      Регистрируйтесь здесь
+                    </S.ModalLink>
+                  </>
                 )}
               </S.TextGroep>
             </S.Form>

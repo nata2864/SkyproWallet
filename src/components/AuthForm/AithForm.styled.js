@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { textSizes } from "../../const";
 import { Link } from "react-router-dom";
 import { BasisInput } from "../Input/Input.styled";
+import { Button } from "../Button/Button.styled";
+import { inputColors } from "../../const";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -55,11 +57,26 @@ export const Form = styled.form`
 
 export const InputAuthForm = styled(BasisInput)`
   margin-bottom: 12px;
+    outline: none;
+  border-color: ${({ hasError, isFocused }) =>
+    hasError
+      ? inputColors.error.border
+      : isFocused
+      ? inputColors.active.border
+      : inputColors.static.border};
+
+  background: ${({ hasError, isFocused }) =>
+    hasError
+      ? inputColors.error.background
+      : isFocused
+      ? inputColors.active.background
+      : inputColors.static.background};
 `;
 
-export const Button = styled.button`
+export const AuthButton = styled(Button)`
   margin-top: 12px;
   margin-bottom: 24px;
+ 
 `;
 
 export const TextGroep = styled.div`
