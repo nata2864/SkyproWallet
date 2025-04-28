@@ -1,20 +1,15 @@
 import styled from 'styled-components'
 import { textSizes } from '../../const'
+import { buttonStyles } from '../../const'
 
-export const Button = styled.button`
-    width: ${({ variant }) =>
-        variant === 'desktop'
-            ? '100%'
-            : variant === 'mobile'
-            ? '343px'
-            : variant === 'tablet'
-            ? '313px'
-            : 'none'};
+export const BasisButton = styled.button`
+    width: 100%;
     height: 39px;
     border-radius: 6px;
     padding: 12px;
 
-    background-color: ${({ error }) => (error ? '#999999' : '#1fa46c')};
+    background-color: ${({ hasError }) =>
+        hasError ? buttonStyles.error.color : buttonStyles.active.color};
     color: #fff;
     font-family: var(--font-main);
     font-weight: ${textSizes.medium.fontWeight};
@@ -23,10 +18,12 @@ export const Button = styled.button`
     letter-spacing: 0px;
     text-align: center;
     vertical-align: middle;
+    border: none;
     cursor: pointer;
 
     &:hover {
         opacity: 0.9;
+        
     }
 
     &:disabled {

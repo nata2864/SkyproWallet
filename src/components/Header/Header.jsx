@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { RoutesApp } from '../../const'
 
 export default function Header() {
-    const { logout } = useContext(AuthContext)
+    const { logout, user } = useContext(AuthContext)
     const navigate = useNavigate()
 
     function handleLogout(e) {
@@ -16,21 +16,28 @@ export default function Header() {
     return (
         <S.Header>
             <S.HeaderBlock>
-                <S.HeaderLogo>
-                    <S.HeaderLogoImg
-                        src="logo.svg"
-                        alt="logo"
-                    ></S.HeaderLogoImg>
+                <S.HeaderLogo onClick={() => {navigate('/')}}>
+                    <S.HeaderLogoImg src="/logo.svg" alt="logo" />
                 </S.HeaderLogo>
-                <S.HeaderNav>
-                    <S.HeaderLinks>
-                        <S.HeaderLinkText>Мои расходы</S.HeaderLinkText>
-                        <S.HeaderLinkText>Анализ расходов</S.HeaderLinkText>
-                    </S.HeaderLinks>
-                </S.HeaderNav>
-                <S.HeaderLinkExitText onClick={handleLogout}>
-                    Выход
-                </S.HeaderLinkExitText>
+
+                {user && (
+                    <>
+                        <S.HeaderNav>
+                            <S.HeaderLinks>
+                                <S.HeaderNavLink to="/expenses">
+                                    Мои расходы
+                                </S.HeaderNavLink>
+                                <S.HeaderNavLink to="/analysis">
+                                    Анализ расходов
+                                </S.HeaderNavLink>
+                            </S.HeaderLinks>
+                        </S.HeaderNav>
+
+                        <S.HeaderLinkExitText onClick={handleLogout}>
+                            Выход
+                        </S.HeaderLinkExitText>
+                    </>
+                )}
             </S.HeaderBlock>
         </S.Header>
     )

@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { textSizes } from '../../const'
+import { NavLink } from 'react-router-dom'
+import { buttonStyles } from '../../const'
 
 export const Header = styled.header`
     width: 100%;
@@ -10,7 +12,7 @@ export const Header = styled.header`
 `
 
 export const HeaderBlock = styled.div`
-    // height: 70px;
+    height: 100%;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -18,7 +20,9 @@ export const HeaderBlock = styled.div`
     position: relative;
     top: 0;
     left: 0;
-    padding: 0 10px;
+
+    padding-left: calc(8.3%);
+    padding-right: calc(8.3%);
 `
 
 export const HeaderLinkText = styled(Link)`
@@ -27,14 +31,20 @@ export const HeaderLinkText = styled(Link)`
     line-height: 170%;
     letter-spacing: 0px;
     text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #000;
 `
 
 export const HeaderLinkExitText = styled(HeaderLinkText)`
     font-weight: 600;
+    &:hover {
+        color: ${buttonStyles.active.color};
+        transition: all 0.3s ease;
+    }
 `
 
 export const HeaderContainer = styled.div`
-    max-width: 1440px;
     width: 100%;
     display: block;
     display: 'flex';
@@ -44,12 +54,14 @@ export const HeaderContainer = styled.div`
     border-bottom: '1px solid #eee';
 `
 
-export const HeaderLogo = styled.div``
+export const HeaderLogo = styled(Link)`
+    cursor: pointer;
+    outline: none;
+`
 
 export const HeaderLogoImg = styled.img`
     width: 144px;
     height: 19px;
-    padding: 23px 120px;
 `
 
 export const HeaderNav = styled.nav`
@@ -60,4 +72,25 @@ export const HeaderNav = styled.nav`
 export const HeaderLinks = styled.div`
     display: flex;
     gap: 48px;
+`
+export const HeaderNavLink = styled(NavLink)`
+    font-weight: ${textSizes.smallHeader.fontWeight};
+    font-size: ${textSizes.smallHeader.fontSize};
+    line-height: 170%;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s ease;
+
+    &.active {
+        color: #27ae60; /* Зеленый */
+        font-weight: 600; /* Semibold */
+        text-decoration: underline;
+        text-underline-offset: 4px;
+    }
+
+    &:hover {
+        color: ${buttonStyles.active.color};
+        transition: all 0.3s ease;
+    }
 `

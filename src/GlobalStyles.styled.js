@@ -9,11 +9,11 @@ export const GlobalStyles = createGlobalStyle`
     --font-main: Montserrat, sans-serif;
   }
 
-   /* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }  */
+   * {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  }  
 
   *:before,
   *:after {
