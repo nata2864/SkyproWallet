@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { RoutesApp } from '../../const'
 // import { useMediaQuery } from 'react-responsive'
 import { useState, useEffect } from 'react'
-import { BsFillCaretDownFill } from "react-icons/bs";
+import { BsFillCaretDownFill } from 'react-icons/bs'
 
 export default function Header() {
     const { logout, user } = useContext(AuthContext)
@@ -47,7 +47,7 @@ export default function Header() {
                         <S.HeaderNav>
                             {!isMobile ? (
                                 <S.HeaderLinks>
-                                    <S.HeaderNavLink to="/expenses">
+                                    <S.HeaderNavLink to="/">
                                         Мои расходы
                                     </S.HeaderNavLink>
                                     <S.HeaderNavLink to="/analysis">
@@ -56,29 +56,44 @@ export default function Header() {
                                 </S.HeaderLinks>
                             ) : (
                                 <S.HeaderLinks>
+                                    <S.MobileMenuButton
+                                        onClick={toggleMenu}
+                                        $isOpen={isMenuOpen}
+                                    >
+                                        <S.HeaderNavLink to="/">
+                                            Мои расходы
+                                        </S.HeaderNavLink>
 
-                                    <S.HeaderNavLink to="/expenses">
-                                        Мои расходы
-                                    </S.HeaderNavLink>
-                                    <S.MobileMenuButton onClick={toggleMenu} $isOpen={isMenuOpen}>
-                                        <S.MobileHeaderLogoImg alt='' src='/Polygon.svg' $isOpen={isMenuOpen} />
+                                        <S.MobileHeaderLogoImg
+                                            alt=""
+                                            src="/Polygon.svg"
+                                            $isOpen={isMenuOpen}
+                                        />
                                     </S.MobileMenuButton>
                                     {isMenuOpen && (
                                         <S.MobileDropdown>
                                             <S.MobileDropdownLink
-                                                to="/analysis"
+                                                to="/"
                                                 onClick={() =>
                                                     setIsMenuOpen(false)
                                                 }
                                             >
-                                                <S.MobileHeaderMenuItem>
-                                               Мои расходы
+                                                <S.MobileHeaderMenuItem
+                                                    $isActive={true}
+                                                >
+                                                    <S.MobileMenuItemLink>
+                                                        Мои расходы
+                                                    </S.MobileMenuItemLink>
                                                 </S.MobileHeaderMenuItem>
                                                 <S.MobileHeaderMenuItem>
-                                               Новый расход
+                                                    <S.MobileMenuItemLink to="/newExpense">
+                                                        Новый расход
+                                                    </S.MobileMenuItemLink>
                                                 </S.MobileHeaderMenuItem>
                                                 <S.MobileHeaderMenuItem>
-                                                Анализ расходов
+                                                    <S.MobileMenuItemLink to="/analysis">
+                                                        Анализ расходов
+                                                    </S.MobileMenuItemLink>
                                                 </S.MobileHeaderMenuItem>
                                             </S.MobileDropdownLink>
                                         </S.MobileDropdown>

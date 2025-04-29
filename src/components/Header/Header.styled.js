@@ -49,6 +49,8 @@ export const HeaderLinkExitText = styled(HeaderLinkText)`
     @media (max-width: 600px) {
         font-weight: ${textSizes.medium.fontWeight};
         font-size: ${textSizes.small.fontSize};
+
+
     }
 `
 
@@ -98,8 +100,8 @@ export const HeaderNavLink = styled(NavLink)`
     transition: all 0.3s ease;
 
     &.active {
-        color: #27ae60; /* Зеленый */
-        font-weight: 600; /* Semibold */
+        color: #27ae60;
+        font-weight: 600;
         text-decoration: underline;
         text-underline-offset: 4px;
     }
@@ -120,9 +122,14 @@ export const MobileMenuButton = styled.button`
     border: none;
     cursor: pointer;
     display: none;
+    
 
     @media (max-width: 600px) {
         display: block;
+        &:hover {
+        color: ${buttonStyles.active.color};
+        transition: all 0.3s ease;
+    }
     }
 `
 
@@ -137,10 +144,18 @@ export const MobileDropdown = styled.div`
     z-index: 1001;
 `
 
-export const MobileDropdownLink = styled(HeaderNavLink)`
+export const MobileDropdownLink = styled.div`
     display: block;
     /* padding: 8px 12px; */
     white-space: nowrap;
+    text-decoration: none;
+    color: #000;
+    outline: none;
+    @media (max-width: 600px) {
+        font-weight: ${textSizes.small.fontWeight};
+        font-size: ${textSizes.small.fontSize};
+    }
+
 `
 
 export const MobileHeaderLogoImg = styled.img`
@@ -153,6 +168,7 @@ export const MobileHeaderLogoImg = styled.img`
 export const MobileHeaderMenuItem = styled.div`
     display: flex;
     flex-direction: column;
+
     /* gap: 10px; */
     width: auto;
     height: 30px;
@@ -160,11 +176,21 @@ export const MobileHeaderMenuItem = styled.div`
     border-radius: 24px;
     margin-top: 10px;
     opacity: 0.4;
-    background-color: #f1f1f1;
+    background-color: ${(props) => (props.$isActive ? '#dbffe9' : ' #f1f1f1')};
+
     p {
         font-size: 10px;
         font-weight: 400;
         line-height: 100%;
         white-space: nowrap;
+    }
+`
+export const MobileMenuItemLink = styled(NavLink)`
+    text-decoration: none;
+    outline: none;
+    color: #000;
+    &.active {
+        color: #1FA46C;
+        background-color: #dbffe9;
     }
 `
