@@ -19,9 +19,11 @@ export const MainHeader = styled.h1`
 export const MainExspenseContainer = styled.div`
     display: flex;
     gap: 34px;
+    margin-left: calc(8.3%);
+    margin-right: calc(8.3%);
 `
 export const MainTableContainer = styled.div`
-    margin-left: calc(8.3%);
+    
     width: 789px;
     height: 618px;
     border-radius: 30px;
@@ -50,6 +52,7 @@ export const MainTableHeaderFilterBlock = styled.div`
 // border-radius: 30px;
 
 export const MainExpenseContainer = styled.div`
+
     width: 379px;
     height: 618px;
     border-radius: 30px;
