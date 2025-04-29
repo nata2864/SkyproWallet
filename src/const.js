@@ -19,6 +19,7 @@ export const textSizes = {
     largeH1: {
         fontSize: '32px',
         fontWeight: '700',
+        color: '#000'
     },
 }
 
