@@ -34,6 +34,10 @@ export const HeaderLinkText = styled(Link)`
     text-decoration: none;
     outline: none;
     color: #000;
+    @media (max-width: 600px) {
+        font-weight: ${textSizes.small.fontWeight};
+        font-size: ${textSizes.small.fontSize};
+    }
 `
 
 export const HeaderLinkExitText = styled(HeaderLinkText)`
@@ -41,6 +45,10 @@ export const HeaderLinkExitText = styled(HeaderLinkText)`
     &:hover {
         color: ${buttonStyles.active.color};
         transition: all 0.3s ease;
+    }
+    @media (max-width: 600px) {
+        font-weight: ${textSizes.medium.fontWeight};
+        font-size: ${textSizes.small.fontSize};
     }
 `
 
@@ -62,6 +70,10 @@ export const HeaderLogo = styled(Link)`
 export const HeaderLogoImg = styled.img`
     width: 144px;
     height: 19px;
+    @media (max-width: 600px) {
+        width: 109px;
+        height: 14px;
+    }
 `
 
 export const HeaderNav = styled.nav`
@@ -72,6 +84,9 @@ export const HeaderNav = styled.nav`
 export const HeaderLinks = styled.div`
     display: flex;
     gap: 48px;
+    @media (max-width: 600px) {
+        gap: 8px;
+    }
 `
 export const HeaderNavLink = styled(NavLink)`
     font-weight: ${textSizes.smallHeader.fontWeight};
@@ -92,5 +107,64 @@ export const HeaderNavLink = styled(NavLink)`
     &:hover {
         color: ${buttonStyles.active.color};
         transition: all 0.3s ease;
+    }
+
+    @media (max-width: 600px) {
+        font-weight: ${textSizes.small.fontWeight};
+        font-size: ${textSizes.small.fontSize};
+    }
+`
+// Мобильное меню
+export const MobileMenuButton = styled.button`
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+
+    @media (max-width: 600px) {
+        display: block;
+    }
+`
+
+export const MobileDropdown = styled.div`
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1001;
+`
+
+export const MobileDropdownLink = styled(HeaderNavLink)`
+    display: block;
+    /* padding: 8px 12px; */
+    white-space: nowrap;
+`
+
+export const MobileHeaderLogoImg = styled.img`
+    width: 7px;
+    height: 7px;
+    transition: transform 0.3s ease;
+    transform: ${(props) => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0)')};
+`
+
+export const MobileHeaderMenuItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    width: auto;
+    height: 30px;
+    padding: 7px 14px;
+    border-radius: 24px;
+    margin-top: 10px;
+    opacity: 0.4;
+    background-color: #f1f1f1;
+    p {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 100%;
+        white-space: nowrap;
     }
 `
