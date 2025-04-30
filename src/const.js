@@ -60,3 +60,18 @@ export const inputColors = {
     border: "#F25050",
   },
 };
+
+export const buttonStyles = {
+  active: {
+      color: '#1fa46c',
+  },
+  error: {
+      color: '#999999',
+  },
+  mobile: {
+      with: '343px',
+  },
+  desktop: {
+      with: '100%',
+  },
+}
