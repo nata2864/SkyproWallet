@@ -33,6 +33,7 @@ export const RoutesApp = {
     SIGN_UP: '/sign-up',
     NOT_FOUND: '/*',
     LOGIN: '/login',
+    ANALYSIS: '/analysis'
 }
 
 //Обьект ошибок

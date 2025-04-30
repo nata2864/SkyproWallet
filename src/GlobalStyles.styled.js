@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
 
-
 export const GlobalStyles = createGlobalStyle`
 
   :root {
@@ -13,6 +12,7 @@ export const GlobalStyles = createGlobalStyle`
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  font-family: 'Montserrat', sans-serif;
   }  
 
   *:before,
@@ -44,7 +44,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     width: 100%;
     /* height: 100%; */
-    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: '#ffffff';
     color:  '#000000';
     transition: all 0.25s ease;
