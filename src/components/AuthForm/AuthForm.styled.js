@@ -1,0 +1,82 @@
+import styled from 'styled-components'
+import { textSizes } from '../../const'
+import { Link } from 'react-router-dom'
+import { BasisInput } from '../Input/Input.styled'
+import { BasisButton } from '../Button/Button.styled'
+
+export const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+  
+    // overflow-x: hidden;
+    // overflow-y: scroll;
+`
+
+export const Container = styled.div`
+  display: block;
+  /* width: 100vw; */
+  height: 100vh;
+  margin: 0 auto;
+`
+
+export const Modal = styled.div`
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+export const ModalBlok = styled.div`
+    display: block;
+    margin: 0 auto;
+    background-color: #ffffff;
+    width: 379px;
+    // width: 100%;
+    padding: 50px 60px;
+    border-radius: 30px;
+    box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+`
+
+export const Title = styled.h2`
+    text-align: center;
+    font-weight: ${textSizes.largeH2.fontWeight};
+    font-size: ${textSizes.largeH2.fontSize};
+    line-height: 100%;
+    margin-bottom: 24px;
+`
+export const Form = styled.form`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+`
+
+export const InputAuthForm = styled(BasisInput)`
+   
+`
+
+export const Button = styled(BasisButton)`
+    margin-top: 12px;
+    margin-bottom: 12px;
+`
+
+export const TextGroep = styled.div`
+    text-align: center;
+`
+
+export const ModalText = styled.p`
+    color: rgba(148, 166, 190, 0.4);
+    font-weight: ${textSizes.small.fontWeight};
+    font-size: ${textSizes.small.fontSize};
+    line-height: 100%;
+`
+
+export const ModalLink = styled(ModalText).attrs({ as: Link })`
+    text-decoration: underline;
+    margin-top: 4px;
+`
