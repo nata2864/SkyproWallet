@@ -31,6 +31,8 @@ function AuthForm({ isSignUp }) {
     password: false,
   });
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const handleFocus = (field) => {
     setFocus((prev) => ({ ...prev, [field]: true }));
   };
@@ -56,10 +58,11 @@ function AuthForm({ isSignUp }) {
       isValid = false;
 
       toast.error(textErrors.signInAndSignUpError);
+      setButtonDisabled(true);
     }
 
     setErrors(newErrors);
-
+    setButtonDisabled(false);
     return isValid;
   };
 
@@ -72,13 +75,6 @@ function AuthForm({ isSignUp }) {
       [name]: value,
     });
     setErrors({ ...errors, [name]: false });
-
-    // Если потребуется скинуть цвет ошибки остальных инпутов при редактировании одного из них
-    // setErrors({
-    //   name: false,
-    //   login: false,
-    //   password: false,
-    // });
   };
 
   // функция отправки формы
@@ -126,7 +122,7 @@ function AuthForm({ isSignUp }) {
                   onFocus={() => handleFocus("name")}
                   onBlur={() => handleBlur("name")}
                   isFocused={focus.name}
-                  hasError={errors.name}
+                  error={errors.name}
                 />
               )}
 
@@ -139,7 +135,7 @@ function AuthForm({ isSignUp }) {
                 onFocus={() => handleFocus("login")}
                 onBlur={() => handleBlur("login")}
                 isFocused={focus.login}
-                hasError={errors.login}
+                error={errors.login}
               />
               <S.InputAuthForm
                 type="password"
@@ -150,9 +146,9 @@ function AuthForm({ isSignUp }) {
                 onFocus={() => handleFocus("password")}
                 onBlur={() => handleBlur("password")}
                 isFocused={focus.password}
-                hasError={errors.password}
+                error={errors.password}
               />
-              <S.AuthButton type="submit">
+              <S.AuthButton type="submit" disabled={buttonDisabled}>
                 {isSignUp ? "Зарегистрироваться" : "Войти"}
               </S.AuthButton>
               <S.TextGroep>

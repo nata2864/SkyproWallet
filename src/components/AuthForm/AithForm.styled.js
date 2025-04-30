@@ -57,16 +57,16 @@ export const Form = styled.form`
 
 export const InputAuthForm = styled(BasisInput)`
   margin-bottom: 12px;
-    outline: none;
-  border-color: ${({ hasError, isFocused }) =>
-    hasError
+  outline: none;
+  border-color: ${({ error, isFocused }) =>
+    error
       ? inputColors.error.border
       : isFocused
       ? inputColors.active.border
       : inputColors.static.border};
 
-  background: ${({ hasError, isFocused }) =>
-    hasError
+  background: ${({ error, isFocused }) =>
+    error
       ? inputColors.error.background
       : isFocused
       ? inputColors.active.background
@@ -76,7 +76,11 @@ export const InputAuthForm = styled(BasisInput)`
 export const AuthButton = styled(Button)`
   margin-top: 12px;
   margin-bottom: 24px;
- 
+  &:disabled {
+    background: rgba(153, 153, 153, 1);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
 
 export const TextGroep = styled.div`
