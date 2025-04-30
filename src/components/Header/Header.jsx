@@ -3,9 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { RoutesApp } from "../../const";
-// import { useMediaQuery } from 'react-responsive'
 import { useState, useEffect } from "react";
-
 
 export default function Header() {
   const { logout, user } = useContext(AuthContext);
