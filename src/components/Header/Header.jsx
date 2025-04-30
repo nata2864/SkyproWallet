@@ -17,7 +17,7 @@ export default function Header() {
     <S.Header>
       <S.HeaderBlock>
         <S.HeaderLogo>
-          <S.HeaderLogoImg src="public/logo.svg" alt="logo"></S.HeaderLogoImg>
+          <S.HeaderLogoImg src="public/" alt="logo"></S.HeaderLogoImg>
         </S.HeaderLogo>
         <S.HeaderNav>
           <S.HeaderLinks>
