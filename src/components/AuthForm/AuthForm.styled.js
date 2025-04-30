@@ -45,7 +45,7 @@ export const Title = styled.h2`
     font-weight: ${textSizes.largeH2.fontWeight};
     font-size: ${textSizes.largeH2.fontSize};
     line-height: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 `
 export const Form = styled.form`
     width: 100%;
@@ -57,12 +57,12 @@ export const Form = styled.form`
 `
 
 export const InputAuthForm = styled(BasisInput)`
-    margin-bottom: 12px;
+   
 `
 
 export const Button = styled(BasisButton)`
     margin-top: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
 `
 
 export const TextGroep = styled.div`
