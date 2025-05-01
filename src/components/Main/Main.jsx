@@ -15,10 +15,8 @@ import {
   SSubmitBtn,
   STables,
 } from "./Main.styled";
-import { TableRow, TableFirstRow} from "../TableRows/TableRows";
 
-
-
+import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
