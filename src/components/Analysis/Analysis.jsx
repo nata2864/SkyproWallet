@@ -1,5 +1,6 @@
 import * as S from './Analysis.styled'
 import Diagram from '../Diagram/Diagram'
+import Calendar from '../Calendar/Calendar'
 
 function Analysis() {
     return (
@@ -7,7 +8,8 @@ function Analysis() {
        <S.AnalysisHeader>Анализ расходов</S.AnalysisHeader>
 
             <S.AnalysisExspenseContainer>
-            <S.AnalysisExpenseContainer />
+                <Calendar/>
+            {/* <S.AnalysisExpenseContainer /> */}
             <S.AnalysisTableContainer>
                 <S.AnalysisTableHeaderblock>
                     <Diagram></Diagram>
