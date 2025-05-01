@@ -3,6 +3,10 @@ export const textSizes = {
     fontSize: "12px",
     fontWeight: "400",
   },
+  smallHeader: {
+    fontSize: "14px",
+    fontWeight: "400",
+  },
   medium: {
     fontSize: "16px",
     fontWeight: "600",
@@ -15,5 +19,6 @@ export const textSizes = {
   largeH1: {
     fontSize: "32px",
     fontWeight: "700",
+    color: "#000",
   },
 };

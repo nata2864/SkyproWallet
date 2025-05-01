@@ -3,14 +3,13 @@ import Main from "../../components/Main/Main";
 import AuthForm from "../../components/AuthForm/AuthForm";
 
 function MainPage() {
-
-const isSignUp = false
+  const isSignUp = false;
   return (
-    <div>
+    <>
       <Header />
       <Main />
-      < AuthForm isSignUp= {isSignUp}/>
-    </div>
+      <AuthForm isSignUp={isSignUp} />
+    </>
   );
 }
 
