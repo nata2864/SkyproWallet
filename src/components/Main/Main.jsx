@@ -15,50 +15,13 @@ import {
   SSubmitBtn,
   STables,
 } from "./Main.styled";
-const MiniBucket = "/first-box/mini-bucket.svg";
-const MiniPen = "/first-box/mini-pen.svg";
+import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
 const MiniGames = "/second-box/mini-games.svg";
 const MiniHouse = "/second-box/mini-house.svg";
 const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
-
-const TableHeader = () => (
-  <thead>
-    <tr>
-      <th>Описание</th>
-      <th>Категория</th>
-      <th>Дата</th>
-      <th>Сумма</th>
-      <th>Действия</th>
-    </tr>
-  </thead>
-);
-
-const TableRow = ({
-  description,
-  category,
-  date,
-  amount,
-  onEdit,
-  onDelete,
-}) => (
-  <tr>
-    <td>{description}</td>
-    <td>{category}</td>
-    <td>{date}</td>
-    <td>{amount}</td>
-    <td>
-      <button onClick={onDelete}>
-        <img src={MiniBucket} alt="Удалить" />
-      </button>
-      <button onClick={onEdit}>
-        <img src={MiniPen} alt="Редактировать" />
-      </button>
-    </td>
-  </tr>
-);
 
 function Main() {
   const data = [
@@ -89,14 +52,53 @@ function Main() {
             <STableHeader>
               <SSectionTitle>Таблица расходов</SSectionTitle>
               <STableFilters>
-                <div>Фильтровать по категории</div>
                 <div>
-                  Сортировать по <SSortLink href="#">дате</SSortLink>
+                  Фильтровать по категории
+                  <svg
+                    width="6.062134"
+                    height="5.250000"
+                    viewBox="0 0 6.06213 5.25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                  >
+                    <desc>Created with Pixso.</desc>
+                    <defs />
+                    <path
+                      id="Polygon-3" // Идентификаторы лучше писать без пробелов (можно использовать дефис)
+                      d="M3.03 5.25L6.06 0L0 0L3.03 5.25Z"
+                      fill="#000000"
+                      fillOpacity="1.0" // camelCase вместо fill-opacity
+                      fillRule="evenodd" // camelCase вместо fill-rule
+                    />
+                  </svg>
+                </div>
+                <div>
+                  Сортировать по
+                  <SSortLink href="#">дате</SSortLink>
+                  <svg
+                    width="6.062134"
+                    height="5.250000"
+                    viewBox="0 0 6.06213 5.25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                  >
+                    <desc>Created with Pixso.</desc>
+                    <defs />
+                    <path
+                      id="Polygon-3" // Идентификаторы лучше писать без пробелов (можно использовать дефис)
+                      d="M3.03 5.25L6.06 0L0 0L3.03 5.25Z"
+                      fill="#000000"
+                      fillOpacity="1.0" // camelCase вместо fill-opacity
+                      fillRule="evenodd" // camelCase вместо fill-rule
+                    />
+                  </svg>
                 </div>
               </STableFilters>
             </STableHeader>
             <SExpenseTable>
-              <TableHeader />
+              <TableFirstRow />
               <tbody>
                 {data.map((expense) => (
                   <TableRow
@@ -144,7 +146,7 @@ function Main() {
               </div>
               <div>
                 <label>Дата</label>
-                <SInput type="date" />
+                <SInput type="date" placeholder="Введите дату" />
               </div>
               <div>
                 <label>Сумма</label>
