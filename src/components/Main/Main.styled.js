@@ -7,10 +7,9 @@ export const SMain = styled.main`
   padding-right: 120px;
   padding-bottom: 72px;
   box-sizing: border-box;
-  width: 1440px;
+  width: 100%;
 `;
 export const SMainHeader = styled.h1`
-  // font: var(--font-main);
   font-size: ${textSizes.largeH1.fontSize};
   font-weight: ${textSizes.largeH1.fontWeight};
   color: ${textSizes.largeH1.color};
@@ -47,22 +46,35 @@ export const SFormAside = styled.aside`
 
 export const STableHeader = styled.div`
   display: flex;
-  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
   align-items: center;
+  justify-content: space-between;
 `;
+
 export const SSectionTitle = styled.h2`
-  font-weight: bold;
+  font-weight: ${textSizes.largeH2.fontWeight};
+  font-size: ${textSizes.largeH2.fontSize};
 `;
 
 export const STableFilters = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  font-size: ${textSizes.small.fontSize};
+  gap: 24px;
+  div {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const SSortLink = styled.a`
   color: #16a34a;
   text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: ${textSizes.medium.fontWeight};
 `;
 
 export const SExpenseTable = styled.table`
@@ -73,35 +85,61 @@ export const SExpenseTable = styled.table`
 export const SExpenseForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 24px;
+  margin-top: 24px;
+  label {
+    font-weight: ${textSizes.medium.fontWeight};
+    font-size: ${textSizes.medium.fontSize};
+  }
 `;
 
 export const SInput = styled.input`
   width: 100%;
-  padding: 0.5rem;
+  padding: 12px;
   border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
+  border-radius: 6px;
+  margin-top: 16px;
+  color: rgb(153, 153, 153);
+  font-family: Montserrat;
+  font-size: ${textSizes.small.fontSize};
+  font-weight: ${textSizes.small.fontWeight};
+  line-height: 15px;
+  letter-spacing: 0px;
+  text-align: left;
 `;
 
 export const SCategoryTags = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 6px;
+  margin-top: 16px;
 `;
 
 export const STag = styled.span`
   background-color: #f3f4f6;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
+  border-radius: 30px;
+  font-size: ${textSizes.small.fontSize};
+  font-weight: ${textSizes.small.fontWeight};
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12;
+  padding: 8px 20px 8px 20px;
+  img {
+    margin-right: 12px;
+  }
 `;
 
 export const SSubmitBtn = styled.button`
-  background-color: #16a34a;
+  background: rgb(31, 164, 108);
   color: white;
   padding: 0.5rem;
-  border-radius: 0.375rem;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   width: 100%;
+  font-family: "Montserrat", Arial, sans-serif;
+  font-size: ${textSizes.small.fontSize};
+  font-weight: ${textSizes.medium.fontWeight};
 `;
