@@ -1,4 +1,4 @@
-import * as S from "./AithForm.styled";
+import * as S from "./AuthForm.styled";
 import { signIn, signUp } from "../../services/auth";
 import { useState } from "react";
 import { toast } from "react-toastify";

@@ -5,6 +5,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage .jsx";
 import { RoutesApp } from "./const.js";
 import Layout from "./components/Layout/Layout.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import Analysis from "./components/Analysis/Analysis.jsx"
 
 function AppRoutes() {
 
@@ -14,6 +15,7 @@ function AppRoutes() {
     <Route element={<Layout />}>
       <Route element={<PrivateRoute />}>
         <Route path={RoutesApp.MAIN} element={<MainPage />} />
+        <Route path={RoutesApp.ANALYSIS} element={<Analysis />} />
       </Route>
       <Route path={RoutesApp.SIGN_IN} element={<SignInPage />} />
       <Route path={RoutesApp.SIGN_UP} element={<SignUpPage />} />
