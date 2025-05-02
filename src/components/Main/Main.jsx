@@ -16,27 +16,21 @@ import {
   STables,
 } from "./Main.styled";
 import { TableRow, TableFirstRow} from "../TableRows/TableRows";
+import { expenses } from "../../data";
+import { categorieName } from "../../const";
 
 
 
 
-const MiniCar = "/second-box/mini-car.svg";
-const MiniFood = "/second-box/mini-food.svg";
-const MiniGames = "/second-box/mini-games.svg";
-const MiniHouse = "/second-box/mini-house.svg";
-const MiniOther = "/second-box/mini-other.svg";
-const MiniTeacher = "/second-box/mini-teacher.svg";
+// const MiniCar = "/second-box/mini-car.svg";
+// const MiniFood = "/second-box/mini-food.svg";
+// const MiniGames = "/second-box/mini-games.svg";
+// const MiniHouse = "/second-box/mini-house.svg";
+// const MiniOther = "/second-box/mini-other.svg";
+// const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
-  const data = [
-    {
-      id: 1,
-      description: "Пятерочка",
-      category: "Еда",
-      date: "03.07.2024",
-      amount: "3 500 ₽",
-    },
-  ];
+;
 
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
@@ -104,13 +98,13 @@ function Main() {
             <SExpenseTable>
               <TableFirstRow />
               <tbody>
-                {data.map((expense) => (
+                {expenses.map((expense) => (
                   <TableRow
                     key={expense.id}
                     description={expense.description}
                     category={expense.category}
                     date={expense.date}
-                    amount={expense.amount}
+                    amount={expense.sum}
                     onEdit={() => handleEdit(expense.id)}
                     onDelete={() => handleDelete(expense.id)}
                   />
@@ -128,7 +122,7 @@ function Main() {
               <div>
                 <label>Категория</label>
                 <SCategoryTags>
-                  <STag>
+                  {/* <STag>
                     <img src={MiniFood} alt="logo" /> Еда
                   </STag>
                   <STag>
@@ -145,7 +139,12 @@ function Main() {
                   </STag>
                   <STag>
                     <img src={MiniOther} alt="logo" /> Другое
-                  </STag>
+                  </STag> */}
+                  {categorieName.map((item) => (
+  <STag key={item.id}>
+    <img src={item.srcIcon} alt="logo" /> {item.name}
+  </STag>
+))}
                 </SCategoryTags>
               </div>
               <div>

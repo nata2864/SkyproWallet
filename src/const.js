@@ -32,7 +32,7 @@ export const RoutesApp = {
   SIGN_UP: "/sign-up",
   NOT_FOUND: "/*",
   LOGIN: "/login",
-    ANALYSIS: '/analysis'
+  ANALYSIS: "/analysis",
 };
 
 //Обьект ошибок
@@ -64,15 +64,42 @@ export const inputColors = {
 
 export const buttonStyles = {
   active: {
-      color: '#1fa46c',
+    color: "#1fa46c",
   },
   error: {
-      color: '#999999',
+    color: "#999999",
   },
   mobile: {
-      with: '343px',
+    with: "343px",
   },
   desktop: {
-      with: '100%',
+    with: "100%",
   },
-}
+};
+
+export const categorieName = [
+  {
+    name: "Еда",
+    srcIcon: "/second-box/mini-Еда.svg",
+  },
+  {
+    name: "Транспорт",
+    srcIcon: "/second-box/mini-car.svg",
+  },
+  {
+    name: "Жилье",
+    srcIcon: "/second-box/mini-house.svg",
+  },
+  {
+    name: "Развлечения",
+    srcIcon: "/second-box/mini-games.svg",
+  },
+  {
+    name: "Образование",
+    srcIcon: "/second-box/mini-teacher.svg",
+  },
+  {
+    name: "Другое",
+    srcIcon: "/second-box/mini-other.svg",
+  },
+];
