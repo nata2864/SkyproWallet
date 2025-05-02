@@ -19,8 +19,10 @@ export const AnalysisHeader = styled.h1`
 export const AnalysisExspenseContainer = styled.div`
     display: flex;
     gap: 34px;
-    margin-left: calc(8.3%);
-    margin-right: calc(8.3%);
+    /* padding-left: calc(8.3%);
+    padding-right: calc(8.3%); */
+    padding-left: calc(50% - 600px);
+    padding-right: calc(50% - 600px);
 `
 export const AnalysisTableContainer = styled.div`
     
