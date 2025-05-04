@@ -77,6 +77,7 @@ export const buttonStyles = {
   },
 };
 
+// Массив обьектов для категорий расходов
 export const categorieName = [
   { id: 1, name: "Еда", srcIcon: "/second-box/mini-food.svg" },
   { id: 2, name: "Транспорт", srcIcon: "/second-box/mini-car.svg" },
@@ -85,3 +86,28 @@ export const categorieName = [
   { id: 5, name: "Образование", srcIcon: "/second-box/mini-teacher.svg" },
   { id: 6, name: "Другое", srcIcon: "/second-box/mini-other.svg" },
 ];
+
+// Массив обьектов ошибок при отправки на сервер данных с формы
+export const validationSchema = {
+  email: [
+    { rule: 'required', message: 'Поле обязательно' },
+    { rule: 'email', message: 'Некорректный email' },
+  ],
+  username: [
+    { rule: 'required', message: 'Поле обязательно' },
+    { rule: 'username', message: 'Имя слишком короткое' },
+  ],
+  login: [
+    { rule: 'required', message: 'Поле обязательно' },
+    { rule: 'login', message: 'Пароль должен содержать не менее 5 знаков' },
+  ],
+  date: [
+    { rule: 'required', message: 'Поле обязательно' },
+    { rule: 'date', message: 'Некорректная дата' },
+  ],
+  amount: [
+    { rule: 'required', message: 'Поле обязательно' },
+    { rule: 'amount', message: 'Сумма должна быть положительным числом' },
+  ],
+};
+
