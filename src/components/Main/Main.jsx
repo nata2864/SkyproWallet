@@ -11,27 +11,14 @@ import {
   SExpenseForm,
   SInput,
   SCategoryTags,
-  STag,
   SSubmitBtn,
   STables,
 } from "./Main.styled";
-import { TableRow, TableFirstRow} from "../TableRows/TableRows";
+import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 import { expenses } from "../../data";
-import { categorieName } from "../../const";
-
-
-
-
-// const MiniCar = "/second-box/mini-car.svg";
-// const MiniFood = "/second-box/mini-food.svg";
-// const MiniGames = "/second-box/mini-games.svg";
-// const MiniHouse = "/second-box/mini-house.svg";
-// const MiniOther = "/second-box/mini-other.svg";
-// const MiniTeacher = "/second-box/mini-teacher.svg";
+import Categories from "../Categories/Categories";
 
 function Main() {
-;
-
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
   };
@@ -122,29 +109,7 @@ function Main() {
               <div>
                 <label>Категория</label>
                 <SCategoryTags>
-                  {/* <STag>
-                    <img src={MiniFood} alt="logo" /> Еда
-                  </STag>
-                  <STag>
-                    <img src={MiniCar} alt="logo" /> Транспорт
-                  </STag>
-                  <STag>
-                    <img src={MiniHouse} alt="logo" /> Жилье
-                  </STag>
-                  <STag>
-                    <img src={MiniGames} alt="logo" /> Развлечения
-                  </STag>
-                  <STag>
-                    <img src={MiniTeacher} alt="logo" /> Образование
-                  </STag>
-                  <STag>
-                    <img src={MiniOther} alt="logo" /> Другое
-                  </STag> */}
-                  {categorieName.map((item) => (
-  <STag key={item.id}>
-    <img src={item.srcIcon} alt="logo" /> {item.name}
-  </STag>
-))}
+                  <Categories />
                 </SCategoryTags>
               </div>
               <div>

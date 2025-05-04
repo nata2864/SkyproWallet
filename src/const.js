@@ -78,28 +78,10 @@ export const buttonStyles = {
 };
 
 export const categorieName = [
-  {
-    name: "Еда",
-    srcIcon: "/second-box/mini-Еда.svg",
-  },
-  {
-    name: "Транспорт",
-    srcIcon: "/second-box/mini-car.svg",
-  },
-  {
-    name: "Жилье",
-    srcIcon: "/second-box/mini-house.svg",
-  },
-  {
-    name: "Развлечения",
-    srcIcon: "/second-box/mini-games.svg",
-  },
-  {
-    name: "Образование",
-    srcIcon: "/second-box/mini-teacher.svg",
-  },
-  {
-    name: "Другое",
-    srcIcon: "/second-box/mini-other.svg",
-  },
+  { id: 1, name: "Еда", srcIcon: "/second-box/mini-food.svg" },
+  { id: 2, name: "Транспорт", srcIcon: "/second-box/mini-car.svg" },
+  { id: 3, name: "Жилье", srcIcon: "/second-box/mini-house.svg" },
+  { id: 4, name: "Развлечения", srcIcon: "/second-box/mini-games.svg" },
+  { id: 5, name: "Образование", srcIcon: "/second-box/mini-teacher.svg" },
+  { id: 6, name: "Другое", srcIcon: "/second-box/mini-other.svg" },
 ];
