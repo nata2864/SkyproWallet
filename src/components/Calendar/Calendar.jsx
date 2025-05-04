@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DayPicker } from 'react-day-picker'
+import { ru } from "react-day-picker/locale";
 import 'react-day-picker/dist/style.css'
 import * as S from './Calendar.styled'
 
@@ -13,18 +13,26 @@ export default function Calendar() {
                 selected={range}
                 onSelect={setRange}
                 numberOfMonths={12}
+                locale={ru}
+                formatters={{
+                    formatMonthCaption: (date, options) =>
+                      date.toLocaleDateString('ru-RU', {
+                        month: 'long',
+                        year: 'numeric',
+                      }).replace(/^./, (char) => char.toUpperCase()), // Делает первую букву заглавной
+                  }}
                 classNames={
                     {
-                        // day_selected: 'my-selected',
-                        // day_range_middle: 'my-range-middle',
-                        // day_today: 'my-today',
+                        day_selected: 'my-selected',
+                        day_range_middle: 'my-range-middle',
+                        day_today: 'my-today',
                     }
                 }
                 modifiersClassNames={
                     {
-                        // selected: 'my-selected',
-                        // range_middle: 'my-range-middle',
-                        // today: 'my-today',
+                        selected: 'my-selected',
+                        range_middle: 'my-range-middle',
+                        today: 'my-today',
                     }
                 }
             />

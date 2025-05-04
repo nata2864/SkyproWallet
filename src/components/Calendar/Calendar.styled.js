@@ -1,11 +1,12 @@
 import { DayPicker } from 'react-day-picker'
 import styled from 'styled-components'
+import { textSizes } from '../../const'
 export const CalendarContainer = styled.div`
     width: 100%;
     height: 100%;
-    max-height: 600px; /* или любое нужное вам значение */
+    max-height: 480px; 
     overflow-y: auto;
-    padding-right: 8px; /* небольшой отступ, чтобы не обрезалось */
+    padding-right: 28px; /* небольшой отступ, чтобы не обрезалось */
 
     /* Кастомный скроллбар (по желанию) */
     scrollbar-width: thin;
@@ -22,25 +23,48 @@ export const CalendarContainer = styled.div`
 `
 
 export const Calendar = styled(DayPicker)`
-    --rdp-day-height: 40px;
-    --rdp-day-width: 40px;
-    --rdp-day_button-height: 40px;
-    --rdp-day_button-width: 40px;
-    --rdp-nav-height: 40px;
-    --rdp-cell-width: 40px;
+    --rdp-day-height: 46px;
+    --rdp-day-width: 46px;
+    --rdp-day_button-height: 46px;
+    --rdp-day_button-width: 46px;
+    --rdp-nav-height: 15px;
+    --rdp-cell-width: 46px;
+    --rdp-accent-color: #dbffe9;
+    --rdp-weekday-padding: 0.0rem 0rem;
+    --rdp-day_button-border: 3px solid white;
+    --rdp-weekday-opacity: 0.5;
+    --rdp-range_start-color: #1fa46c;
+    --rdp-months-gap: 2rem;
+    .rdp-month {
+        padding-top: 24px;
+    }
+  .rdp-month_caption {
+    padding-bottom: 12px;
+  }
+    .rdp-weekdays {
+        display: none;
+    }
+    .rdp-nav {
+        display: none;
+    }
     .my-selected {
-        background-color: #c1f0d6;
         color: black;
         border-radius: 50%;
+        background-color: #dbffe9;
+        border-radius: 30px;
     }
 
     .my-range-middle {
-        background-color: #e5f9ec;
-        color: black;
+        background-color: #dbffe9;
+        color: #1fa46c;
         border-radius: 0;
+        border-radius: 30px;
     }
 
     .my-today {
-        border: 1px solid #00a86b;
+        
+        font-weight: ${textSizes.medium.fontWeight};
+        border-radius: 30px;
+        color: #1fa46c;
     }
 `
