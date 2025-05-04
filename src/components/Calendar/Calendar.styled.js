@@ -38,6 +38,9 @@ export const Calendar = styled(DayPicker)`
     .rdp-month {
         padding-top: 24px;
     }
+    .rdp-day_button {
+background-color: #F4F5F6;
+    };
   .rdp-month_caption {
     padding-bottom: 12px;
   }
@@ -53,6 +56,8 @@ export const Calendar = styled(DayPicker)`
         background-color: #dbffe9;
         border-radius: 30px;
     }
+
+    .
 
     .my-range-middle {
         background-color: #dbffe9;

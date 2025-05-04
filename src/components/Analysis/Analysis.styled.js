@@ -48,7 +48,7 @@ export const AnalysisTableHeaderFilterBlock = styled.div`
 `
 
 export const AnalysisExpenseContainer = styled.div`
-box-sizing: border-box;
+    box-sizing: border-box;
     /* width: 379px; */
     max-width: 400px;
     height: 618px;
@@ -118,6 +118,7 @@ export const CalendarWeekDayBlock = styled.div`
 export const CalendarWeekDay = styled.p`
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
+    color: #999999;
     padding: 6px 12px;
     line-height: 100%;
 `
@@ -127,5 +128,4 @@ export const CalendarBody = styled.div`
     padding-left: 32px;
     box-sizing: border-box;
     /* overflow-y: auto; */
-    
 `
