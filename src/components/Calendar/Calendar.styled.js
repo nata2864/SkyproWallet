@@ -4,9 +4,9 @@ import { textSizes } from '../../const'
 export const CalendarContainer = styled.div`
     width: 100%;
     height: 100%;
-    max-height: 480px; 
+    max-height: 480px;
     overflow-y: auto;
-    padding-right: 28px; /* небольшой отступ, чтобы не обрезалось */
+    padding-right: 30px; /* небольшой отступ, чтобы не обрезалось */
 
     /* Кастомный скроллбар (по желанию) */
     scrollbar-width: thin;
@@ -30,7 +30,7 @@ export const Calendar = styled(DayPicker)`
     --rdp-nav-height: 15px;
     --rdp-cell-width: 46px;
     --rdp-accent-color: #dbffe9;
-    --rdp-weekday-padding: 0.0rem 0rem;
+    --rdp-weekday-padding: 0rem 0rem;
     --rdp-day_button-border: 3px solid white;
     --rdp-weekday-opacity: 0.5;
     --rdp-range_start-color: #1fa46c;
@@ -39,11 +39,11 @@ export const Calendar = styled(DayPicker)`
         padding-top: 24px;
     }
     .rdp-day_button {
-background-color: #F4F5F6;
-    };
-  .rdp-month_caption {
-    padding-bottom: 12px;
-  }
+        background-color: #f4f5f6;
+    }
+    .rdp-month_caption {
+        padding-bottom: 12px;
+    }
     .rdp-weekdays {
         display: none;
     }
@@ -57,8 +57,6 @@ background-color: #F4F5F6;
         border-radius: 30px;
     }
 
-    .
-
     .my-range-middle {
         background-color: #dbffe9;
         color: #1fa46c;
@@ -67,7 +65,6 @@ background-color: #F4F5F6;
     }
 
     .my-today {
-        
         font-weight: ${textSizes.medium.fontWeight};
         border-radius: 30px;
         color: #1fa46c;

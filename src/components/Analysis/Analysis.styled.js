@@ -84,8 +84,8 @@ export const CalendarFilterLinks = styled.div`
     justify-content: space-between;
 `
 
-export const CalendarNavLink = styled(NavLink)`
-    font-weight: ${textSizes.small.fontWeight};
+export const CalendarNavLink = styled.button`
+    /* font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
     line-height: 150%;
     text-align: center;
@@ -103,6 +103,18 @@ export const CalendarNavLink = styled(NavLink)`
     &:hover {
         color: ${buttonStyles.active.color};
         transition: all 0.3s ease;
+    } */
+    background: none;
+    border: none;
+    font-size: ${textSizes.small.fontSize};
+    font-weight: ${(props) => (props.$active ? 600 : 400)};
+    color: ${(props) => (props.$active ? '#27ae60' : '#000')};
+    text-decoration: ${(props) => (props.$active ? 'underline' : 'none')};
+    text-underline-offset: 4px;
+    cursor: pointer;
+
+    &:hover {
+        color: ${buttonStyles.active.color};
     }
 `
 export const CalendarWeekDays = styled.div`
