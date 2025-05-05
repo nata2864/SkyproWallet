@@ -76,11 +76,15 @@ export const InputAuthForm = styled(BasisInput)`
 export const AuthButton = styled(Button)`
   margin-top: 12px;
   margin-bottom: 24px;
-  &:disabled {
-    background: rgba(153, 153, 153, 1);
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
+
+    background-color: ${(props) =>
+    props.disabled ? "#b0b0b0" : "#4caf50"};
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
+  // &:disabled {
+  //   background: rgba(153, 153, 153, 1);
+  //   cursor: not-allowed;
+  //   opacity: 0.6;
+  // }
 `;
 
 export const TextGroep = styled.div`

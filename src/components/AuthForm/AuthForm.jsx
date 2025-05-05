@@ -31,14 +31,13 @@ function AuthForm({ isSignUp }) {
     password: false,
   });
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-
   const handleFocus = (field) => {
     setFocus((prev) => ({ ...prev, [field]: true }));
   };
 
   const handleBlur = (field) => {
     setFocus((prev) => ({ ...prev, [field]: false }));
+    validateForm();
   };
 
   // функция валидации
@@ -50,6 +49,8 @@ function AuthForm({ isSignUp }) {
     const isLoginInvalid = !formData.login.trim();
     const isPasswordInvalid = !formData.password.trim();
 
+    const isPasswordTooShort = formData.password.length < 6;
+
     if (isNameInvalid || isLoginInvalid || isPasswordInvalid) {
       if (isNameInvalid) newErrors.name = true;
       if (isLoginInvalid) newErrors.login = true;
@@ -58,11 +59,16 @@ function AuthForm({ isSignUp }) {
       isValid = false;
 
       toast.error(textErrors.signInAndSignUpError);
-      setButtonDisabled(true);
+    }
+
+    if (!isPasswordInvalid && isPasswordTooShort) {
+      newErrors.password = true;
+      toast.error("Пароль должен быть не менее 6 символов");
+      isValid = false;
     }
 
     setErrors(newErrors);
-    setButtonDisabled(false);
+
     return isValid;
   };
 
@@ -148,7 +154,11 @@ function AuthForm({ isSignUp }) {
                 isFocused={focus.password}
                 error={errors.password}
               />
-              <S.AuthButton type="submit" disabled={buttonDisabled}>
+              <S.AuthButton
+                type="submit"
+                // Блокировка кнопки, если есть хоть одна ошибка
+                disabled={Object.values(errors).some((err) => err)}
+              >
                 {isSignUp ? "Зарегистрироваться" : "Войти"}
               </S.AuthButton>
               <S.TextGroep>
