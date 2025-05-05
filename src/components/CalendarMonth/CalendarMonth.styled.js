@@ -68,17 +68,17 @@ export const YearLabel = styled.div`
 export const MonthGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: 6px;
     margin-bottom: 16px;
 `
 
 export const MonthButton = styled.button`
-    width: 101px;
+    width: 103px;
     height: 34px;
-    padding: 8px 12px 8px 10px;
+    padding: 8px 12px 8px 12px;
     border-radius: 30px;
     border: none;
-    background: ${(props) => (props.selected ? '#dbffe9' : '#f1f1f1')};
+    background: ${(props) => (props.selected ? '#dbffe9' : '#F4F5F6')};
     color: ${(props) => (props.selected ? '#1fa46c' : '#000')};
     font-size: 14px;
     cursor: pointer;

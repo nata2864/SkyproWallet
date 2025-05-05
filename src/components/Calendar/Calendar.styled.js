@@ -6,7 +6,7 @@ export const CalendarContainer = styled.div`
     height: 100%;
     max-height: 480px;
     overflow-y: auto;
-    padding-right: 30px; /* небольшой отступ, чтобы не обрезалось */
+    padding-right: 28px; /* небольшой отступ, чтобы не обрезалось */
 
     /* Кастомный скроллбар (по желанию) */
     scrollbar-width: thin;
