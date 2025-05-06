@@ -55,20 +55,20 @@ export const TitleForm = styled(Title)`
 
 export const InputExpenseForm = styled(InputAuthForm)`
   margin-bottom: 24px;
-   border-color: ${({ error, isFocused }) =>
-     error
-       ? inputColors.error.border
-       : isFocused
-       ? inputColors.active.border
-       : inputColors.static.border};
- 
-   background: ${({ error, isFocused }) =>
-     error
-       ? inputColors.error.background
-       : isFocused
-       ? inputColors.active.background
-       : inputColors.static.background};
- `;
+   border-color: ${({ $error, $isFocused }) =>
+    $error
+      ? inputColors.error.border
+      : $isFocused
+      ? inputColors.active.border
+      : inputColors.static.border};
+
+  background: ${({ $error, $isFocused }) =>
+    $error
+      ? inputColors.error.background
+      : $isFocused
+      ? inputColors.active.background
+      : inputColors.static.background};
+`;
 
 
 export const InputTitle = styled.p`

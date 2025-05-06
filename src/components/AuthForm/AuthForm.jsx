@@ -1,101 +1,71 @@
 import * as S from "./AuthForm.styled";
 import { signIn, signUp } from "../../services/auth";
-import { useState } from "react";
+
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { RoutesApp } from "../../const";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-import { textErrors } from "../../const";
+
+import { useForm } from "../../hooks/useForm";
+
 
 function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    login: "",
-    password: "",
+  const { formData,focus, errors, handleChange, handleFocus, handleBlur, validateForm } = useForm({
+    initialValues: {
+      name: "",
+      login: "",
+      password: "",
+    },
+    validate: (values) => {
+      const newErrors = { name: false, login: false, password: false };
+      const messages = [];
+      let isValid = true;
+
+      // Валидация name
+      if (isSignUp && !values.name.trim()) {
+        newErrors.name = true;
+        messages.push("Поле 'Имя' обязательно.");
+        isValid = false;
+      }
+
+      // Валидация login (email)
+      if (!values.login.trim()) {
+        newErrors.login = true;
+        messages.push("Поле 'Email' обязательно.");
+        isValid = false;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.login)) {
+        newErrors.login = true;
+        messages.push("Введите корректный email.");
+        isValid = false;
+      }
+
+      // Валидация password
+      if (!values.password.trim()) {
+        newErrors.password = true;
+        messages.push("Поле 'Пароль' обязательно.");
+        isValid = false;
+      } else if (values.password.length < 4) {
+        newErrors.password = true;
+        messages.push("Пароль должен быть не менее 4 символов.");
+        isValid = false;
+      }
+
+      return { isValid, newErrors, messages };
+    }
   });
 
-  // состояние ошибок
-  const [errors, setErrors] = useState({
-    name: false,
-    login: false,
-    password: false,
-  });
-
-  const [focus, setFocus] = useState({
-    name: false,
-    login: false,
-    password: false,
-  });
-
-  const handleFocus = (field) => {
-    setFocus((prev) => ({ ...prev, [field]: true }));
-  };
-
-  const handleBlur = (field) => {
-    setFocus((prev) => ({ ...prev, [field]: false }));
-    validateForm();
-  };
-
-  // функция валидации
-  const validateForm = () => {
-    const newErrors = { name: "", login: "", password: "" };
-    let isValid = true;
-
-    const isNameInvalid = isSignUp && !formData.name.trim();
-    const isLoginInvalid = !formData.login.trim();
-    const isPasswordInvalid = !formData.password.trim();
-    
-    const isEmailInvalid = !isLoginInvalid && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.login);
-    const isPasswordTooShort = !isPasswordInvalid && formData.password.length < 4;
-
-    if (isNameInvalid || isLoginInvalid || isPasswordInvalid) {
-      if (isNameInvalid) newErrors.name = true;
-      if (isLoginInvalid) newErrors.login = true;
-      if (isPasswordInvalid) newErrors.password = true;
-
-      isValid = false;
-
-      toast.error(textErrors.signInAndSignUpError);
-    }
-
-    if (isEmailInvalid) {
-      newErrors.login = true;
-      toast.error("Введите корректный email");
-      isValid = false;
-    }
-  
-    if (isPasswordTooShort) {
-      newErrors.password = true;
-      toast.error("Пароль должен быть не менее 4 символов");
-      isValid = false;
-    }
-    setErrors(newErrors);
-
-    return isValid;
-  };
-
-  // функция, которая отслеживает в полях изменения
-  // и меняет состояние компонента
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setErrors({ ...errors, [name]: false });
-  };
-
-  // функция отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    // Выполняем валидацию
+    const isValid = validateForm();
+
+
+    if (!isValid) return;
 
     try {
       const data = !isSignUp
@@ -114,6 +84,7 @@ function AuthForm({ isSignUp }) {
       toast.error(err.message || "Что-то пошло не так");
     }
   };
+
 
   return (
     <S.Wrapper>
@@ -134,7 +105,7 @@ function AuthForm({ isSignUp }) {
                   onFocus={() => handleFocus("name")}
                   onBlur={() => handleBlur("name")}
                   $isFocused={focus.name}
-                  error={errors.name}
+                  $error={errors.name}
                 />
               )}
 
@@ -147,7 +118,7 @@ function AuthForm({ isSignUp }) {
                 onFocus={() => handleFocus("login")}
                 onBlur={() => handleBlur("login")}
                 $isFocused={focus.login}
-                error={errors.login}
+                $error={errors.login}
               />
               <S.InputAuthForm
                 type="password"
@@ -158,7 +129,7 @@ function AuthForm({ isSignUp }) {
                 onFocus={() => handleFocus("password")}
                 onBlur={() => handleBlur("password")}
                 $isFocused={focus.password}
-                error={errors.password}
+                $error={errors.password}
               />
               <S.AuthButton
                 type="submit"

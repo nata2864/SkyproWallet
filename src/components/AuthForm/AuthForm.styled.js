@@ -59,20 +59,21 @@ export const Form = styled.form`
 export const InputAuthForm = styled(BasisInput)`
   margin-bottom: 12px;
   outline: none;
-  border-color: ${({ error, isFocused }) =>
-    error
+  border-color: ${({ $error, $isFocused }) =>
+    $error
       ? inputColors.error.border
-      : isFocused
+      : $isFocused
       ? inputColors.active.border
       : inputColors.static.border};
 
-  background: ${({ error, isFocused }) =>
-    error
+  background: ${({ $error, $isFocused }) =>
+    $error
       ? inputColors.error.background
-      : isFocused
+      : $isFocused
       ? inputColors.active.background
       : inputColors.static.background};
 `;
+
 
 export const AuthButton = styled(Button)`
   margin-top: 12px;
