@@ -27,7 +27,7 @@ export const Calendar = styled(DayPicker)`
     --rdp-day-width: 46px;
     --rdp-day_button-height: 46px;
     --rdp-day_button-width: 46px;
-    --rdp-nav-height: 15px;
+    /* --rdp-nav-height: 15px; */
     --rdp-cell-width: 46px;
     --rdp-accent-color: #dbffe9;
     --rdp-weekday-padding: 0rem 0rem;
@@ -35,9 +35,9 @@ export const Calendar = styled(DayPicker)`
     --rdp-weekday-opacity: 0.5;
     --rdp-range_start-color: #1fa46c;
     --rdp-months-gap: 2rem;
-    .rdp-month {
+    /* .rdp-month {
         padding-top: 24px;
-    }
+    } */
     .rdp-day_button {
         background-color: #f4f5f6;
     }
