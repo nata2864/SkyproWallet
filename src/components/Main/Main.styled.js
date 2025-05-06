@@ -36,14 +36,6 @@ export const STableSection = styled.section`
   overflow: auto;
 `;
 
-export const SFormAside = styled.aside`
-  background: white;
-  border-radius: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  padding: 32px;
-  flex: 0 0 380px;
-`;
-
 export const STableHeader = styled.div`
   display: flex;
   margin-top: 32px;
@@ -91,39 +83,4 @@ export const SExpenseForm = styled.form`
     font-weight: ${textSizes.medium.fontWeight};
     font-size: ${textSizes.medium.fontSize};
   }
-`;
-
-export const SInput = styled.input`
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  margin-top: 16px;
-  color: rgb(153, 153, 153);
-  font-family: Montserrat;
-  font-size: ${textSizes.small.fontSize};
-  font-weight: ${textSizes.small.fontWeight};
-  line-height: 15px;
-  letter-spacing: 0px;
-  text-align: left;
-`;
-
-export const SCategoryTags = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 16px;
-`;
-
-export const SSubmitBtn = styled.button`
-  background: rgb(31, 164, 108);
-  color: white;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-family: "Montserrat", Arial, sans-serif;
-  font-size: ${textSizes.small.fontSize};
-  font-weight: ${textSizes.medium.fontWeight};
 `;

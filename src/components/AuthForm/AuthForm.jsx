@@ -48,8 +48,9 @@ function AuthForm({ isSignUp }) {
     const isNameInvalid = isSignUp && !formData.name.trim();
     const isLoginInvalid = !formData.login.trim();
     const isPasswordInvalid = !formData.password.trim();
-
-    const isPasswordTooShort = formData.password.length < 6;
+    
+    const isEmailInvalid = !isLoginInvalid && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.login);
+    const isPasswordTooShort = !isPasswordInvalid && formData.password.length < 4;
 
     if (isNameInvalid || isLoginInvalid || isPasswordInvalid) {
       if (isNameInvalid) newErrors.name = true;
@@ -61,12 +62,17 @@ function AuthForm({ isSignUp }) {
       toast.error(textErrors.signInAndSignUpError);
     }
 
-    if (!isPasswordInvalid && isPasswordTooShort) {
-      newErrors.password = true;
-      toast.error("Пароль должен быть не менее 6 символов");
+    if (isEmailInvalid) {
+      newErrors.login = true;
+      toast.error("Введите корректный email");
       isValid = false;
     }
-
+  
+    if (isPasswordTooShort) {
+      newErrors.password = true;
+      toast.error("Пароль должен быть не менее 4 символов");
+      isValid = false;
+    }
     setErrors(newErrors);
 
     return isValid;
@@ -127,7 +133,7 @@ function AuthForm({ isSignUp }) {
                   placeholder="Имя"
                   onFocus={() => handleFocus("name")}
                   onBlur={() => handleBlur("name")}
-                  isFocused={focus.name}
+                  $isFocused={focus.name}
                   error={errors.name}
                 />
               )}
@@ -140,7 +146,7 @@ function AuthForm({ isSignUp }) {
                 placeholder="Эл. почта"
                 onFocus={() => handleFocus("login")}
                 onBlur={() => handleBlur("login")}
-                isFocused={focus.login}
+                $isFocused={focus.login}
                 error={errors.login}
               />
               <S.InputAuthForm
@@ -151,7 +157,7 @@ function AuthForm({ isSignUp }) {
                 placeholder="Пароль"
                 onFocus={() => handleFocus("password")}
                 onBlur={() => handleBlur("password")}
-                isFocused={focus.password}
+                $isFocused={focus.password}
                 error={errors.password}
               />
               <S.AuthButton

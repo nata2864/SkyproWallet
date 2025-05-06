@@ -7,16 +7,12 @@ import {
   STableFilters,
   SSortLink,
   SExpenseTable,
-  SFormAside,
-  SExpenseForm,
-  SInput,
-  SCategoryTags,
-  SSubmitBtn,
   STables,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 import { expenses } from "../../data";
-import Categories from "../Categories/Categories";
+
+import ExpenseForm from "../ExpenseForm/ExpenseForm ";
 
 function Main() {
   const handleEdit = (id) => {
@@ -87,42 +83,19 @@ function Main() {
               <tbody>
                 {expenses.map((expense) => (
                   <TableRow
-                    key={expense.id}
+                    key={expense._id}
                     description={expense.description}
                     category={expense.category}
                     date={expense.date}
                     amount={expense.sum}
-                    onEdit={() => handleEdit(expense.id)}
-                    onDelete={() => handleDelete(expense.id)}
+                    onEdit={() => handleEdit(expense._id)}
+                    onDelete={() => handleDelete(expense._id)}
                   />
                 ))}
               </tbody>
             </SExpenseTable>
           </STableSection>
-          <SFormAside>
-            <SSectionTitle>Новый расход</SSectionTitle>
-            <SExpenseForm>
-              <div>
-                <label>Описание</label>
-                <SInput type="text" placeholder="Введите описание" />
-              </div>
-              <div>
-                <label>Категория</label>
-                <SCategoryTags>
-                  <Categories />
-                </SCategoryTags>
-              </div>
-              <div>
-                <label>Дата</label>
-                <SInput type="date" placeholder="Введите дату" />
-              </div>
-              <div>
-                <label>Сумма</label>
-                <SInput type="number" placeholder="Введите сумму" />
-              </div>
-              <SSubmitBtn type="submit">Добавить новый расход</SSubmitBtn>
-            </SExpenseForm>
-          </SFormAside>
+          <ExpenseForm />
         </STables>
       </SMain>
     </>
