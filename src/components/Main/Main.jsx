@@ -10,11 +10,13 @@ import {
   STables,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import { expenses } from "../../data";
+// import { expenses } from "../../data";
 
 import ExpenseForm from "../ExpenseForm/ExpenseForm ";
 
-function Main() {
+function Main({expenses,error, onAddExpense}) {
+
+  console.log({error});
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
   };
@@ -81,21 +83,22 @@ function Main() {
             <SExpenseTable>
               <TableFirstRow />
               <tbody>
-                {expenses.map((expense) => (
+              {(Array.isArray(expenses) ? expenses : []).map((item) => (
                   <TableRow
-                    key={expense._id}
-                    description={expense.description}
-                    category={expense.category}
-                    date={expense.date}
-                    amount={expense.sum}
-                    onEdit={() => handleEdit(expense._id)}
-                    onDelete={() => handleDelete(expense._id)}
+                    key={item._id}
+                    description={item.description}
+                    category={item.category}
+                    date={item.date}
+                    amount={item.sum}
+                    onEdit={() => handleEdit(item._id)}
+                    onDelete={() => handleDelete(item._id)}
                   />
                 ))}
               </tbody>
             </SExpenseTable>
           </STableSection>
-          <ExpenseForm />
+          <ExpenseForm  onAddExpense={onAddExpense} />
+        
         </STables>
       </SMain>
     </>

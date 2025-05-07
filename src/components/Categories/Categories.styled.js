@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { textSizes } from "../../const";
 
 export const STag = styled.span`
-  background-color: #f3f4f6;
+  // background-color: #f3f4f6;
+
+
+background-color: ${({ active }) => (active ? "rgba(219, 255, 233, 1)" : "#f3f4f6")};
+color:${({ active }) => (active ? " rgba(31, 164, 108, 1)" : " rgba(0, 0, 0, 1)"
+)};
   border-radius: 30px;
   font-size: ${textSizes.small.fontSize};
   font-weight: ${textSizes.small.fontWeight};

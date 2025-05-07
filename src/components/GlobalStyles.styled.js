@@ -47,4 +47,17 @@ export const GlobalStyles = createGlobalStyle`
     background-color: #F4F5F6;
     color:  '#000000';
   } 
+
+   ::placeholder {
+    font-family: 'Montserrat', sans-serif;
+   
+font-weight: 400;
+font-size: 12px;
+line-height: 100%;
+letter-spacing: 0px;
+vertical-align: middle;
+
+  color: rgba(153, 153, 153, 1);
+
+  }
   `;

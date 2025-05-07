@@ -5,11 +5,19 @@ import * as S from "./ExpenseForm .styled";
 import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
 import Categories from "../Categories/Categories";
 import { useForm } from "../../hooks/useForm";
+// import { useState } from "react";
 
-function ExpenseForm() {
+function ExpenseForm({onAddExpense}) {
   // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
   const isExitExpenseForm = false;
 
+  // const [category, setCategory] = useState('');
+
+  const handleCategoryChange = (category) => {
+    handleChange({ target: { name: "category", value: category } });
+  };
+  
+// console.log({category})
   const {
   formData,
   errors,
@@ -19,16 +27,17 @@ function ExpenseForm() {
   handleBlur,
   validateForm,
 } = useForm({
-  initialValues: { name: "", date: "", amount: "" },
+  initialValues: { name: "", date: "", amount: "", category: ""},
 
 
   validate: (values) => {
-    const newErrors = { name: false, date: false, amount: false };
+    const newErrors = { name: false, date: false, amount: false, category: false };
     let isValid = true;
   
     const isNameEmpty = !values.name.trim();
     const isDateEmpty = !values.date.trim();
     const isAmountEmpty = !values.amount.trim();
+    const isCategoryEmpty = !values.category.trim()
   
     const isNameTooShort = !isNameEmpty && values.name.length < 3;
     const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
@@ -38,10 +47,11 @@ function ExpenseForm() {
   
     const messages = [];
   
-    if (isNameEmpty || isDateEmpty || isAmountEmpty) {
+    if (isNameEmpty || isDateEmpty || isAmountEmpty || isCategoryEmpty) {
       if (isNameEmpty) newErrors.name = true;
       if (isDateEmpty) newErrors.date = true;
       if (isAmountEmpty) newErrors.amount = true;
+      if (isCategoryEmpty) newErrors.category = true;
   
       messages.push("Все поля должны быть заполнены");
       isValid = false;
@@ -64,6 +74,8 @@ function ExpenseForm() {
       messages.push("Введите корректную сумму больше 0");
       isValid = false;
     }
+
+    
   
     return { isValid, newErrors, messages };
   }
@@ -164,7 +176,29 @@ function ExpenseForm() {
     if (!validateForm()) {
       return;
     }
-    console.log("Valid");
+
+    const formatDate = (inputDate) => {
+      const date = new Date(inputDate);
+      if (isNaN(date)) throw new Error("Некорректная дата: " + inputDate);
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const year = date.getFullYear();
+      return `${month}-${day}-${year}`; // формат "MM-DD-YYYY"
+    };
+    const expense = {
+      description: formData.name.trim(),
+      sum: parseFloat(formData.amount),
+      category: formData.category,
+      date: formatDate(formData.date), // формат "ММ-ДД-ГГГГ"
+      // date: formatDate(formData.date), // формат "ММ-ДД-ГГГГ"
+    };
+    try {
+   
+      await onAddExpense({ expense });; // вызов родительской функции
+    } catch (err) {
+      console.error("Ошибка при добавлении расхода:", err.message);
+    }
+    console.log({expense})
   };
 
   return (
@@ -188,7 +222,8 @@ function ExpenseForm() {
 
         <S.InputTitle>Категория</S.InputTitle>
         <S.CategoryTags>
-          <Categories />
+          <Categories selectedCategory={formData.category}
+    onCategorySelect={handleCategoryChange}/>
         </S.CategoryTags>
 
         <S.InputTitle>Дата</S.InputTitle>

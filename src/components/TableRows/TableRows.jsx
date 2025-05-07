@@ -20,6 +20,14 @@ import {
       </STableFirstRow>
     </STableFirstRowHead>
   );
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Месяцы с 0
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  }
   
   export const TableRow = ({
     description,
@@ -32,7 +40,8 @@ import {
     <STableOrderRow>
       <td>{description}</td>
       <td>{category}</td>
-      <td>{date}</td>
+      <td>{formatDate(date)}</td>
+      
       <td>{amount}</td>
       <SIcons>
         <IconButton onClick={onEdit}>

@@ -13,6 +13,7 @@ export const BasisInput = styled.input`
 focus
   &::placeholder {
     color: rgba(148, 166, 190, 0.4);
+    font-family:"Montserrat"
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
     opacity: 1;

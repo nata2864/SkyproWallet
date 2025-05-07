@@ -79,13 +79,28 @@ export const buttonStyles = {
 
 // Массив обьектов для категорий расходов
 export const categorieName = [
-  { id: 1, name: "Еда", srcIcon: "/second-box/mini-food.svg" },
-  { id: 2, name: "Транспорт", srcIcon: "/second-box/mini-car.svg" },
-  { id: 3, name: "Жилье", srcIcon: "/second-box/mini-house.svg" },
-  { id: 4, name: "Развлечения", srcIcon: "/second-box/mini-games.svg" },
-  { id: 5, name: "Образование", srcIcon: "/second-box/mini-teacher.svg" },
-  { id: 6, name: "Другое", srcIcon: "/second-box/mini-other.svg" },
+  { id: 1, name: "Еда",value: "food", srcIcon: {
+    default: "../src/assets/food/default.svg",
+    active: "../src/assets/food/active.svg"
+  }},
+  { id: 2, name: "Транспорт",value: "transport", srcIcon: {
+    default: "../src/assets/transport/default.svg",
+    active: "../src/assets/food/active.svg"
+  } },
+  { id: 3, name: "Жилье",value: "housing", srcIcon: {
+    default: "../src/assets/housing/default.svg",
+    active: "../src/assets/food/active.svg"
+  } },
+  { id: 4, name: "Развлечения",value: "joy",  srcIcon: {
+    default: "../src/assets/joy/default.svg",
+    active: "../src/assets/food/active.svg"
+  } },
+  { id: 5, name: "Образование",value: "education", srcIcon: "/second-box/mini-teacher.svg" },
+  { id: 6, name: "Другое",value: "others",  srcIcon: "/second-box/mini-other.svg" },
 ];
+
+
+
 
 // Массив обьектов ошибок при отправки на сервер данных с формы
 export const validationSchema = {
