@@ -10,10 +10,9 @@ export const BasisInput = styled.input`
   padding: 0 12px;
   border: 0.5px solid;
   outline: none;
-focus
-  &::placeholder {
+  focus &::placeholder {
     color: rgba(148, 166, 190, 0.4);
-    font-family:"Montserrat"
+
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
     opacity: 1;

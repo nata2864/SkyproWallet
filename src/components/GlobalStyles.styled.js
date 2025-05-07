@@ -19,25 +19,6 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-//   a,
-//   a:visited {
-//     text-decoration: none;
-//     cursor: pointer;
-//     color:  '#000000';
-//   }
-
-//   button,
-//   ._btn {
-//     cursor: pointer;
-//     outline: none;
-//     background:  '#f0f0f0';
-//     color:  '#000000';
-//     border:  '1px solid #ddd';
-//   }
-
-//   ul li {
-//     list-style: none;
-//   } 
 
    html,
   body {
@@ -56,8 +37,7 @@ font-size: 12px;
 line-height: 100%;
 letter-spacing: 0px;
 vertical-align: middle;
-
-  color: rgba(153, 153, 153, 1);
+color: rgba(153, 153, 153, 1);
 
   }
   `;

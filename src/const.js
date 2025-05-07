@@ -95,8 +95,14 @@ export const categorieName = [
     default: "../src/assets/joy/default.svg",
     active: "../src/assets/food/active.svg"
   } },
-  { id: 5, name: "Образование",value: "education", srcIcon: "/second-box/mini-teacher.svg" },
-  { id: 6, name: "Другое",value: "others",  srcIcon: "/second-box/mini-other.svg" },
+  { id: 5, name: "Образование",value: "education", srcIcon: {
+    default: "../src/assets/education/default.svg",
+    active: "../src/assets/food/active.svg"
+  } },
+  { id: 6, name: "Другое",value: "others",  srcIcon: {
+    default: "../src/assets/others/default.svg",
+    active: "../src/assets/food/active.svg"
+  } },
 ];
 
 
