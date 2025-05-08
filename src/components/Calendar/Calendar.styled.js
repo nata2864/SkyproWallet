@@ -55,6 +55,9 @@ export const Calendar = styled(DayPicker)`
         border-radius: 50%;
         background-color: #dbffe9;
         border-radius: 30px;
+        .rdp-day_button {
+        background-color: #dbffe9;
+    }
     }
 
     .my-range-middle {

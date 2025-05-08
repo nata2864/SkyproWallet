@@ -127,7 +127,7 @@ function AuthForm({ isSignUp }) {
               )}
 
               <S.InputAuthForm
-                type="email"
+                type="text"
                 name="login"
                 value={formData.login}
                 onChange={handleChange}
