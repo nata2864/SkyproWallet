@@ -24,6 +24,7 @@ import {
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 import React, { useState } from "react";
+import { exspenses as data, categoryTranslations } from "../../const";
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
 const MiniGames = "/second-box/mini-games.svg";
@@ -36,6 +37,7 @@ function Main() {
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
+  const [filteredData, setFilteredData] = useState(data);
   const categories = [
     { name: "Еда", icon: MiniFood },
     { name: "Транспорт", icon: MiniCar },
@@ -44,225 +46,46 @@ function Main() {
     { name: "Образование", icon: MiniTeacher },
     { name: "Другое", icon: MiniOther },
   ];
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category === selectedCategory ? false : category);
+    const newCategory = category === selectedCategory ? false : category;
+    setSelectedCategory(newCategory);
+    if (!newCategory) {
+      setFilteredData(data);
+    } else {
+      const categoryKey = Object.keys(categoryTranslations).find(
+        (key) => categoryTranslations[key] === category
+      );
+
+      setFilteredData(
+        data.filter((expense) => expense.category === categoryKey)
+      );
+    }
   };
   const handleSortingsSelect = (sorting) => {
-    setSelectedSorting(sorting === selectedSorting ? false : sorting);
+    const newSorting = sorting === selectedSorting ? false : sorting;
+    setSelectedSorting(newSorting);
+    if (!newSorting) {
+      setFilteredData(data);
+    } else {
+      setFilteredData((prevData) => {
+        const sorted = [...prevData];
+        if (sorting === "Дате") {
+          sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (sorting === "Сумме") {
+          sorted.sort((a, b) => b.sum - a.sum);
+        }
+        return sorted;
+      });
+    }
   };
-  const data = [
-    {
-      id: 1,
-      description: "Пятерочка",
-      category: "Еда",
-      date: "03.07.2024",
-      amount: "3 500 ₽",
-    },
-    {
-      id: 2,
-      description: "Яндекс.Такси",
-      category: "Транспорт",
-      date: "02.07.2024",
-      amount: "450 ₽",
-    },
-    {
-      id: 3,
-      description: "Аренда квартиры",
-      category: "Жилье",
-      date: "01.07.2024",
-      amount: "25 000 ₽",
-    },
-    {
-      id: 4,
-      description: "Кинотеатр",
-      category: "Развлечения",
-      date: "30.06.2024",
-      amount: "1 200 ₽",
-    },
-    {
-      id: 5,
-      description: "Онлайн-курсы",
-      category: "Образование",
-      date: "29.06.2024",
-      amount: "5 000 ₽",
-    },
-    {
-      id: 6,
-      description: "Перевод другу",
-      category: "Другое",
-      date: "28.06.2024",
-      amount: "2 000 ₽",
-    },
-    {
-      id: 7,
-      description: "Магнит",
-      category: "Еда",
-      date: "27.06.2024",
-      amount: "2 800 ₽",
-    },
-    {
-      id: 8,
-      description: "Метро",
-      category: "Транспорт",
-      date: "26.06.2024",
-      amount: "120 ₽",
-    },
-    {
-      id: 9,
-      description: "Коммунальные услуги",
-      category: "Жилье",
-      date: "25.06.2024",
-      amount: "7 500 ₽",
-    },
-    {
-      id: 10,
-      description: "Концерт",
-      category: "Развлечения",
-      date: "24.06.2024",
-      amount: "3 500 ₽",
-    },
-    {
-      id: 11,
-      description: "Учебники",
-      category: "Образование",
-      date: "23.06.2024",
-      amount: "4 200 ₽",
-    },
-    {
-      id: 12,
-      description: "Подарок",
-      category: "Другое",
-      date: "22.06.2024",
-      amount: "1 500 ₽",
-    },
-    {
-      id: 13,
-      description: "Перекресток",
-      category: "Еда",
-      date: "21.06.2024",
-      amount: "4 300 ₽",
-    },
-    {
-      id: 14,
-      description: "Автобус",
-      category: "Транспорт",
-      date: "20.06.2024",
-      amount: "60 ₽",
-    },
-    {
-      id: 15,
-      description: "Ремонт",
-      category: "Жилье",
-      date: "19.06.2024",
-      amount: "15 000 ₽",
-    },
-    {
-      id: 16,
-      description: "Театр",
-      category: "Развлечения",
-      date: "18.06.2024",
-      amount: "2 800 ₽",
-    },
-    {
-      id: 17,
-      description: "Яндекс.Практикум",
-      category: "Образование",
-      date: "17.06.2024",
-      amount: "12 000 ₽",
-    },
-    {
-      id: 18,
-      description: "Благотворительность",
-      category: "Другое",
-      date: "16.06.2024",
-      amount: "1 000 ₽",
-    },
-    {
-      id: 19,
-      description: "ВкусВилл",
-      category: "Еда",
-      date: "15.06.2024",
-      amount: "3 700 ₽",
-    },
-    {
-      id: 20,
-      description: "Электричка",
-      category: "Транспорт",
-      date: "14.06.2024",
-      amount: "350 ₽",
-    },
-    {
-      id: 21,
-      description: "Мебель",
-      category: "Жилье",
-      date: "13.06.2024",
-      amount: "32 000 ₽",
-    },
-    {
-      id: 22,
-      description: "Квест-комната",
-      category: "Развлечения",
-      date: "12.06.2024",
-      amount: "2 500 ₽",
-    },
-    {
-      id: 23,
-      description: "Репетитор",
-      category: "Образование",
-      date: "11.06.2024",
-      amount: "3 000 ₽",
-    },
-    {
-      id: 24,
-      description: "Ремонт телефона",
-      category: "Другое",
-      date: "10.06.2024",
-      amount: "5 500 ₽",
-    },
-    {
-      id: 25,
-      description: "Лента",
-      category: "Еда",
-      date: "09.06.2024",
-      amount: "4 100 ₽",
-    },
-    {
-      id: 26,
-      description: "Такси в аэропорт",
-      category: "Транспорт",
-      date: "08.06.2024",
-      amount: "1 200 ₽",
-    },
-    {
-      id: 27,
-      description: "Хозтовары",
-      category: "Жилье",
-      date: "07.06.2024",
-      amount: "2 300 ₽",
-    },
-    {
-      id: 28,
-      description: "Боулинг",
-      category: "Развлечения",
-      date: "06.06.2024",
-      amount: "1 800 ₽",
-    },
-    {
-      id: 29,
-      description: "Канцтовары",
-      category: "Образование",
-      date: "05.06.2024",
-      amount: "900 ₽",
-    },
-    {
-      id: 30,
-      description: "Фотоуслуги",
-      category: "Другое",
-      date: "04.06.2024",
-      amount: "4 000 ₽",
-    },
-  ];
 
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
@@ -311,7 +134,10 @@ function Main() {
                       {categories.map((category) => (
                         <SCategoryFiltrationElement
                           key={category.name}
-                          onClick={() => handleCategorySelect(category.name)}
+                          onClick={() => {
+                            handleCategorySelect(category.name);
+                            setIsOpenCategory(false);
+                          }}
                           $isSelected={selectedCategory === category.name}
                         >
                           <img src={category.icon} alt="logo" />
@@ -350,7 +176,10 @@ function Main() {
                       {sortings.map((sorting) => (
                         <SSortingElement
                           key={sorting.name}
-                          onClick={() => handleSortingsSelect(sorting.name)}
+                          onClick={() => {
+                            handleSortingsSelect(sorting.name);
+                            setIsOpenSorting(false);
+                          }}
                           $isSelected={selectedSorting === sorting.name}
                         >
                           {sorting.name}
@@ -364,15 +193,17 @@ function Main() {
             <SExpenseTable>
               <TableFirstRow />
               <STableBodyWrapper>
-                {data.map((expense) => (
+                {filteredData.map((expense) => (
                   <TableRow
-                    key={expense.id}
+                    key={expense._id}
                     description={expense.description}
-                    category={expense.category}
-                    date={expense.date}
-                    amount={expense.amount}
-                    onEdit={() => handleEdit(expense.id)}
-                    onDelete={() => handleDelete(expense.id)}
+                    category={
+                      categoryTranslations[expense.category] || expense.category
+                    }
+                    date={formatDate(expense.date)}
+                    amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
+                    onEdit={() => handleEdit(expense._id)}
+                    onDelete={() => handleDelete(expense._id)}
                   />
                 ))}
               </STableBodyWrapper>
