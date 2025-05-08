@@ -14,12 +14,14 @@ import {
   STag,
   SSubmitBtn,
   STables,
+  SCategoryFiltration,
+  SSorting,
+  SSortingElement,
+  SCategoryFiltrationElement,
+  STableFiltersGroup,
 } from "./Main.styled";
-import { TableRow, TableFirstRow} from "../TableRows/TableRows";
-
-
-
-
+import { TableRow, TableFirstRow } from "../TableRows/TableRows";
+import React, { useState } from "react";
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
 const MiniGames = "/second-box/mini-games.svg";
@@ -28,6 +30,25 @@ const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [isOpenSorting, setIsOpenSorting] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(false);
+  const [selectedSorting, setSelectedSorting] = useState(false);
+  const categories = [
+    { name: "Еда", icon: MiniFood },
+    { name: "Транспорт", icon: MiniCar },
+    { name: "Жилье", icon: MiniHouse },
+    { name: "Развлечение", icon: MiniGames },
+    { name: "Образование", icon: MiniTeacher },
+    { name: "Другое", icon: MiniOther },
+  ];
+  const sortings = [{ name: "Дате" }, { name: "Сумме" }];
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category === selectedCategory ? false : category);
+  };
+  const handleSortingsSelect = (sorting) => {
+    setSelectedSorting(sorting === selectedSorting ? false : sorting);
+  };
   const data = [
     {
       id: 1,
@@ -56,9 +77,10 @@ function Main() {
             <STableHeader>
               <SSectionTitle>Таблица расходов</SSectionTitle>
               <STableFilters>
-                <div>
+                <STableFiltersGroup>
                   Фильтровать по категории
                   <svg
+                    onClick={() => setIsOpenCategory(!isOpenCategory)}
                     width="6.062134"
                     height="5.250000"
                     viewBox="0 0 6.06213 5.25"
@@ -76,11 +98,28 @@ function Main() {
                       fillRule="evenodd" // camelCase вместо fill-rule
                     />
                   </svg>
-                </div>
-                <div>
+                  {isOpenCategory && (
+                    <SCategoryFiltration>
+                      {categories.map((category) => (
+                        <SCategoryFiltrationElement
+                          key={category.name}
+                          onClick={() => handleCategorySelect(category.name)}
+                          $isSelected={selectedCategory === category.name}
+                        >
+                          <img src={category.icon} alt="logo" />
+                          {category.name}
+                        </SCategoryFiltrationElement>
+                      ))}
+                    </SCategoryFiltration>
+                  )}
+                </STableFiltersGroup>
+                <STableFiltersGroup>
                   Сортировать по
-                  <SSortLink href="#">дате</SSortLink>
+                  <SSortLink href="#">
+                    {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
+                  </SSortLink>
                   <svg
+                    onClick={() => setIsOpenSorting(!isOpenSorting)}
                     width="6.062134"
                     height="5.250000"
                     viewBox="0 0 6.06213 5.25"
@@ -98,7 +137,20 @@ function Main() {
                       fillRule="evenodd" // camelCase вместо fill-rule
                     />
                   </svg>
-                </div>
+                  {isOpenSorting && (
+                    <SSorting>
+                      {sortings.map((sorting) => (
+                        <SSortingElement
+                          key={sorting.name}
+                          onClick={() => handleSortingsSelect(sorting.name)}
+                          $isSelected={selectedSorting === sorting.name}
+                        >
+                          {sorting.name}
+                        </SSortingElement>
+                      ))}
+                    </SSorting>
+                  )}
+                </STableFiltersGroup>
               </STableFilters>
             </STableHeader>
             <SExpenseTable>
