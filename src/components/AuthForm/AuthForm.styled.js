@@ -74,7 +74,6 @@ export const InputAuthForm = styled(BasisInput)`
       : inputColors.static.background};
 `;
 
-
 export const AuthButton = styled(Button)`
   margin-top: 12px;
   margin-bottom: 24px;
@@ -82,11 +81,6 @@ export const AuthButton = styled(Button)`
   background-color: ${(props) =>
     props.disabled ? "rgba(153, 153, 153, 1)" : "rgba(31, 164, 108, 1)"};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
-  // &:disabled {
-  //   background: rgba(153, 153, 153, 1);
-  //   cursor: not-allowed;
-  //   opacity: 0.6;
-  // }
 `;
 
 export const TextGroep = styled.div`

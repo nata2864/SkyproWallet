@@ -64,18 +64,20 @@ export const inputColors = {
 
 export const buttonStyles = {
   active: {
-    color: "#1fa46c",
+      color: '#1fa46c',
   },
   error: {
-    color: "#999999",
+      color: '#999999',
   },
   mobile: {
-    with: "343px",
+      with: '343px',
   },
   desktop: {
-    with: "100%",
+      with: '100%',
   },
-};
+}
+
+
 
 // Массив обьектов для категорий расходов
 export const categorieName = [

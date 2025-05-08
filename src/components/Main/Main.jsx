@@ -10,13 +10,16 @@ import {
   STables,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-// import { expenses } from "../../data";
-
 import ExpenseForm from "../ExpenseForm/ExpenseForm ";
+import { useContext
+ } from "react";
+ import { ExpenseContext } from "../../context/ExpenseContext";
 
-function Main({expenses,error, onAddExpense}) {
 
-  console.log({error});
+function Main() {
+
+  const { expenses } = useContext(ExpenseContext);
+
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
   };
@@ -83,7 +86,11 @@ function Main({expenses,error, onAddExpense}) {
             <SExpenseTable>
               <TableFirstRow />
               <tbody>
+          
+
               {(Array.isArray(expenses) ? expenses : []).map((item) => (
+
+                
                   <TableRow
                     key={item._id}
                     description={item.description}
@@ -97,7 +104,7 @@ function Main({expenses,error, onAddExpense}) {
               </tbody>
             </SExpenseTable>
           </STableSection>
-          <ExpenseForm  onAddExpense={onAddExpense} />
+          <ExpenseForm   />
         
         </STables>
       </SMain>

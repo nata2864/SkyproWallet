@@ -1,175 +1,89 @@
 import * as S from "./ExpenseForm .styled";
-
-// import { useState } from "react";
-// import { toast } from "react-toastify";
+import { textErrors } from "../../const";
 import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
 import Categories from "../Categories/Categories";
 import { useForm } from "../../hooks/useForm";
-// import { useState } from "react";
+import { parse, format } from "date-fns";
+import { useContext
+ } from "react";
+ import { ExpenseContext } from "../../context/ExpenseContext";
 
-function ExpenseForm({onAddExpense}) {
+
+function ExpenseForm() {
   // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
   const isExitExpenseForm = false;
 
-  // const [category, setCategory] = useState('');
+  const { addNewExpense } = useContext(ExpenseContext);
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
   };
-  
-// console.log({category})
+
   const {
-  formData,
-  errors,
-  focus,
-  handleChange,
-  handleFocus,
-  handleBlur,
-  validateForm,
-} = useForm({
-  initialValues: { name: "", date: "", amount: "", category: ""},
+    formData,
+    errors,
+    focus,
+    handleChange,
+    handleFocus,
+    handleBlur,
+    validateForm,
+  } = useForm({
+    initialValues: { name: "", date: "", amount: "", category: "" },
 
+    validate: (values) => {
+      const newErrors = {
+        name: false,
+        date: false,
+        amount: false,
+        category: false,
+      };
+      let isValid = true;
+      const messages = [];
 
-  validate: (values) => {
-    const newErrors = { name: false, date: false, amount: false, category: false };
-    let isValid = true;
-  
-    const isNameEmpty = !values.name.trim();
-    const isDateEmpty = !values.date.trim();
-    const isAmountEmpty = !values.amount.trim();
-    const isCategoryEmpty = !values.category.trim()
-  
-    const isNameTooShort = !isNameEmpty && values.name.length < 3;
-    const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-    const isDateInvalid = !isDateEmpty && !dateRegex.test(values.date);
-    const isAmountInvalid =
-      !isAmountEmpty && (isNaN(values.amount) || parseFloat(values.amount) <= 0);
-  
-    const messages = [];
-  
-    if (isNameEmpty || isDateEmpty || isAmountEmpty || isCategoryEmpty) {
-      if (isNameEmpty) newErrors.name = true;
-      if (isDateEmpty) newErrors.date = true;
-      if (isAmountEmpty) newErrors.amount = true;
-      if (isCategoryEmpty) newErrors.category = true;
-  
-      messages.push("Все поля должны быть заполнены");
-      isValid = false;
-    }
-  
-    if (isNameTooShort) {
-      newErrors.name = true;
-      messages.push("Наименование расхода должно быть не менее 3 символов");
-      isValid = false;
-    }
-  
-    if (isDateInvalid) {
-      newErrors.date = true;
-      messages.push("Дата должна быть в формате ДД.ММ.ГГГГ");
-      isValid = false;
-    }
-  
-    if (isAmountInvalid) {
-      newErrors.amount = true;
-      messages.push("Введите корректную сумму больше 0");
-      isValid = false;
-    }
+      const isNameEmpty = !values.name.trim();
+      const isDateEmpty = !values.date.trim();
+      const isAmountEmpty = !values.amount.trim();
+      const isCategoryEmpty = !values.category.trim();
 
-    
-  
-    return { isValid, newErrors, messages };
-  }
-  
-});
+      const isNameTooShort = !isNameEmpty && values.name.length < 4;
+      const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
+      const isDateInvalid = !isDateEmpty && !dateRegex.test(values.date);
+      const isAmountInvalid =
+        !isAmountEmpty &&
+        (isNaN(values.amount) || parseFloat(values.amount) <= 0);
 
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   date: "",
-  //   amount: "",
-  // });
+      if (isNameEmpty || isDateEmpty || isAmountEmpty || isCategoryEmpty) {
+        if (isNameEmpty) newErrors.name = true;
+        if (isDateEmpty) newErrors.date = true;
+        if (isAmountEmpty) newErrors.amount = true;
+        if (isCategoryEmpty) newErrors.category = true;
 
-  // // состояние ошибок
-  // const [errors, setErrors] = useState({
-  //   name: false,
-  //   date: false,
-  //   amount: false,
-  // });
+        messages.push("Все поля должны быть заполнены");
+        isValid = false;
+      }
 
-  // const [focus, setFocus] = useState({
-  //   name: false,
-  //   date: false,
-  //   amount: false,
-  // });
+      if (isNameTooShort) {
+        newErrors.name = true;
+        messages.push("Наименование расхода должно быть не менее 4 символов");
+        isValid = false;
+      }
 
-  // const handleFocus = (field) => {
-  //   setFocus((prev) => ({ ...prev, [field]: true }));
-  // };
+      if (isDateInvalid) {
+        newErrors.date = true;
+        messages.push("Дата должна быть в формате MM.ДД.ГГГГ");
+        isValid = false;
+      }
 
-  // const handleBlur = (field) => {
-  //   setFocus((prev) => ({ ...prev, [field]: false }));
-  //   validateForm();
-  // };
+      if (isAmountInvalid) {
+        newErrors.amount = true;
+        messages.push("Введите корректную сумму больше 0");
+        isValid = false;
+      }
 
-  // // функция валидации
-  // const validateForm = () => {
-  //   const newErrors = { name: "", date: "", amount: "" };
-  //   let isValid = true;
+      return { isValid, newErrors, messages };
+    },
+  });
 
-  //   const isNameEmpty = !formData.name.trim();
-  //   const isDateEmpty = !formData.date.trim();
-  //   const isAmountEmpty = !formData.amount.trim();
-  //   const isNameTooShort = !isNameEmpty && formData.name.length < 3;
-  //   const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-  //   const isDateInvalid = !isDateEmpty && !dateRegex.test(formData.date);
-  //   const isAmountInvalid =
-  //     !isAmountEmpty &&
-  //     (isNaN(formData.amount) || parseFloat(formData.amount) <= 0);
-
-  //   if (isNameEmpty || isDateEmpty || isAmountEmpty) {
-  //     if (isNameEmpty) newErrors.name = true;
-  //     if (isDateEmpty) newErrors.date = true;
-  //     if (isAmountEmpty) newErrors.amount = true;
-
-  //     isValid = false;
-
-  //     toast.error("Все поля должны быть заполнены");
-  //   }
-
-  //   if (isNameTooShort) {
-  //     newErrors.password = true;
-  //     toast.error("Наименование расхода должно быть не менее 3 символов");
-  //     isValid = false;
-  //   }
-
-  //   if (isDateInvalid) {
-  //     newErrors.date = true;
-  //     toast.error("Дата должна быть в формате ДД.ММ.ГГГГ");
-  //     isValid = false;
-  //   }
-
-  //   if (isAmountInvalid) {
-  //     newErrors.amount = true;
-  //     toast.error("Введите корректную сумму больше 0");
-  //     isValid = false;
-  //   }
-
-  //   setErrors(newErrors);
-
-  //   return isValid;
-  // };
-
-  // // функция, которая отслеживает в полях изменения
-  // // и меняет состояние компонента
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  //   setErrors({ ...errors, [name]: false });
-  // };
-
-  // функция отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -177,28 +91,35 @@ function ExpenseForm({onAddExpense}) {
       return;
     }
 
+    // const formatDate = (inputDate) => {
+    //   console.log("Дата до форматирования:", formData.date);
+    //   const [day, month, year] = inputDate.split(".");
+    //   return `${month}-${day}-${year}`; 
+    // };
+
     const formatDate = (inputDate) => {
-      const date = new Date(inputDate);
-      if (isNaN(date)) throw new Error("Некорректная дата: " + inputDate);
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const year = date.getFullYear();
-      return `${month}-${day}-${year}`; // формат "MM-DD-YYYY"
+      const parsed = parse(inputDate, "dd.MM.yyyy", new Date());
+      return format(parsed, "M-d-yyyy");
     };
+    
+
+
     const expense = {
       description: formData.name.trim(),
       sum: parseFloat(formData.amount),
       category: formData.category,
       date: formatDate(formData.date), // формат "ММ-ДД-ГГГГ"
-      // date: formatDate(formData.date), // формат "ММ-ДД-ГГГГ"
     };
     try {
-   
-      await onAddExpense({ expense });; // вызов родительской функции
+      await addNewExpense({ expense });
+
     } catch (err) {
-      console.error("Ошибка при добавлении расхода:", err.message);
+      console.error(textErrors.addExpenseError, err.message);
     }
-    console.log({expense})
+    console.log({ expense });
+    console.log("formData:", formData);
+console.log("Дата до форматирования:", formData.date);
+console.log("После форматирования:", formatDate(formData.date));
   };
 
   return (
@@ -222,8 +143,10 @@ function ExpenseForm({onAddExpense}) {
 
         <S.InputTitle>Категория</S.InputTitle>
         <S.CategoryTags>
-          <Categories selectedCategory={formData.category}
-    onCategorySelect={handleCategoryChange}/>
+          <Categories
+            selectedCategory={formData.category}
+            onCategorySelect={handleCategoryChange}
+          />
         </S.CategoryTags>
 
         <S.InputTitle>Дата</S.InputTitle>
@@ -234,7 +157,7 @@ function ExpenseForm({onAddExpense}) {
           onChange={handleChange}
           onFocus={() => handleFocus("date")}
           onBlur={() => handleBlur("date")}
-        $isFocused={focus.date}
+          $isFocused={focus.date}
           $error={errors.date}
         />
 
