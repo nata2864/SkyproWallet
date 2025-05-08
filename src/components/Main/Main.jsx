@@ -19,6 +19,8 @@ import {
   SSortingElement,
   SCategoryFiltrationElement,
   STableFiltersGroup,
+  STableBodyWrapper,
+  SCategoryLink,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 import React, { useState } from "react";
@@ -57,6 +59,209 @@ function Main() {
       date: "03.07.2024",
       amount: "3 500 ₽",
     },
+    {
+      id: 2,
+      description: "Яндекс.Такси",
+      category: "Транспорт",
+      date: "02.07.2024",
+      amount: "450 ₽",
+    },
+    {
+      id: 3,
+      description: "Аренда квартиры",
+      category: "Жилье",
+      date: "01.07.2024",
+      amount: "25 000 ₽",
+    },
+    {
+      id: 4,
+      description: "Кинотеатр",
+      category: "Развлечения",
+      date: "30.06.2024",
+      amount: "1 200 ₽",
+    },
+    {
+      id: 5,
+      description: "Онлайн-курсы",
+      category: "Образование",
+      date: "29.06.2024",
+      amount: "5 000 ₽",
+    },
+    {
+      id: 6,
+      description: "Перевод другу",
+      category: "Другое",
+      date: "28.06.2024",
+      amount: "2 000 ₽",
+    },
+    {
+      id: 7,
+      description: "Магнит",
+      category: "Еда",
+      date: "27.06.2024",
+      amount: "2 800 ₽",
+    },
+    {
+      id: 8,
+      description: "Метро",
+      category: "Транспорт",
+      date: "26.06.2024",
+      amount: "120 ₽",
+    },
+    {
+      id: 9,
+      description: "Коммунальные услуги",
+      category: "Жилье",
+      date: "25.06.2024",
+      amount: "7 500 ₽",
+    },
+    {
+      id: 10,
+      description: "Концерт",
+      category: "Развлечения",
+      date: "24.06.2024",
+      amount: "3 500 ₽",
+    },
+    {
+      id: 11,
+      description: "Учебники",
+      category: "Образование",
+      date: "23.06.2024",
+      amount: "4 200 ₽",
+    },
+    {
+      id: 12,
+      description: "Подарок",
+      category: "Другое",
+      date: "22.06.2024",
+      amount: "1 500 ₽",
+    },
+    {
+      id: 13,
+      description: "Перекресток",
+      category: "Еда",
+      date: "21.06.2024",
+      amount: "4 300 ₽",
+    },
+    {
+      id: 14,
+      description: "Автобус",
+      category: "Транспорт",
+      date: "20.06.2024",
+      amount: "60 ₽",
+    },
+    {
+      id: 15,
+      description: "Ремонт",
+      category: "Жилье",
+      date: "19.06.2024",
+      amount: "15 000 ₽",
+    },
+    {
+      id: 16,
+      description: "Театр",
+      category: "Развлечения",
+      date: "18.06.2024",
+      amount: "2 800 ₽",
+    },
+    {
+      id: 17,
+      description: "Яндекс.Практикум",
+      category: "Образование",
+      date: "17.06.2024",
+      amount: "12 000 ₽",
+    },
+    {
+      id: 18,
+      description: "Благотворительность",
+      category: "Другое",
+      date: "16.06.2024",
+      amount: "1 000 ₽",
+    },
+    {
+      id: 19,
+      description: "ВкусВилл",
+      category: "Еда",
+      date: "15.06.2024",
+      amount: "3 700 ₽",
+    },
+    {
+      id: 20,
+      description: "Электричка",
+      category: "Транспорт",
+      date: "14.06.2024",
+      amount: "350 ₽",
+    },
+    {
+      id: 21,
+      description: "Мебель",
+      category: "Жилье",
+      date: "13.06.2024",
+      amount: "32 000 ₽",
+    },
+    {
+      id: 22,
+      description: "Квест-комната",
+      category: "Развлечения",
+      date: "12.06.2024",
+      amount: "2 500 ₽",
+    },
+    {
+      id: 23,
+      description: "Репетитор",
+      category: "Образование",
+      date: "11.06.2024",
+      amount: "3 000 ₽",
+    },
+    {
+      id: 24,
+      description: "Ремонт телефона",
+      category: "Другое",
+      date: "10.06.2024",
+      amount: "5 500 ₽",
+    },
+    {
+      id: 25,
+      description: "Лента",
+      category: "Еда",
+      date: "09.06.2024",
+      amount: "4 100 ₽",
+    },
+    {
+      id: 26,
+      description: "Такси в аэропорт",
+      category: "Транспорт",
+      date: "08.06.2024",
+      amount: "1 200 ₽",
+    },
+    {
+      id: 27,
+      description: "Хозтовары",
+      category: "Жилье",
+      date: "07.06.2024",
+      amount: "2 300 ₽",
+    },
+    {
+      id: 28,
+      description: "Боулинг",
+      category: "Развлечения",
+      date: "06.06.2024",
+      amount: "1 800 ₽",
+    },
+    {
+      id: 29,
+      description: "Канцтовары",
+      category: "Образование",
+      date: "05.06.2024",
+      amount: "900 ₽",
+    },
+    {
+      id: 30,
+      description: "Фотоуслуги",
+      category: "Другое",
+      date: "04.06.2024",
+      amount: "4 000 ₽",
+    },
   ];
 
   const handleEdit = (id) => {
@@ -79,6 +284,9 @@ function Main() {
               <STableFilters>
                 <STableFiltersGroup>
                   Фильтровать по категории
+                  <SCategoryLink href="#">
+                    {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
+                  </SCategoryLink>
                   <svg
                     onClick={() => setIsOpenCategory(!isOpenCategory)}
                     width="6.062134"
@@ -155,7 +363,7 @@ function Main() {
             </STableHeader>
             <SExpenseTable>
               <TableFirstRow />
-              <tbody>
+              <STableBodyWrapper>
                 {data.map((expense) => (
                   <TableRow
                     key={expense.id}
@@ -167,7 +375,7 @@ function Main() {
                     onDelete={() => handleDelete(expense.id)}
                   />
                 ))}
-              </tbody>
+              </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
           <SFormAside>
