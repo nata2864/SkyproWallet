@@ -31,9 +31,12 @@ export const ModalBlok = styled.div`
   display: block;
   margin: 0 auto;
   background-color: #ffffff;
-  padding: 32px;
+  padding-top: 32px;
+  padding-left: 32px;
+   padding-right: 32px;
   width: 100%;
   max-width: 380px;
+
   box-sizing: border-box;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);

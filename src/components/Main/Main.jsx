@@ -30,6 +30,7 @@ import { categoryTranslations } from "../../const";
 import { useState } from "react";
 // import {  format } from "date-fns";
 import { parseISO, format } from "date-fns";
+import { useEffect } from "react";
 
 
 
@@ -47,6 +48,13 @@ function Main() {
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
   const [filteredData, setFilteredData] = useState( expenses);
+
+  useEffect(() => {
+  // Обновлять только если ничего не выбрано
+  if (!selectedCategory && !selectedSorting) {
+    setFilteredData(expenses);
+  }
+}, [expenses, selectedCategory, selectedSorting]);
 
     const categories = [
     { name: "Еда", icon: MiniFood },
