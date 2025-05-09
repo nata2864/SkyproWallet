@@ -108,5 +108,15 @@ export const categorieName = [
 ];
 
 
+export const categoryTranslations = {
+  food: "Еда",
+  transport: "Транспорт",
+  housing: "Жилье",
+  joy: "Развлечение",
+  education: "Образование",
+  others: "Другое",
+};
+
+
 
 

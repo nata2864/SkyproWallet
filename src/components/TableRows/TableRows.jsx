@@ -5,7 +5,7 @@ import {
   IconButton,
   SIcons,
 } from "./TableRows.styled";
-import { format } from "date-fns";
+
 
 
 
@@ -21,17 +21,6 @@ export const TableFirstRow = () => (
   </STableFirstRowHead>
 );
 
-function formatDate(dateString) {
-  if (!dateString) {
-    return "";
-  }
-  const date = new Date(dateString);
-  if (isNaN(date)) {
-    console.error("Invalid date:", dateString);
-    return "";
-  }
-  return format(date, "dd-MM-yyyy");
-}
 
 export const TableRow = ({
   description,
@@ -45,7 +34,7 @@ export const TableRow = ({
     <STableOrderRow>
       <td>{description}</td>
       <td>{category}</td>
-      <td>{formatDate(date)}</td>
+      <td>{date}</td>
       <td>{amount}</td>
       <SIcons>
         <IconButton onClick={onEdit}>

@@ -1,5 +1,5 @@
 import {
-  SMain,
+    SMain,
   SMainHeader,
   STableHeader,
   STableSection,
@@ -7,15 +7,95 @@ import {
   STableFilters,
   SSortLink,
   SExpenseTable,
+  // SFormAside,
+  // SExpenseForm,
+  // SInput,
+  // SCategoryTags,
+  // STag,
+  // SSubmitBtn,
   STables,
+  SCategoryFiltration,
+  SSorting,
+  SSortingElement,
+  SCategoryFiltrationElement,
+  STableFiltersGroup,
+  STableBodyWrapper,
+  SCategoryLink,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 import ExpenseForm from "../ExpenseForm/ExpenseForm ";
 import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
+import { categoryTranslations } from "../../const";
+import { useState } from "react";
+// import {  format } from "date-fns";
+import { parseISO, format } from "date-fns";
+
+
+
+const MiniCar = "/second-box/mini-car.svg";
+const MiniFood = "/second-box/mini-food.svg";
+const MiniGames = "/second-box/mini-games.svg";
+const MiniHouse = "/second-box/mini-house.svg";
+const MiniOther = "/second-box/mini-other.svg";
+const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
   const { expenses } = useContext(ExpenseContext);
+   const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [isOpenSorting, setIsOpenSorting] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(false);
+  const [selectedSorting, setSelectedSorting] = useState(false);
+  const [filteredData, setFilteredData] = useState( expenses);
+
+    const categories = [
+    { name: "Еда", icon: MiniFood },
+    { name: "Транспорт", icon: MiniCar },
+    { name: "Жилье", icon: MiniHouse },
+    { name: "Развлечение", icon: MiniGames },
+    { name: "Образование", icon: MiniTeacher },
+    { name: "Другое", icon: MiniOther },
+  ];
+
+
+const formatDate = (dateString) => {
+  const parsedDate = parseISO(dateString);
+  return format(parsedDate, "dd.MM.yyyy");
+};
+
+  const sortings = [{ name: "Дате" }, { name: "Сумме" }];
+  const handleCategorySelect = (category) => {
+    const newCategory = category === selectedCategory ? false : category;
+    setSelectedCategory(newCategory);
+    if (!newCategory) {
+      setFilteredData( expenses);
+    } else {
+      const categoryKey = Object.keys(categoryTranslations).find(
+        (key) => categoryTranslations[key] === category
+      );
+
+      setFilteredData(
+         expenses.filter((expense) => expense.category === categoryKey)
+      );
+    }
+  };
+  const handleSortingsSelect = (sorting) => {
+    const newSorting = sorting === selectedSorting ? false : sorting;
+    setSelectedSorting(newSorting);
+    if (!newSorting) {
+      setFilteredData( expenses);
+    } else {
+      setFilteredData((prevData) => {
+        const sorted = [...prevData];
+        if (sorting === "Дате") {
+          sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+        } else if (sorting === "Сумме") {
+          sorted.sort((a, b) => b.sum - a.sum);
+        }
+        return sorted;
+      });
+    }
+  };
 
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
@@ -32,12 +112,16 @@ function Main() {
         <SMainHeader>Мои расходы</SMainHeader>
         <STables>
           <STableSection>
-            <STableHeader>
+             <STableHeader>
               <SSectionTitle>Таблица расходов</SSectionTitle>
               <STableFilters>
-                <div>
+                <STableFiltersGroup>
                   Фильтровать по категории
+                  <SCategoryLink href="#">
+                    {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
+                  </SCategoryLink>
                   <svg
+                    onClick={() => setIsOpenCategory(!isOpenCategory)}
                     width="6.062134"
                     height="5.250000"
                     viewBox="0 0 6.06213 5.25"
@@ -55,11 +139,31 @@ function Main() {
                       fillRule="evenodd" // camelCase вместо fill-rule
                     />
                   </svg>
-                </div>
-                <div>
+                  {isOpenCategory && (
+                    <SCategoryFiltration>
+                      {categories.map((category) => (
+                        <SCategoryFiltrationElement
+                          key={category.name}
+                          onClick={() => {
+                            handleCategorySelect(category.name);
+                            setIsOpenCategory(false);
+                          }}
+                          $isSelected={selectedCategory === category.name}
+                        >
+                          <img src={category.icon} alt="logo" />
+                          {category.name}
+                        </SCategoryFiltrationElement>
+                      ))}
+                    </SCategoryFiltration>
+                  )}
+                </STableFiltersGroup>
+                <STableFiltersGroup>
                   Сортировать по
-                  <SSortLink href="#">дате</SSortLink>
+                  <SSortLink href="#">
+                    {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
+                  </SSortLink>
                   <svg
+                    onClick={() => setIsOpenSorting(!isOpenSorting)}
                     width="6.062134"
                     height="5.250000"
                     viewBox="0 0 6.06213 5.25"
@@ -77,24 +181,41 @@ function Main() {
                       fillRule="evenodd" // camelCase вместо fill-rule
                     />
                   </svg>
-                </div>
+                  {isOpenSorting && (
+                    <SSorting>
+                      {sortings.map((sorting) => (
+                        <SSortingElement
+                          key={sorting.name}
+                          onClick={() => {
+                            handleSortingsSelect(sorting.name);
+                            setIsOpenSorting(false);
+                          }}
+                          $isSelected={selectedSorting === sorting.name}
+                        >
+                          {sorting.name}
+                        </SSortingElement>
+                      ))}
+                    </SSorting>
+                  )}
+                </STableFiltersGroup>
               </STableFilters>
             </STableHeader>
             <SExpenseTable>
               <TableFirstRow />
-              <tbody>
-                {(Array.isArray(expenses) ? expenses : []).map((item) => (
+             <STableBodyWrapper>
+  {/* const [filteredData, setFilteredData] = useState( expenses); */}
+                {(Array.isArray(expenses) ? filteredData : []).map((item) => (
                   <TableRow
                     key={item._id}
                     description={item.description}
-                    category={item.category}
-                    date={item.date}
-                    amount={item.sum}
+                    category={categoryTranslations[item.category] || item.category}
+                     date={formatDate(item.date)}
+                    amount={`${item.sum.toLocaleString("ru-RU")} ₽`}
                     onEdit={() => handleEdit(item._id)}
                     onDelete={() => handleDelete(item._id)}
                   />
                 ))}
-              </tbody>
+                </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
           <ExpenseForm />
