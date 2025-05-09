@@ -8,9 +8,10 @@ let expenses = [
     { name: 'Другое', latinName: 'others', value: 0, color: '#FFB9B8' },
 ]
 
-export default function Diagram({ diagramData }) {
+export default function Diagram({ diagramData, period }) {
     const max = Math.max(...expenses.map((e) => e.value))
     let totalSum = 0
+    console.log(period)
 
     expenses = expenses.map((item) => {
         const value = diagramData[item.latinName] || 0
@@ -23,7 +24,7 @@ export default function Diagram({ diagramData }) {
             <S.Total>
                 <S.TotalAmount>{totalSum} ₽</S.TotalAmount>
                 <S.Subtext>
-                    Расходы за <S.SubtextSpan>10 июля 2024</S.SubtextSpan>{' '}
+                    Расходы за <S.SubtextSpan>{period}</S.SubtextSpan>{' '}
                 </S.Subtext>
             </S.Total>
 

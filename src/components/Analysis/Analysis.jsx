@@ -2,55 +2,66 @@ import * as S from './Analysis.styled'
 import Diagram from '../Diagram/Diagram'
 import Calendar from '../Calendar/Calendar'
 import CalendarMonth from '../CalendarMonth/CalendarMonth'
-import { useState, useEffect, useCallback, useContext, useMemo } from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import { sortByCategorie } from '../../utils'
-import { ExpenseContext } from "../../context/ExpenseContext";
+import { ExpenseContext } from '../../context/ExpenseContext'
 // import { data } from 'react-router-dom'
 
 function Analysis() {
-    const { expenses } = useContext(ExpenseContext);
+    const { expenses } = useContext(ExpenseContext)
     const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
     const [filter, setMode] = useState(true)
     // const [expenses, setData] = useState([])
-    // const [period, setPeriod] = useState({})
+    const [period, setPeriod] = useState('все время')
     const [diagramData, setDiagramData] = useState({})
     // const [diagramSum, setDiagramData] = useState({})
     // const [loading, setLoading] = useState(true)
     // const [error, setError] = useState('')
     // const { user } = useContext(AuthContext)
 
+    console.log(period)
+    const handleRangeChange = useCallback(
+        (range) => {
+            if (!range?.start || !range?.end) return
 
+            const startDate = new Date(range.start)
+            const endDate = new Date(range.end)
 
-console.log(expenses);
-    const handleRangeChange = useCallback((range) => {
-        if (!range?.start || !range?.end) return
-        
-        const startDate = new Date(range.start)
-        const endDate = new Date(range.end)
-        
-        const filtered = expenses.filter((item) => {
-            const itemDate = new Date(item.date)
-            return itemDate >= startDate && itemDate <= endDate
-        })
-        
-        const newDiagramData = sortByCategorie(filtered)
-        // Only update if data actually changed
-        setDiagramData(prev => {
-            if (JSON.stringify(prev) !== JSON.stringify(newDiagramData)) {
-                return newDiagramData
+            const filtered = expenses.filter((item) => {
+                const itemDate = new Date(item.date)
+                return itemDate >= startDate && itemDate <= endDate
+            })
+
+            const newDiagramData = sortByCategorie(filtered)
+            const formatRange = (start, end) => {
+                const options = {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                }
+                const startStr = start.toLocaleDateString('ru-RU', options)
+                const endStr = end.toLocaleDateString('ru-RU', options)
+                return `${startStr} – ${endStr}`
             }
-            return prev
-        })
-    }, [expenses])
 
+            setPeriod(formatRange(startDate, endDate))
+            // Only update if data actually changed
+            setDiagramData((prev) => {
+                if (JSON.stringify(prev) !== JSON.stringify(newDiagramData)) {
+                    return newDiagramData
+                }
+                return prev
+            })
+        },
+        [expenses]
+    )
 
     useEffect(() => {
         if (expenses?.length > 0) {
             setDiagramData(sortByCategorie(expenses))
         }
     }, [expenses])
-
 
     return (
         <S.Analysis>
@@ -89,12 +100,10 @@ console.log(expenses);
                     </S.CalendarHeaderContainer>
                     <S.CalendarBody>
                         {filter ? (
-                            <Calendar
-                            onRangeChange={handleRangeChange}
-                            />
+                            <Calendar onRangeChange={handleRangeChange} />
                         ) : (
                             // <Calendar onRangeChange={handleRangeChange} />
-                            <CalendarMonth />
+                            <CalendarMonth onRangeChange={handleRangeChange} />
                         )}
                         {/* <Calendar /> */}
                         {/* <CalendarMonth /> */}
@@ -103,7 +112,10 @@ console.log(expenses);
 
                 <S.AnalysisTableContainer>
                     <S.AnalysisTableHeaderblock>
-                        <Diagram diagramData={diagramData}></Diagram>
+                        <Diagram
+                            diagramData={diagramData}
+                            period={period}
+                        ></Diagram>
                         {/* <S.AnalysisTableHeader>Таблица расходов</S.AnalysisTableHeader> */}
                         <S.AnalysisTableHeaderFilterBlock></S.AnalysisTableHeaderFilterBlock>
                     </S.AnalysisTableHeaderblock>
