@@ -6,7 +6,7 @@ const isNetworkAvailable = () => {
 }
 
 export async function getDataPeriod({token, params} ) {
-    console.log(token, JSON.stringify(params))
+    // console.log(token, JSON.stringify(params))
     try {
         if (!isNetworkAvailable()) {
             throw new Error('Сеть недоступна')

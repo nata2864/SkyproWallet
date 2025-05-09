@@ -2,7 +2,7 @@ import * as S from './Analysis.styled'
 import Diagram from '../Diagram/Diagram'
 import Calendar from '../Calendar/Calendar'
 import CalendarMonth from '../CalendarMonth/CalendarMonth'
-import { useState, useEffect, useCallback, useContext } from 'react'
+import { useState, useEffect, useCallback, useContext, useMemo } from 'react'
 import { getDataPeriod } from '../../services/api'
 import { AuthContext } from '../../context/AuthContext'
 import { sortByCategorie } from '../../utils'
@@ -12,40 +12,158 @@ function Analysis() {
     const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
     const [filter, setMode] = useState(true)
     const [expenses, setData] = useState([])
-    const [period, setPeriod] = useState({})
-    const [diagramSum , setDiagramData] = useState({})
+    // const [period, setPeriod] = useState({})
+    const [diagramData, setDiagramData] = useState({})
+    // const [diagramSum, setDiagramData] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
     const { user } = useContext(AuthContext)
 
-    const getExpenses = useCallback(async (period) => {
-        try {
-            setLoading(true)
-            const data = await getDataPeriod({
-                token: user.token,
-                params: period,
-            })
-            if (data) setData(data)
-               setDiagramData(sortByCategorie(data))
-                
-        } catch (err) {
-            setError(err.message)
-        } finally {
-            setLoading(false)
-           
-        }
-    }, [])
     useEffect(() => {
-        getExpenses()
-    }, [getExpenses])
+        const fetchExpenses = async () => {
+            try {
+                setLoading(true)
+                const data = await getDataPeriod({
+                    token: user.token,
+                    params: {},
+                })
+                if (data) {
+                    setData(data)
+                }
+            } catch (err) {
+                setError(err.message)
+            } finally {
+                setLoading(false)
+            }
+        }
 
-    const handleRangeChange = (range) => {
-        console.log('Передано из Calendar:', range)
-        // например, setFilters(range), fetchData(range), и т.п.
-    }
+        fetchExpenses()
+    }, [user.token])
+
+    // Обработка изменения диапазона
+    const handleRangeChange = useCallback((range) => {
+        if (!range?.start || !range?.end) return
+        
+        const startDate = new Date(range.start)
+        const endDate = new Date(range.end)
+        
+        const filtered = expenses.filter((item) => {
+            const itemDate = new Date(item.date)
+            return itemDate >= startDate && itemDate <= endDate
+        })
+        
+        const newDiagramData = sortByCategorie(filtered)
+        // Only update if data actually changed
+        setDiagramData(prev => {
+            if (JSON.stringify(prev) !== JSON.stringify(newDiagramData)) {
+                return newDiagramData
+            }
+            return prev
+        })
+    }, [expenses])
+
+
+    // Мемоизированные данные для диаграммы
+    // const diagramData = useMemo(() => {
+    //     return sortByCategorie(expenses) // начальное состояние - все данные
+    // }, [expenses])
+
+    // const getExpenses = useCallback(async (period) => {
+    //     try {
+    //         setLoading(true)
+    //         const data = await getDataPeriod({
+    //             token: user.token,
+    //             params: period,
+    //         })
+    //         if (data) setData(data)
+    //            setDiagramData(sortByCategorie(data))
+
+    //     } catch (err) {
+    //         setError(err.message)
+    //     } finally {
+    //         setLoading(false)
+
+    //     }
+    // }, [])
+
+    // const getExpenses = useCallback(async (period) => {
+    //     try {
+    //         setLoading(true)
+    //         const data = await getDataPeriod({
+    //             token: user.token,
+    //             params: period,
+    //         })
+    //         if (data) setData(data)
+    //         setDiagramData(sortByCategorie(data)) // сохраняем все данные, фильтрация будет позже
+    //     } catch (err) {
+    //         setError(err.message)
+    //     } finally {
+    //         setLoading(false)
+    //     }
+    // }, [])
+
+    // useEffect(() => {
+    //     const fetchExpenses = async () => {
+    //         try {
+    //             setLoading(true)
+    //             const data = await getDataPeriod({
+    //                 token: user.token,
+    //                 params: {}, // или передай диапазон по умолчанию
+    //             })
+    //             if (data) {
+    //                 setData(data)
+    //                 setDiagramData(sortByCategorie(data)) // стартовая диаграмма
+    //             }
+    //         } catch (err) {
+    //             setError(err.message)
+    //         } finally {
+    //             setLoading(false)
+    //         }
+    //     }
+
+    //     fetchExpenses()
+    // }, [user.token])
+
+    // useEffect(() => {
+    //     if (user?.token) {
+    //         getExpenses(period)
+    //     }
+    // }, [getExpenses, user])
+
+    // const handleRangeChange = (range) => {
+    //     const { start, end } = range
+
+    //     const filtered = expenses.filter((item) => {
+    //         const itemDate = new Date(item.date)
+    //         const startDate = new Date(start)
+    //         const endDate = new Date(end)
+
+    //         return itemDate >= startDate && itemDate <= endDate
+    //     })
+    //     console.log(filtered)
+
+    //     setDiagramData(sortByCategorie(filtered))
+    // }
+
+    // const handleRangeChange = (range) => {
+    //     const { start, end } = range
+
+    //     const startDate = new Date(start)
+    //     const endDate = new Date(end)
+
+    //     const filtered = expenses.filter((item) => {
+    //         const itemDate = new Date(item.date)
+    //         return itemDate >= startDate && itemDate <= endDate
+    //     })
+
+    //     setDiagramData(sortByCategorie(filtered))
+    // }
+
+    // const handleRangeChange = (range) => {
+    //     console.log('Передано из Calendar:', range)
+    //     // например, setFilters(range), fetchData(range), и т.п.
+    // }
     // setDiagramData(sortByCategorie(expenses))
-    console.log(diagramSum);
-   
 
     // const handleRangeChange = useCallback( async (range) => {
     //     // console.log(range);
@@ -60,8 +178,7 @@ function Analysis() {
     //         setError(err.message)
     //     } finally {
     //         setLoading(false)
-            
-            
+
     //     }
 
     //   }, [])
@@ -102,8 +219,16 @@ function Analysis() {
                     </S.CalendarHeaderContainer>
                     <S.CalendarBody>
                         {filter ? (
-                            <Calendar onRangeChange={handleRangeChange} />
+                            <Calendar
+                                onRangeChange={(range) => {
+                                    const data = handleRangeChange(range)
+                                    if (data) {
+                                        setDiagramData(data)
+                                    }
+                                }}
+                            />
                         ) : (
+                            // <Calendar onRangeChange={handleRangeChange} />
                             <CalendarMonth />
                         )}
                         {/* <Calendar /> */}
@@ -113,9 +238,7 @@ function Analysis() {
 
                 <S.AnalysisTableContainer>
                     <S.AnalysisTableHeaderblock>
-                        <Diagram
-                        diagramData={diagramSum}
-                        ></Diagram>
+                        <Diagram diagramData={diagramData}></Diagram>
                         {/* <S.AnalysisTableHeader>Таблица расходов</S.AnalysisTableHeader> */}
                         <S.AnalysisTableHeaderFilterBlock></S.AnalysisTableHeaderFilterBlock>
                     </S.AnalysisTableHeaderblock>
