@@ -1,13 +1,13 @@
-import Main from '../../components/Main/Main'
+import Analysis from '../../components/Analysis/Analysis'
 import { ExpenseProvider } from '../../context/ExpenseProvider'
-function MainPage() {
+function AnalysisPage() {
     return (
         <div>
             <ExpenseProvider>
-                <Main />
+                <Analysis />
             </ExpenseProvider>
         </div>
     )
 }
 
-export default MainPage
+export default AnalysisPage

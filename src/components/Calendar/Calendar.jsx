@@ -49,6 +49,14 @@ export default function Calendar({ onRangeChange }) {
                 onSelect={handleSelect}
                 numberOfMonths={12}
                 locale={ru}
+                
+                defaultMonth={new Date()}
+                month={new Date(new Date().getFullYear(), 0)}
+                pagedNavigation={false} // отключает разбивку на страницы (чтобы 12 месяцев были сразу)
+                disabled={{
+                  before: new Date(new Date().getFullYear() - 1, new Date().getMonth(), 1),
+                  after: new Date(new Date().getFullYear() + 1, new Date().getMonth() + 1, 0),
+                }}
                 formatters={{
                     formatMonthCaption: (date) =>
                         date

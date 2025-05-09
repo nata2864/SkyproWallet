@@ -7,36 +7,15 @@ import {
   STableFilters,
   SSortLink,
   SExpenseTable,
-  SFormAside,
-  SExpenseForm,
-  SInput,
-  SCategoryTags,
-  STag,
-  SSubmitBtn,
   STables,
 } from "./Main.styled";
-import { TableRow, TableFirstRow} from "../TableRows/TableRows";
-
-
-
-
-const MiniCar = "/second-box/mini-car.svg";
-const MiniFood = "/second-box/mini-food.svg";
-const MiniGames = "/second-box/mini-games.svg";
-const MiniHouse = "/second-box/mini-house.svg";
-const MiniOther = "/second-box/mini-other.svg";
-const MiniTeacher = "/second-box/mini-teacher.svg";
+import { TableRow, TableFirstRow } from "../TableRows/TableRows";
+import ExpenseForm from "../ExpenseForm/ExpenseForm ";
+import { useContext } from "react";
+import { ExpenseContext } from "../../context/ExpenseContext";
 
 function Main() {
-  const data = [
-    {
-      id: 1,
-      description: "Пятерочка",
-      category: "Еда",
-      date: "03.07.2024",
-      amount: "3 500 ₽",
-    },
-  ];
+  const { expenses } = useContext(ExpenseContext);
 
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
@@ -104,61 +83,21 @@ function Main() {
             <SExpenseTable>
               <TableFirstRow />
               <tbody>
-                {data.map((expense) => (
+                {(Array.isArray(expenses) ? expenses : []).map((item) => (
                   <TableRow
-                    key={expense.id}
-                    description={expense.description}
-                    category={expense.category}
-                    date={expense.date}
-                    amount={expense.amount}
-                    onEdit={() => handleEdit(expense.id)}
-                    onDelete={() => handleDelete(expense.id)}
+                    key={item._id}
+                    description={item.description}
+                    category={item.category}
+                    date={item.date}
+                    amount={item.sum}
+                    onEdit={() => handleEdit(item._id)}
+                    onDelete={() => handleDelete(item._id)}
                   />
                 ))}
               </tbody>
             </SExpenseTable>
           </STableSection>
-          <SFormAside>
-            <SSectionTitle>Новый расход</SSectionTitle>
-            <SExpenseForm>
-              <div>
-                <label>Описание</label>
-                <SInput type="text" placeholder="Введите описание" />
-              </div>
-              <div>
-                <label>Категория</label>
-                <SCategoryTags>
-                  <STag>
-                    <img src={MiniFood} alt="logo" /> Еда
-                  </STag>
-                  <STag>
-                    <img src={MiniCar} alt="logo" /> Транспорт
-                  </STag>
-                  <STag>
-                    <img src={MiniHouse} alt="logo" /> Жилье
-                  </STag>
-                  <STag>
-                    <img src={MiniGames} alt="logo" /> Развлечения
-                  </STag>
-                  <STag>
-                    <img src={MiniTeacher} alt="logo" /> Образование
-                  </STag>
-                  <STag>
-                    <img src={MiniOther} alt="logo" /> Другое
-                  </STag>
-                </SCategoryTags>
-              </div>
-              <div>
-                <label>Дата</label>
-                <SInput type="date" placeholder="Введите дату" />
-              </div>
-              <div>
-                <label>Сумма</label>
-                <SInput type="number" placeholder="Введите сумму" />
-              </div>
-              <SSubmitBtn type="submit">Добавить новый расход</SSubmitBtn>
-            </SExpenseForm>
-          </SFormAside>
+          <ExpenseForm />
         </STables>
       </SMain>
     </>

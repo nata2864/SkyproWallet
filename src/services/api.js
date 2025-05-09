@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { API_URL_DATA, RoutesApp } from '../const'
-
+// import { API_URL_DATA, RoutesApp } from '../const'
+const API_URL = " https://wedev-api.sky.pro/api/transactions";
 const isNetworkAvailable = () => {
     return navigator.onLine
 }
@@ -12,7 +12,7 @@ export async function getDataPeriod({token, params} ) {
             throw new Error('Сеть недоступна')
         }
 
-        const data = await axios.get(`${API_URL_DATA}`,  {
+        const data = await axios.get(`${API_URL}`,  {
             headers: {
                 Authorization: 'Bearer ' + token,
 
@@ -33,4 +33,37 @@ export async function getDataPeriod({token, params} ) {
     } catch (error) {
         throw new Error(error.message)
     }
+}
+
+
+
+
+// const API_URL = " https://wedev-api.sky.pro/api/transactions";
+
+export async function fetchExpenses({ token }) {
+  try {
+    const data = await axios.get(API_URL, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return data.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function postExpense({ token, expense }) {
+  try {
+    const data = await axios.post(API_URL, expense, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "",
+      },
+    });
+
+    return data.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
