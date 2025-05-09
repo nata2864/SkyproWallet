@@ -1,82 +1,75 @@
+import { DayPicker } from 'react-day-picker'
+import styled from 'styled-components'
+import { textSizes } from '../../const'
+export const CalendarContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    max-height: 480px;
+    overflow-y: auto;
+    padding-right: 28px; /* небольшой отступ, чтобы не обрезалось */
 
-import styled from 'styled-components';
+    /* Кастомный скроллбар (по желанию) */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
 
-export const CalendarWrapper = styled.div`
-  width: 379px; /* Ширина календаря */
-  height: 540px; /* Высота календаря */
-  overflow-y: auto; /* Прокрутка по вертикали */
-  overflow-x: hidden; /* Прокрутка по горизонтали отключена */
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin: 0 auto; /* Центрируем */
-`;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
 
-export const MonthContainer = styled.div`
-  width: 313px; /* Ширина месяца */
-  height: 256px; /* Высота месяца */
-  margin: 8px 0; /* Отступы между месяцами */
-  padding: 8px;
-  border-radius: 8px;
-  overflow: hidden;
-`;
+    &::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+    }
+`
 
-export const WeekHeader = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 10;
-  padding: 4px 0;
-  border-bottom: 1px solid #e0e0e0;
-`;
+export const Calendar = styled(DayPicker)`
+    --rdp-day-height: 46px;
+    --rdp-day-width: 46px;
+    --rdp-day_button-height: 46px;
+    --rdp-day_button-width: 46px;
+    /* --rdp-nav-height: 15px; */
+    --rdp-cell-width: 46px;
+    --rdp-accent-color: #dbffe9;
+    --rdp-weekday-padding: 0rem 0rem;
+    --rdp-day_button-border: 3px solid white;
+    --rdp-weekday-opacity: 0.5;
+    --rdp-range_start-color: #1fa46c;
+    --rdp-months-gap: 2rem;
+    /* .rdp-month {
+        padding-top: 24px;
+    } */
+    .rdp-day_button {
+        background-color: #f4f5f6;
+    }
+    .rdp-month_caption {
+        padding-bottom: 12px;
+    }
+    .rdp-weekdays {
+        display: none;
+    }
+    .rdp-nav {
+        display: none;
+    }
+    .my-selected {
+        color: black;
+        border-radius: 50%;
+        background-color: #dbffe9;
+        border-radius: 30px;
+        .rdp-day_button {
+        background-color: #dbffe9;
+    }
+    }
 
-export const WeekDay = styled.div`
-  text-align: center;
-  font-weight: 600;
-  color: #4a4a4a;
-  font-size: 10px; /* Уменьшаем шрифт для дней недели */
-`;
+    .my-range-middle {
+        background-color: #dbffe9;
+        color: #1fa46c;
+        border-radius: 0;
+        border-radius: 30px;
+    }
 
-export const DayCell = styled.div`
-  text-align: center;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 50%; /* Круглые ячейки */
-  cursor: pointer;
-  background-color: ${({ selected, inRange }) =>
-    selected ? '#38a169' : inRange ? '#c6f6d5' : 'transparent'};
-  color: ${({ selected }) => (selected ? 'white' : 'black')};
-  font-weight: ${({ selected }) => (selected ? 'bold' : 'normal')};
-  width: 40px; /* Фиксированная ширина */
-  height: 40px; /* Фиксированная высота */
-  margin: 0 auto; /* Центрируем */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: ${({ selected, inRange }) =>
-      selected ? '#2f855a' : inRange ? '#9ae6b4' : '#e6f4ea'};
-  }
-`;
-
-export const MonthTitle = styled.h2`
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 4px;
-  color: #2f855a;
-`;
-
-export const DayGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 столбцов */
-  gap: 4px;
-`;
-
-
+    .my-today {
+        font-weight: ${textSizes.medium.fontWeight};
+        border-radius: 30px;
+        color: #1fa46c;
+    }
+`
