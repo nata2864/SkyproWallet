@@ -22,7 +22,12 @@ export const useForm = ({ initialValues, validate }) => {
 
   const handleBlur = (field) => {
     setFocus((prev) => ({ ...prev, [field]: false }));
-    validateForm(); // Валидация при потере фокуса
+    validateForm();
+  };
+
+  const resetForm = () => {
+    setFormData(initialValues);
+    setErrors({});
   };
 
   const validateForm = () => {
@@ -43,5 +48,6 @@ export const useForm = ({ initialValues, validate }) => {
     handleFocus,
     handleBlur,
     validateForm,
+    resetForm,
   };
 };

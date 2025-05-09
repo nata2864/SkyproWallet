@@ -110,27 +110,3 @@ export const categorieName = [
 
 
 
-// Массив обьектов ошибок при отправки на сервер данных с формы
-export const validationSchema = {
-  email: [
-    { rule: 'required', message: 'Поле обязательно' },
-    { rule: 'email', message: 'Некорректный email' },
-  ],
-  username: [
-    { rule: 'required', message: 'Поле обязательно' },
-    { rule: 'username', message: 'Имя слишком короткое' },
-  ],
-  login: [
-    { rule: 'required', message: 'Поле обязательно' },
-    { rule: 'login', message: 'Пароль должен содержать не менее 5 знаков' },
-  ],
-  date: [
-    { rule: 'required', message: 'Поле обязательно' },
-    { rule: 'date', message: 'Некорректная дата' },
-  ],
-  amount: [
-    { rule: 'required', message: 'Поле обязательно' },
-    { rule: 'amount', message: 'Сумма должна быть положительным числом' },
-  ],
-};
-

@@ -2,12 +2,6 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
-//   :root {
-//     --color-primary: #1fa46c;
-//     --color-secondary: #333;
-//     --font-main: Montserrat, sans-serif;
-//   }
-
 * {
   margin: 0;
   padding: 0;
@@ -30,8 +24,7 @@ export const GlobalStyles = createGlobalStyle`
   } 
 
    ::placeholder {
-    font-family: 'Montserrat', sans-serif;
-   
+    font-family: 'Montserrat', sans-serif;   
 font-weight: 400;
 font-size: 12px;
 line-height: 100%;

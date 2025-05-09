@@ -1,20 +1,25 @@
 import * as S from "./AuthForm.styled";
 import { signIn, signUp } from "../../services/auth";
-
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { RoutesApp } from "../../const";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-
 import { useForm } from "../../hooks/useForm";
-
 
 function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
 
-  const { formData,focus, errors, handleChange, handleFocus, handleBlur, validateForm } = useForm({
+  const {
+    formData,
+    focus,
+    errors,
+    handleChange,
+    handleFocus,
+    handleBlur,
+    validateForm,
+  } = useForm({
     initialValues: {
       name: "",
       login: "",
@@ -55,7 +60,7 @@ function AuthForm({ isSignUp }) {
       }
 
       return { isValid, newErrors, messages };
-    }
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -63,7 +68,6 @@ function AuthForm({ isSignUp }) {
 
     // Выполняем валидацию
     const isValid = validateForm();
-
 
     if (!isValid) return;
 
@@ -84,7 +88,6 @@ function AuthForm({ isSignUp }) {
       toast.error(err.message || "Что-то пошло не так");
     }
   };
-
 
   return (
     <S.Wrapper>

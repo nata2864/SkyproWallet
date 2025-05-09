@@ -16,17 +16,16 @@ export async function fetchExpenses({ token }) {
 }
 
 export async function postExpense({ token, expense }) {
-    try {
-      console.log("Отправка объекта:", expense);
-      const data = await axios.post(API_URL, expense, {
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "",
-        },
-      });
-  
-      return data.data;
-    } catch (error) {
-      throw new Error(error.message);
-    }
+  try {
+    const data = await axios.post(API_URL, expense, {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "",
+      },
+    });
+
+    return data.data;
+  } catch (error) {
+    throw new Error(error.message);
   }
+}

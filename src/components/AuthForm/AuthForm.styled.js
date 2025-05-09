@@ -8,8 +8,6 @@ import { inputColors } from "../../const";
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
 `;
 
 export const Container = styled.div`
@@ -33,7 +31,6 @@ export const ModalBlok = styled.div`
   display: block;
   margin: 0 auto;
   background-color: #ffffff;
-
   padding: 32px;
   width: 100%;
   max-width: 380px;
@@ -77,9 +74,7 @@ export const InputAuthForm = styled(BasisInput)`
 export const AuthButton = styled(Button)`
   margin-top: 12px;
   margin-bottom: 24px;
-
-  background-color: ${(props) =>
-    props.disabled ? "rgba(153, 153, 153, 1)" : "rgba(31, 164, 108, 1)"};
+  background-color: ${(props) =>props.disabled ? "rgba(153, 153, 153, 1)" : "rgba(31, 164, 108, 1)"};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
