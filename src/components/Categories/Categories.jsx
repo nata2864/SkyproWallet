@@ -8,7 +8,7 @@ function Categories({onCategorySelect,selectedCategory}) {
     <STag
     key={index}
     onClick={() => onCategorySelect(item.value)}
-    active={selectedCategory === item.value} 
+    $isActive={selectedCategory === item.value} 
   >
     <img  src={
       selectedCategory === item.value
