@@ -4,10 +4,8 @@ import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
 import Categories from "../Categories/Categories";
 import { useForm } from "../../hooks/useForm";
 import { parse, format } from "date-fns";
-import { useContext
- } from "react";
- import { ExpenseContext } from "../../context/ExpenseContext";
-
+import { useContext } from "react";
+import { ExpenseContext } from "../../context/ExpenseContext";
 
 function ExpenseForm() {
   // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
@@ -27,6 +25,7 @@ function ExpenseForm() {
     handleFocus,
     handleBlur,
     validateForm,
+    resetForm,
   } = useForm({
     initialValues: { name: "", date: "", amount: "", category: "" },
 
@@ -91,35 +90,23 @@ function ExpenseForm() {
       return;
     }
 
-    // const formatDate = (inputDate) => {
-    //   console.log("Дата до форматирования:", formData.date);
-    //   const [day, month, year] = inputDate.split(".");
-    //   return `${month}-${day}-${year}`; 
-    // };
-
     const formatDate = (inputDate) => {
       const parsed = parse(inputDate, "dd.MM.yyyy", new Date());
       return format(parsed, "M-d-yyyy");
     };
-    
-
 
     const expense = {
       description: formData.name.trim(),
       sum: parseFloat(formData.amount),
       category: formData.category,
-      date: formatDate(formData.date), // формат "ММ-ДД-ГГГГ"
+      date: formatDate(formData.date),
     };
     try {
       await addNewExpense({ expense });
-
+      resetForm();
     } catch (err) {
       console.error(textErrors.addExpenseError, err.message);
     }
-    console.log({ expense });
-    console.log("formData:", formData);
-console.log("Дата до форматирования:", formData.date);
-console.log("После форматирования:", formatDate(formData.date));
   };
 
   return (

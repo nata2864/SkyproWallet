@@ -1,10 +1,8 @@
-import {useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { fetchExpenses, postExpense } from "../services/api";
 import { toast } from "react-toastify";
 import { textErrors } from "../const";
 import { ExpenseContext } from "./ExpenseContext";
-
-
 
 export const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
@@ -27,26 +25,17 @@ export const ExpenseProvider = ({ children }) => {
 
   const addNewExpense = async ({ expense }) => {
     try {
-      console.log("Adding new expense:", expense);
-      const newExpense = await postExpense({ token, expense });
-
-    
-
-      setExpenses(newExpense);
+      await postExpense({ token, expense });
+      await getExpenses();
     } catch (error) {
       console.error(textErrors.addExpenseError, error);
       toast.error(textErrors.addExpenseError);
     }
   };
 
-
-
   return (
-    <ExpenseContext.Provider
-      value={{ expenses, error, addNewExpense }}
-    >
+    <ExpenseContext.Provider value={{ expenses, error, addNewExpense }}>
       {children}
     </ExpenseContext.Provider>
   );
 };
-;
