@@ -22,8 +22,15 @@ const years = [currentYear - 1, currentYear, currentYear + 1]
 const CalendarMonth = ({ onRangeChange }) => {
     const [selected, setSelected] = useState([])
 
+    // const toggleMonth = (year, monthIndex) => {
+    //     const key = `${year}-${monthIndex}`
+    //     setSelected((prev) =>
+    //         prev.includes(key) ? prev.filter((m) => m !== key) : [...prev, key]
+    //     )
+    // }
+
     const toggleMonth = (year, monthIndex) => {
-        const key = `${year}-${monthIndex}`
+        const key = `${year}-${String(monthIndex).padStart(2, '0')}`
         setSelected((prev) =>
             prev.includes(key) ? prev.filter((m) => m !== key) : [...prev, key]
         )
