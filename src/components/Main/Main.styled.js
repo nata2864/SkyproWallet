@@ -8,6 +8,8 @@ export const SMain = styled.main`
   padding-bottom: 72px;
   box-sizing: border-box;
   width: 100%;
+  margin: 0 auto;
+  max-width: 1440px;
 `;
 export const SMainHeader = styled.h1`
   font-size: ${textSizes.largeH1.fontSize};
@@ -193,8 +195,14 @@ export const SCategoryFiltrationElement = styled.span`
   background: ${(props) =>
     props.$isSelected ? "rgb(219, 255, 233)" : "rgb(244, 245, 246)"};
   width: fit-content;
+  color: ${(props) =>
+    props.$isSelected ? "rgb(31, 164, 108)" : "rgb(0, 0, 0)"};
   > img {
     margin-right: 12px;
+    filter: ${(props) =>
+      props.$isSelected
+        ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(91%) contrast(87%)"
+        : "brightness(0) saturate(100%)"};
   }
 `;
 export const SSorting = styled.div`
@@ -222,4 +230,13 @@ export const SSortingElement = styled.div`
   background: ${(props) =>
     props.$isSelected ? "rgb(219, 255, 233)" : "rgb(244, 245, 246)"};
   width: fit-content;
+  color: ${(props) =>
+    props.$isSelected ? "rgb(31, 164, 108)" : "rgb(0, 0, 0)"};
+  > img {
+    margin-right: 12px;
+    filter: ${(props) =>
+      props.$isSelected
+        ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(91%) contrast(87%)"
+        : "brightness(0) saturate(100%)"};
+  }
 `;
