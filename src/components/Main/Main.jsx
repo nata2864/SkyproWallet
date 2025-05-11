@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   SMain,
   SMainHeader,
@@ -23,7 +24,6 @@ import {
   SCategoryLink,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import React, { useState } from "react";
 import { exspenses as data, categoryTranslations } from "../../const";
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
@@ -105,13 +105,19 @@ function Main() {
             <STableHeader>
               <SSectionTitle>Таблица расходов</SSectionTitle>
               <STableFilters>
-                <STableFiltersGroup>
+                <STableFiltersGroup
+                  onClick={() => {
+                    setIsOpenCategory(!isOpenCategory);
+                    if (isOpenSorting) {
+                      setIsOpenSorting(false);
+                    }
+                  }}
+                >
                   Фильтровать по категории
                   <SCategoryLink href="#">
                     {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
                   </SCategoryLink>
                   <svg
-                    onClick={() => setIsOpenCategory(!isOpenCategory)}
                     width="6.062134"
                     height="5.250000"
                     viewBox="0 0 6.06213 5.25"
@@ -147,13 +153,19 @@ function Main() {
                     </SCategoryFiltration>
                   )}
                 </STableFiltersGroup>
-                <STableFiltersGroup>
+                <STableFiltersGroup
+                  onClick={() => {
+                    setIsOpenSorting(!isOpenSorting);
+                    if (isOpenCategory) {
+                      setIsOpenCategory(false);
+                    }
+                  }}
+                >
                   Сортировать по
                   <SSortLink href="#">
                     {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
                   </SSortLink>
                   <svg
-                    onClick={() => setIsOpenSorting(!isOpenSorting)}
                     width="6.062134"
                     height="5.250000"
                     viewBox="0 0 6.06213 5.25"
