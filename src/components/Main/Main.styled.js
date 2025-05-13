@@ -3,13 +3,11 @@ import { textSizes } from "../../const";
 
 export const SMain = styled.main`
   background: rgb(244, 245, 246);
-  padding-left: 118px;
-  padding-right: 120px;
   padding-bottom: 72px;
   box-sizing: border-box;
   width: 100%;
   margin: 0 auto;
-  max-width: 1440px;
+  max-width: 1200px;
 `;
 export const SMainHeader = styled.h1`
   font-size: ${textSizes.largeH1.fontSize};
