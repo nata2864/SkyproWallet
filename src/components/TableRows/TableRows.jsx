@@ -6,8 +6,8 @@ import {
   SIcons,
 } from "./TableRows.styled";
 
-
-
+const MiniBucket = "/first-box/mini-bucket.svg";
+const MiniPen = "/first-box/mini-pen.svg";
 
 export const TableFirstRow = () => (
   <STableFirstRowHead>
@@ -21,7 +21,6 @@ export const TableFirstRow = () => (
   </STableFirstRowHead>
 );
 
-
 export const TableRow = ({
   description,
   category,
@@ -29,21 +28,19 @@ export const TableRow = ({
   amount,
   onEdit,
   onDelete,
-}) => {
-  return (
-    <STableOrderRow>
-      <td>{description}</td>
-      <td>{category}</td>
-      <td>{date}</td>
-      <td>{amount}</td>
-      <SIcons>
-        <IconButton onClick={onEdit}>
-          <img src="/first-box/mini-pen.svg" alt="Редактировать" />
-        </IconButton>
-        <IconButton onClick={onDelete}>
-          <img src= "/first-box/mini-bucket.svg" alt="Удалить" />
-        </IconButton>
-      </SIcons>
-    </STableOrderRow>
-  );
-};
+}) => (
+  <STableOrderRow>
+    <td>{description}</td>
+    <td>{category}</td>
+    <td>{date}</td>
+    <td>{amount}</td>
+    <SIcons>
+      <IconButton onClick={onEdit}>
+        <img src={MiniPen} alt="Редактировать" />
+      </IconButton>
+      <IconButton onClick={onDelete}>
+        <img src={MiniBucket} alt="Удалить" />
+      </IconButton>
+    </SIcons>
+  </STableOrderRow>
+);

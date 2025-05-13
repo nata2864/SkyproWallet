@@ -1,5 +1,6 @@
+import React, { useState } from "react";
 import {
-    SMain,
+  SMain,
   SMainHeader,
   STableHeader,
   STableSection,
@@ -23,17 +24,7 @@ import {
   SCategoryLink,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import ExpenseForm from "../ExpenseForm/ExpenseForm ";
-import { useContext } from "react";
-import { ExpenseContext } from "../../context/ExpenseContext";
-import { categoryTranslations } from "../../const";
-import { useState } from "react";
-// import {  format } from "date-fns";
-import { parseISO, format } from "date-fns";
-import { useEffect } from "react";
-
-
-
+import { exspenses as data, categoryTranslations } from "../../const";
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
 const MiniGames = "/second-box/mini-games.svg";
@@ -42,21 +33,12 @@ const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
-  const { expenses } = useContext(ExpenseContext);
-   const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
-  const [filteredData, setFilteredData] = useState( expenses);
-
-  useEffect(() => {
-  // Обновлять только если ничего не выбрано
-  if (!selectedCategory && !selectedSorting) {
-    setFilteredData(expenses);
-  }
-}, [expenses, selectedCategory, selectedSorting]);
-
-    const categories = [
+  const [filteredData, setFilteredData] = useState(data);
+  const categories = [
     { name: "Еда", icon: MiniFood },
     { name: "Транспорт", icon: MiniCar },
     { name: "Жилье", icon: MiniHouse },
@@ -64,26 +46,26 @@ function Main() {
     { name: "Образование", icon: MiniTeacher },
     { name: "Другое", icon: MiniOther },
   ];
-
-
-const formatDate = (dateString) => {
-  const parsedDate = parseISO(dateString);
-  return format(parsedDate, "dd.MM.yyyy");
-};
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
     const newCategory = category === selectedCategory ? false : category;
     setSelectedCategory(newCategory);
     if (!newCategory) {
-      setFilteredData( expenses);
+      setFilteredData(data);
     } else {
       const categoryKey = Object.keys(categoryTranslations).find(
         (key) => categoryTranslations[key] === category
       );
 
       setFilteredData(
-         expenses.filter((expense) => expense.category === categoryKey)
+        data.filter((expense) => expense.category === categoryKey)
       );
     }
   };
@@ -91,7 +73,7 @@ const formatDate = (dateString) => {
     const newSorting = sorting === selectedSorting ? false : sorting;
     setSelectedSorting(newSorting);
     if (!newSorting) {
-      setFilteredData( expenses);
+      setFilteredData(data);
     } else {
       setFilteredData((prevData) => {
         const sorted = [...prevData];
@@ -120,10 +102,17 @@ const formatDate = (dateString) => {
         <SMainHeader>Мои расходы</SMainHeader>
         <STables>
           <STableSection>
-             <STableHeader>
+            <STableHeader>
               <SSectionTitle>Таблица расходов</SSectionTitle>
               <STableFilters>
-                <STableFiltersGroup>
+                <STableFiltersGroup
+                  onClick={() => {
+                    setIsOpenCategory(!isOpenCategory);
+                    if (isOpenSorting) {
+                      setIsOpenSorting(false);
+                    }
+                  }}
+                >
                   Фильтровать по категории
                   <SCategoryLink href="#">
                     {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
@@ -165,7 +154,14 @@ const formatDate = (dateString) => {
                     </SCategoryFiltration>
                   )}
                 </STableFiltersGroup>
-                <STableFiltersGroup>
+                <STableFiltersGroup
+                  onClick={() => {
+                    setIsOpenSorting(!isOpenSorting);
+                    if (isOpenCategory) {
+                      setIsOpenCategory(false);
+                    }
+                  }}
+                >
                   Сортировать по
                   <SSortLink href="#">
                     {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
@@ -210,20 +206,21 @@ const formatDate = (dateString) => {
             </STableHeader>
             <SExpenseTable>
               <TableFirstRow />
-             <STableBodyWrapper>
-  {/* const [filteredData, setFilteredData] = useState( expenses); */}
-                {(Array.isArray(expenses) ? filteredData : []).map((item) => (
+              <STableBodyWrapper>
+                {filteredData.map((expense) => (
                   <TableRow
-                    key={item._id}
-                    description={item.description}
-                    category={categoryTranslations[item.category] || item.category}
-                     date={formatDate(item.date)}
-                    amount={`${item.sum.toLocaleString("ru-RU")} ₽`}
-                    onEdit={() => handleEdit(item._id)}
-                    onDelete={() => handleDelete(item._id)}
+                    key={expense._id}
+                    description={expense.description}
+                    category={
+                      categoryTranslations[expense.category] || expense.category
+                    }
+                    date={formatDate(expense.date)}
+                    amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
+                    onEdit={() => handleEdit(expense._id)}
+                    onDelete={() => handleDelete(expense._id)}
                   />
                 ))}
-                </STableBodyWrapper>
+              </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
           <ExpenseForm />
