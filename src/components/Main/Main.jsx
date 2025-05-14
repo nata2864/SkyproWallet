@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import {
-  SMain,
+    SMain,
   SMainHeader,
   STableHeader,
   STableSection,
@@ -24,7 +23,17 @@ import {
   SCategoryLink,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import { exspenses as data, categoryTranslations } from "../../const";
+import ExpenseForm from "../ExpenseForm/ExpenseForm ";
+import { useContext } from "react";
+import { ExpenseContext } from "../../context/ExpenseContext";
+import { categoryTranslations } from "../../const";
+import { useState } from "react";
+// import {  format } from "date-fns";
+import { parseISO, format } from "date-fns";
+import { useEffect } from "react";
+
+
+
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
 const MiniGames = "/second-box/mini-games.svg";
@@ -33,11 +42,19 @@ const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
-  const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const { expenses } = useContext(ExpenseContext);
+   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState( expenses);
+
+  useEffect(() => {
+  // Обновлять только если ничего не выбрано
+  if (!selectedCategory && !selectedSorting) {
+    setFilteredData(expenses);
+  }
+}, [expenses, selectedCategory, selectedSorting]);
   const categories = [
     { name: "Еда", icon: MiniFood },
     { name: "Транспорт", icon: MiniCar },
@@ -46,34 +63,34 @@ function Main() {
     { name: "Образование", icon: MiniTeacher },
     { name: "Другое", icon: MiniOther },
   ];
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
-  };
+ const formatDate = (dateString) => {
+  const parsedDate = parseISO(dateString);
+  return format(parsedDate, "dd.MM.yyyy");
+};
+
+
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
     const newCategory = category === selectedCategory ? false : category;
     setSelectedCategory(newCategory);
     if (!newCategory) {
-      setFilteredData(data);
+      setFilteredData( expenses);
     } else {
       const categoryKey = Object.keys(categoryTranslations).find(
         (key) => categoryTranslations[key] === category
       );
 
       setFilteredData(
-        data.filter((expense) => expense.category === categoryKey)
+         expenses.filter((expense) => expense.category === categoryKey)
       );
     }
   };
-  const handleSortingsSelect = (sorting) => {
+
+    const handleSortingsSelect = (sorting) => {
     const newSorting = sorting === selectedSorting ? false : sorting;
     setSelectedSorting(newSorting);
     if (!newSorting) {
-      setFilteredData(data);
+      setFilteredData( expenses);
     } else {
       setFilteredData((prevData) => {
         const sorted = [...prevData];
