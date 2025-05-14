@@ -37,7 +37,6 @@ export const CategoryTags = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  height:105px;
   margin-bottom: 24px;
 `;
 

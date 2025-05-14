@@ -13,9 +13,14 @@ export const STag = styled.span`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   padding: 8px 20px 8px 20px;
   img {
     margin-right: 12px;
+     filter: ${(props) =>
+      props.$isActive
+    ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(75%) contrast(80%)"
+    : "brightness(0) saturate(100%)"};
+  }
   }
 `;
