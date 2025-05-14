@@ -33,4 +33,13 @@ vertical-align: middle;
 color: rgba(153, 153, 153, 1);
 
   }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0px 1000px white inset !important; /* перекраска фона */
+  -webkit-text-fill-color: #000 !important; /* цвет текста */
+  transition: background-color 9999s ease-out, color 9999s ease-out;
+  transition-delay: 9999s;
   `;
