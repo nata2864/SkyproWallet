@@ -6,6 +6,9 @@ import { useForm } from "../../hooks/useForm";
 import { parse, format } from "date-fns";
 import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
+import { toast } from "react-toastify";
+import { validateEmptyFields } from "../../Validators/validateEmptyFields";
+import { validateExpenseErrors } from "../../Validators/expenceValidator";
 
 function ExpenseForm() {
   // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
@@ -30,61 +33,24 @@ function ExpenseForm() {
     initialValues: { name: "", date: "", amount: "", category: "" },
 
     validate: (values) => {
-      const newErrors = {
-        name: false,
-        date: false,
-        amount: false,
-        category: false,
-      };
-      let isValid = true;
-      const messages = [];
+  const requiredFields = ["name", "date", "amount", "category"];
+  const { hasEmpty, errors: emptyErrors } = validateEmptyFields(values, requiredFields);
 
-      const isNameEmpty = !values.name.trim();
-      const isDateEmpty = !values.date.trim();
-      const isAmountEmpty = !values.amount.trim();
-      const isCategoryEmpty = !values.category.trim();
+  if (hasEmpty) {
+    toast.error("Все поля должны быть заполнены");
+    return { isValid: false, newErrors: emptyErrors };
+  }
 
-      const isNameTooShort = !isNameEmpty && values.name.length < 4;
-      const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-      const isDateInvalid = !isDateEmpty && !dateRegex.test(values.date);
-      const isAmountInvalid =
-        !isAmountEmpty &&
-        (isNaN(values.amount) || parseFloat(values.amount) <= 0);
-
-      if (isNameEmpty || isDateEmpty || isAmountEmpty || isCategoryEmpty) {
-        if (isNameEmpty) newErrors.name = true;
-        if (isDateEmpty) newErrors.date = true;
-        if (isAmountEmpty) newErrors.amount = true;
-        if (isCategoryEmpty) newErrors.category = true;
-
-        messages.push("Все поля должны быть заполнены");
-        isValid = false;
-      }
-
-      if (isNameTooShort) {
-        newErrors.name = true;
-        messages.push("Наименование расхода должно быть не менее 4 символов");
-        isValid = false;
-      }
-
-      if (isDateInvalid) {
-        newErrors.date = true;
-        messages.push("Дата должна быть в формате MM.ДД.ГГГГ");
-        isValid = false;
-      }
-
-      if (isAmountInvalid) {
-        newErrors.amount = true;
-        messages.push("Введите корректную сумму больше 0");
-        isValid = false;
-      }
-
-      return { isValid, newErrors, messages };
-    },
+  const { isValid, errors: fieldErrors } = validateExpenseErrors(values);
+  return { isValid, newErrors: fieldErrors };
+}
+     
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
 
     if (!validateForm()) {
       return;

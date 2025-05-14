@@ -6,10 +6,15 @@ import { RoutesApp } from "../../const";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { useForm } from "../../hooks/useForm";
+import { validateEmptyFields } from "../../Validators/validateEmptyFields";
+import { validateLoginErrors } from "../../Validators/authValidator";
 
 function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
+  const initialValues = isSignUp
+    ? { name: "", login: "", password: "" }
+    : { login: "", password: "" };
 
   const {
     formData,
@@ -20,56 +25,30 @@ function AuthForm({ isSignUp }) {
     handleBlur,
     validateForm,
   } = useForm({
-    initialValues: {
-      name: "",
-      login: "",
-      password: "",
-    },
+    initialValues,
     validate: (values) => {
-      const newErrors = { name: false, login: false, password: false };
-      const messages = [];
-      let isValid = true;
-
-      // Валидация name
-      if (isSignUp && !values.name.trim()) {
-        newErrors.name = true;
-        messages.push("Поле 'Имя' обязательно.");
-        isValid = false;
+      const requiredFields = Object.keys(initialValues);
+      const { hasEmpty, errors: emptyErrors } = validateEmptyFields(
+        values,
+        requiredFields
+      );
+      if (hasEmpty) {
+        toast.error("Все поля должны быть заполнены");
+        return { isValid: false, newErrors: emptyErrors };
       }
 
-      // Валидация login (email)
-      if (!values.login.trim()) {
-        newErrors.login = true;
-        messages.push("Поле 'Email' обязательно.");
-        isValid = false;
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.login)) {
-        newErrors.login = true;
-        messages.push("Введите корректный email.");
-        isValid = false;
-      }
-
-      // Валидация password
-      if (!values.password.trim()) {
-        newErrors.password = true;
-        messages.push("Поле 'Пароль' обязательно.");
-        isValid = false;
-      } else if (values.password.length < 4) {
-        newErrors.password = true;
-        messages.push("Пароль должен быть не менее 4 символов.");
-        isValid = false;
-      }
-
-      return { isValid, newErrors, messages };
+      const { isValid, errors: fieldErrors } = validateLoginErrors(values);
+      console.log(isValid);
+      return { isValid, newErrors: fieldErrors };
     },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Выполняем валидацию
-    const isValid = validateForm();
-
-    if (!isValid) return;
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       const data = !isSignUp
@@ -100,7 +79,6 @@ function AuthForm({ isSignUp }) {
             <S.Form onSubmit={handleSubmit}>
               {isSignUp && (
                 <S.InputAuthForm
-                  type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
@@ -113,7 +91,7 @@ function AuthForm({ isSignUp }) {
               )}
 
               <S.InputAuthForm
-                type="email"
+                // type="email"
                 name="login"
                 value={formData.login}
                 onChange={handleChange}
