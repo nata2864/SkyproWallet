@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fetchExpenses } from "../../services/api";
 import {
   SMain,
   SMainHeader,
@@ -8,12 +9,6 @@ import {
   STableFilters,
   SSortLink,
   SExpenseTable,
-  // SFormAside,
-  // SExpenseForm,
-  // SInput,
-  // SCategoryTags,
-  // STag,
-  // SSubmitBtn,
   STables,
   SCategoryFiltration,
   SSorting,
@@ -24,7 +19,7 @@ import {
   SCategoryLink,
 } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import { exspenses as data, categoryTranslations } from "../../const";
+import { categoryTranslations } from "../../const";
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
 const MiniGames = "/second-box/mini-games.svg";
@@ -37,7 +32,22 @@ function Main() {
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
-  const [filteredData, setFilteredData] = useState(data);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const expenses = await fetchExpenses({ token });
+        setData(expenses);
+        setFilteredData(expenses);
+      } catch (error) {
+        console.error("Ошибка при загрузке расходов:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
   const categories = [
     { name: "Еда", icon: MiniFood },
     { name: "Транспорт", icon: MiniCar },
@@ -223,7 +233,7 @@ function Main() {
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
-          <ExpenseForm />
+          {/* <ExpenseForm /> */}
         </STables>
       </SMain>
     </>

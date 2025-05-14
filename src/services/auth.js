@@ -23,14 +23,6 @@ export async function signUp({ name, login, password }) {
         headers: {
           "Content-Type": "",
         },
-  try {
-    const data = await axios.post(
-      API_URL,
-      { login, name, password },
-      {
-        headers: {
-          "Content-Type": "",
-        },
       }
     );
     return data.data.user;
@@ -38,4 +30,3 @@ export async function signUp({ name, login, password }) {
     throw new Error(error.response.data.error);
   }
 }
-
