@@ -33,6 +33,7 @@ export const RoutesApp = {
   NOT_FOUND: "/*",
   LOGIN: "/login",
   ANALYSIS: "/analysis",
+  ANALYSIS: "/analysis",
 };
 
 //Обьект ошибок
@@ -64,49 +65,76 @@ export const inputColors = {
 
 export const buttonStyles = {
   active: {
-      color: '#1fa46c',
+    color: "#1fa46c",
   },
   error: {
-      color: '#999999',
+    color: "#999999",
   },
   mobile: {
-      with: '343px',
+    with: "343px",
   },
   desktop: {
-      with: '100%',
+    with: "100%",
   },
-}
-
-
+};
 
 // Массив обьектов для категорий расходов
 export const categorieName = [
-  { id: 1, name: "Еда",value: "food", srcIcon: {
-    default: "../src/assets/food/default.svg",
-    active: "../src/assets/food/active.svg"
-  }},
-  { id: 2, name: "Транспорт",value: "transport", srcIcon: {
-    default: "../src/assets/transport/default.svg",
-    active: "../src/assets/food/active.svg"
-  } },
-  { id: 3, name: "Жилье",value: "housing", srcIcon: {
-    default: "../src/assets/housing/default.svg",
-    active: "../src/assets/food/active.svg"
-  } },
-  { id: 4, name: "Развлечения",value: "joy",  srcIcon: {
-    default: "../src/assets/joy/default.svg",
-    active: "../src/assets/food/active.svg"
-  } },
-  { id: 5, name: "Образование",value: "education", srcIcon: {
-    default: "../src/assets/education/default.svg",
-    active: "../src/assets/food/active.svg"
-  } },
-  { id: 6, name: "Другое",value: "others",  srcIcon: {
-    default: "../src/assets/others/default.svg",
-    active: "../src/assets/food/active.svg"
-  } },
+  {
+    id: 1,
+    name: "Еда",
+    value: "food",
+    srcIcon: {
+      default: "../src/assets/food/default.svg",
+      active: "../src/assets/food/active.svg",
+    },
+  },
+  {
+    id: 2,
+    name: "Транспорт",
+    value: "transport",
+    srcIcon: {
+      default: "../src/assets/transport/default.svg",
+      active: "../src/assets/food/active.svg",
+    },
+  },
+  {
+    id: 3,
+    name: "Жилье",
+    value: "housing",
+    srcIcon: {
+      default: "../src/assets/housing/default.svg",
+      active: "../src/assets/food/active.svg",
+    },
+  },
+  {
+    id: 4,
+    name: "Развлечения",
+    value: "joy",
+    srcIcon: {
+      default: "../src/assets/joy/default.svg",
+      active: "../src/assets/food/active.svg",
+    },
+  },
+  {
+    id: 5,
+    name: "Образование",
+    value: "education",
+    srcIcon: {
+      default: "../src/assets/education/default.svg",
+      active: "../src/assets/food/active.svg",
+    },
+  },
+  {
+    id: 6,
+    name: "Другое",
+    value: "others",
+    srcIcon: {
+      default: "../src/assets/others/default.svg",
+      active: "../src/assets/food/active.svg",
+    },
+  },
 ];
-
 
 export const categoryTranslations = {
   food: "Еда",
@@ -116,7 +144,3 @@ export const categoryTranslations = {
   education: "Образование",
   others: "Другое",
 };
-
-
-
-

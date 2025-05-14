@@ -8,6 +8,8 @@ export const SMain = styled.main`
   padding-bottom: 72px;
   box-sizing: border-box;
   width: 100%;
+  margin: 0 auto;
+  max-width: 1440px;
 `;
 export const SMainHeader = styled.h1`
   font-size: ${textSizes.largeH1.fontSize};
@@ -30,7 +32,6 @@ export const STableSection = styled.section`
   border-radius: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding-left: 32px;
-  padding-right: 34px;
   padding-bottom: 7px;
   flex: 1 1 788px;
   overflow: auto;
@@ -42,6 +43,7 @@ export const STableHeader = styled.div`
   margin-bottom: 32px;
   align-items: center;
   justify-content: space-between;
+  margin-right: 34px;
 `;
 
 export const SSectionTitle = styled.h2`
@@ -63,14 +65,12 @@ export const STableFiltersGroup = styled.div`
   position: relative;
 `;
 
-
 export const SSortLink = styled.a`
   color: #16a34a;
   text-decoration: underline;
   text-underline-offset: 2px;
   font-weight: ${textSizes.medium.fontWeight};
 `;
-
 export const SCategoryLink = styled.a`
   color: #16a34a;
   text-decoration: underline;
@@ -82,7 +82,6 @@ export const SExpenseTable = styled.table`
   width: 100%;
   border-collapse: collapse;
 `;
-
 export const STableBodyWrapper = styled.tbody`
   display: block;
   max-height: 618px;
@@ -102,7 +101,6 @@ export const STableBodyWrapper = styled.tbody`
     background: #a8a8a8;
   }
 `;
-
 export const SExpenseForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -170,4 +168,66 @@ export const SSortingElement = styled.div`
     props.$isSelected ? "rgb(219, 255, 233)" : "rgb(244, 245, 246)"};
   width: fit-content;
 `;
-
+export const SCategoryFiltration = styled.div`
+  width: 176px;
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 0.5px solid rgb(153, 153, 153);
+  border-radius: 6px;
+  box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgb(255, 255, 255);
+  top: 20px;
+  right: 0px;
+`;
+export const SCategoryFiltrationElement = styled.span`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px 8px 20px;
+  border-radius: 30px;
+  background: ${(props) =>
+    props.$isSelected ? "rgb(219, 255, 233)" : "rgb(244, 245, 246)"};
+  width: fit-content;
+  color: ${(props) =>
+    props.$isSelected ? "rgb(31, 164, 108)" : "rgb(0, 0, 0)"};
+  > img {
+    margin-right: 12px;
+    filter: ${(props) =>
+      props.$isSelected
+        ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(91%) contrast(87%)"
+        : "brightness(0) saturate(100%)"};
+  }
+`;
+export const SSorting = styled.div`
+  width: 106px;
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 0.5px solid rgb(153, 153, 153);
+  border-radius: 6px;
+  box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgb(255, 255, 255);
+  top: 20px;
+  right: 0px;
+`;
+export const SSortingElement = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px 8px 20px;
+  border-radius: 30px;
+  background: ${(props) =>
+    props.$isSelected ? "rgb(219, 255, 233)" : "rgb(244, 245, 246)"};
+  width: fit-content;
+  color: ${(props) =>
+    props.$isSelected ? "rgb(31, 164, 108)" : "rgb(0, 0, 0)"};
+`;
