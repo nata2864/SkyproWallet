@@ -30,4 +30,18 @@ export async function postExpense({ token, expense }) {
   }
 }
 
+export async function patchExpense({ token, id, expense}) {
+    try {
+        const data = await axios.patch(API_URL + id, expense, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            'Content-Type': 'text/html',
+        },
+        })
+        return data.data
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
+
 
