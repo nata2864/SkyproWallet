@@ -48,6 +48,10 @@ function Main() {
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
   const [filteredData, setFilteredData] = useState( expenses);
+  const [editingExpenseId, setEditingExpenseId] = useState(null);
+
+
+    
 
   useEffect(() => {
   // Обновлять только если ничего не выбрано
@@ -106,6 +110,7 @@ function Main() {
 
   const handleEdit = (id) => {
     console.log("Редактировать запись с id:", id);
+    setEditingExpenseId(id);
   };
 
   const handleDelete = (id) => {
@@ -240,7 +245,7 @@ function Main() {
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
-          <ExpenseForm />
+          <ExpenseForm editingExpenseId={editingExpenseId}/>
         </STables>
       </SMain>
     </>

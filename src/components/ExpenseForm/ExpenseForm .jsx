@@ -10,11 +10,15 @@ import { toast } from "react-toastify";
 import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
 
-function ExpenseForm() {
+
+function ExpenseForm({editingExpenseId}) {
   // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
   const isExitExpenseForm = false;
 
-  const { addNewExpense } = useContext(ExpenseContext);
+  const { addNewExpense, editExpense, expenses } = useContext(ExpenseContext);
+ 
+const editingExpense = expenses.find((expense) => expense._id === editingExpenseId);
+  
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
