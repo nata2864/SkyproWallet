@@ -13,11 +13,10 @@ import { useEffect } from "react";
 
 
 
-function ExpenseForm({editingExpenseId, onEditComplete}) {
-  // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
-  const isExitExpenseForm = false;
+function ExpenseForm({editingExpenseId}) {
 
-  const { addNewExpense, editExpense, expenses } = useContext(ExpenseContext);
+
+  const { addNewExpense, expenses } = useContext(ExpenseContext);
  
 const editingExpense = expenses.find((expense) => expense._id === editingExpenseId);
 
@@ -69,6 +68,7 @@ console.log("editingExpense:", editingExpense);
     } else {
       resetForm(); 
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editingExpenseId]);
 
   const handleSubmit = async (e) => {
