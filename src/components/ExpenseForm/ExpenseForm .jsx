@@ -9,15 +9,21 @@ import { ExpenseContext } from "../../context/ExpenseContext";
 import { toast } from "react-toastify";
 import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
+import { useEffect } from "react";
 
 
-function ExpenseForm({editingExpenseId}) {
+
+function ExpenseForm({editingExpenseId, onEditComplete}) {
   // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
   const isExitExpenseForm = false;
 
   const { addNewExpense, editExpense, expenses } = useContext(ExpenseContext);
  
 const editingExpense = expenses.find((expense) => expense._id === editingExpenseId);
+
+console.log("editingExpenseId:", editingExpenseId);
+
+console.log("editingExpense:", editingExpense);
   
 
   const handleCategoryChange = (category) => {
@@ -33,6 +39,7 @@ const editingExpense = expenses.find((expense) => expense._id === editingExpense
     handleBlur,
     validateForm,
     resetForm,
+     setFormData,
   } = useForm({
     initialValues: { name: "", date: "", amount: "", category: "" },
 
@@ -50,6 +57,19 @@ const editingExpense = expenses.find((expense) => expense._id === editingExpense
 }
      
   });
+
+    useEffect(() => {
+    if (editingExpense) {
+      setFormData({
+        name: editingExpense.description,
+        date: editingExpense.date,
+        amount: editingExpense.sum.toString(),
+        category: editingExpense.category,
+      });
+    } else {
+      resetForm(); 
+    }
+  }, [editingExpenseId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +102,7 @@ const editingExpense = expenses.find((expense) => expense._id === editingExpense
   return (
     <ModalBlok>
       <S.TitleForm>
-        {isExitExpenseForm ? "Редактирование" : "Новый расход"}
+         {editingExpenseId ? "Редактирование" : "Новый расход"}
       </S.TitleForm>
       <Form onSubmit={handleSubmit}>
         <S.InputTitle>Описание</S.InputTitle>
@@ -134,7 +154,7 @@ const editingExpense = expenses.find((expense) => expense._id === editingExpense
           type="submit"
           disabled={Object.values(errors).some((err) => err)}
         >
-          Добавить новый расход
+       {editingExpenseId ? "Сохранить редактирование" : "Добавить новый расход"}
         </S.ExpenseButton>
       </Form>
     </ModalBlok>

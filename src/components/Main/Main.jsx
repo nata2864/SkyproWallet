@@ -41,7 +41,7 @@ function Main() {
   const [selectedSorting, setSelectedSorting] = useState(false);
   const [filteredData, setFilteredData] = useState(expenses);
   const [editingExpenseId, setEditingExpenseId] = useState(null);
-   const [isFormOpen, setIsFormOpen] = useState(false);
+
 
   useEffect(() => {
     // Обновлять только если ничего не выбрано
@@ -99,12 +99,11 @@ function Main() {
 
  const handleEditClick = (expenseId) => {
     setEditingExpenseId(expenseId);
-    setIsFormOpen(true);
+
   };
 
-  const closeForm = () => {
+  const handleEditComplete = () => {
     setEditingExpenseId(null);
-    setIsFormOpen(false);
   };
 
   const handleDelete = (id) => {
@@ -232,14 +231,17 @@ function Main() {
                     }
                     date={formatDate(expense.date)}
                     amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
-                    onEdit={handleEditClick}
+                    onEdit={() => handleEditClick(expense._id)}
                     onDelete={() => handleDelete(expense._id)}
                   />
                 ))}
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
-          <ExpenseForm  editingExpenseId={editingExpenseId} onClose={closeForm} />
+         <ExpenseForm
+        editingExpenseId={editingExpenseId}
+        onEditComplete={handleEditComplete}
+      />
         </STables>
       </SMain>
     </>
