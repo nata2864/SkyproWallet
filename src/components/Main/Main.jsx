@@ -1,5 +1,5 @@
 import {
-    SMain,
+  SMain,
   SMainHeader,
   STableHeader,
   STableSection,
@@ -7,12 +7,6 @@ import {
   STableFilters,
   SSortLink,
   SExpenseTable,
-  // SFormAside,
-  // SExpenseForm,
-  // SInput,
-  // SCategoryTags,
-  // STag,
-  // SSubmitBtn,
   STables,
   SCategoryFiltration,
   SSorting,
@@ -28,11 +22,9 @@ import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
 import { categoryTranslations } from "../../const";
 import { useState } from "react";
-// import {  format } from "date-fns";
+
 import { parseISO, format } from "date-fns";
 import { useEffect } from "react";
-
-
 
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
@@ -43,22 +35,20 @@ const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
   const { expenses } = useContext(ExpenseContext);
-   const [isOpenCategory, setIsOpenCategory] = useState(false);
+  const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
-  const [filteredData, setFilteredData] = useState( expenses);
+  const [filteredData, setFilteredData] = useState(expenses);
   const [editingExpenseId, setEditingExpenseId] = useState(null);
-
-
-    
+   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
-  // Обновлять только если ничего не выбрано
-  if (!selectedCategory && !selectedSorting) {
-    setFilteredData(expenses);
-  }
-}, [expenses, selectedCategory, selectedSorting]);
+    // Обновлять только если ничего не выбрано
+    if (!selectedCategory && !selectedSorting) {
+      setFilteredData(expenses);
+    }
+  }, [expenses, selectedCategory, selectedSorting]);
   const categories = [
     { name: "Еда", icon: MiniFood },
     { name: "Транспорт", icon: MiniCar },
@@ -67,34 +57,33 @@ function Main() {
     { name: "Образование", icon: MiniTeacher },
     { name: "Другое", icon: MiniOther },
   ];
- const formatDate = (dateString) => {
-  const parsedDate = parseISO(dateString);
-  return format(parsedDate, "dd.MM.yyyy");
-};
-
+  const formatDate = (dateString) => {
+    const parsedDate = parseISO(dateString);
+    return format(parsedDate, "dd.MM.yyyy");
+  };
 
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
     const newCategory = category === selectedCategory ? false : category;
     setSelectedCategory(newCategory);
     if (!newCategory) {
-      setFilteredData( expenses);
+      setFilteredData(expenses);
     } else {
       const categoryKey = Object.keys(categoryTranslations).find(
         (key) => categoryTranslations[key] === category
       );
 
       setFilteredData(
-         expenses.filter((expense) => expense.category === categoryKey)
+        expenses.filter((expense) => expense.category === categoryKey)
       );
     }
   };
 
-    const handleSortingsSelect = (sorting) => {
+  const handleSortingsSelect = (sorting) => {
     const newSorting = sorting === selectedSorting ? false : sorting;
     setSelectedSorting(newSorting);
     if (!newSorting) {
-      setFilteredData( expenses);
+      setFilteredData(expenses);
     } else {
       setFilteredData((prevData) => {
         const sorted = [...prevData];
@@ -108,9 +97,14 @@ function Main() {
     }
   };
 
-  const handleEdit = (id) => {
-    console.log("Редактировать запись с id:", id);
-    setEditingExpenseId(id);
+ const handleEditClick = (expenseId) => {
+    setEditingExpenseId(expenseId);
+    setIsFormOpen(true);
+  };
+
+  const closeForm = () => {
+    setEditingExpenseId(null);
+    setIsFormOpen(false);
   };
 
   const handleDelete = (id) => {
@@ -238,14 +232,14 @@ function Main() {
                     }
                     date={formatDate(expense.date)}
                     amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
-                    onEdit={() => handleEdit(expense._id)}
+                    onEdit={handleEditClick}
                     onDelete={() => handleDelete(expense._id)}
                   />
                 ))}
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
-          <ExpenseForm editingExpenseId={editingExpenseId}/>
+          <ExpenseForm  editingExpenseId={editingExpenseId} onClose={closeForm} />
         </STables>
       </SMain>
     </>
