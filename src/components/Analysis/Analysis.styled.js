@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom'
 
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
-    background-color: #f1f1f1;
-    overflow-x: hidden;
+    /* background-color: #f1f1f1; */
+    /* overflow-x: hidden; */
+    width: 100%;
 `
 
 export const AnalysisHeader = styled.h1`
@@ -20,13 +21,19 @@ export const AnalysisHeader = styled.h1`
 export const AnalysisExspenseContainer = styled.div`
     display: flex;
     gap: 34px;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
     padding-left: calc(8.3%);
     padding-right: calc(8.3%);
     box-sizing: border-box;
     width: 100%;
+    @media (max-width: 800px) {
+        flex-wrap: wrap;
+    }
 `
 export const AnalysisTableContainer = styled.div`
-    width: 789px;
+    min-width: 789px;
+    max-width: 100%;
     height: 618px;
     border-radius: 30px;
     background-color: #fff;

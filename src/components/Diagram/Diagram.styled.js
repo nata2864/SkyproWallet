@@ -22,8 +22,8 @@ export const TotalAmount = styled.h2`
 `
 
 export const Subtext = styled.p`
-display: flex;
-gap: 3px;
+    display: flex;
+    gap: 3px;
     color: #999999;
     font-size: ${textSizes.small.fontSize};
     font-weight: ${textSizes.small.fontWeight};
@@ -32,15 +32,13 @@ export const SubtextSpan = styled.span`
     font-weight: ${textSizes.medium.fontWeight};
     color: #999999;
     font-size: ${textSizes.small.fontSize};
-    
 `
 export const Chart = styled.div`
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     gap: 32px;
-    height:387px;
-   
+    height: 465px;
 `
 
 export const BarBlock = styled.div`
@@ -50,14 +48,13 @@ export const BarBlock = styled.div`
     align-items: center;
     gap: 12px;
     width: 100px;
-    height:100%;
-   
+    height: 100%;
 `
 
 export const ValueText = styled.span`
     font-size: 14px;
     font-weight: 600;
- 
+
     /* height: 100%; */
 `
 
@@ -67,7 +64,6 @@ export const Bar = styled.div`
     transition: height 0.3s ease;
     height: ${({ height }) => height}%;
     min-height: 4px;
-   
 `
 
 export const Label = styled.span`
