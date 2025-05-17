@@ -38,7 +38,6 @@ function AuthForm({ isSignUp }) {
       }
 
       const { isValid, errors: fieldErrors } = validateLoginErrors(values);
-      console.log(isValid);
       return { isValid, newErrors: fieldErrors };
     },
   });

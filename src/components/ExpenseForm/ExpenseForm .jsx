@@ -11,16 +11,13 @@ import { validateExpenseErrors } from "../../Validators/expenceValidator";
 import { useEffect } from "react";
 import { formatedDate, formatedInputDate } from "../../utils";
 
-function ExpenseForm({ editingExpenseId, onEditComplete }) {
+function ExpenseForm({ selectedExpense, onEditComplete }) {
   const { addNewExpense, expenses, editExpense } = useContext(ExpenseContext);
 
   const editingExpense = expenses.find(
-    (expense) => expense._id === editingExpenseId
+    (expense) => expense._id === selectedExpense
   );
 
-  console.log("editingExpenseId:", editingExpenseId);
-
-  console.log("editingExpense:", editingExpense);
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
@@ -68,7 +65,7 @@ function ExpenseForm({ editingExpenseId, onEditComplete }) {
       resetForm();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editingExpenseId]);
+  }, [selectedExpense]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,10 +81,10 @@ function ExpenseForm({ editingExpenseId, onEditComplete }) {
       date: formatedInputDate(formData.date),
     };
     try {
-      if (editingExpenseId) {
-        console.log("ID для редактирования:", editingExpenseId);
+      if (selectedExpense) {
+        console.log("ID для редактирования:", selectedExpense);
         console.log("Отправляемый expense:", expense);
-        await editExpense({ id: editingExpenseId, expense });
+        await editExpense({ id: selectedExpense, expense });
         toast.success("Расход обновлён");
         onEditComplete();
       } else {
@@ -104,7 +101,7 @@ function ExpenseForm({ editingExpenseId, onEditComplete }) {
   return (
     <ModalBlok>
       <S.TitleForm>
-        {editingExpenseId ? "Редактирование" : "Новый расход"}
+        {selectedExpense ? "Редактирование" : "Новый расход"}
       </S.TitleForm>
       <Form onSubmit={handleSubmit}>
         <S.InputTitle>Описание</S.InputTitle>
@@ -156,7 +153,7 @@ function ExpenseForm({ editingExpenseId, onEditComplete }) {
           type="submit"
           disabled={Object.values(errors).some((err) => err)}
         >
-          {editingExpenseId
+          {selectedExpense
             ? "Сохранить редактирование"
             : "Добавить новый расход"}
         </S.ExpenseButton>

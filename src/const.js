@@ -29,8 +29,6 @@ export const API_URL = "https://wedev-api.sky.pro/api/user";
 export const API_URL_NEW = "https://wedev-api.sky.pro/api/transactions";
 
 
-// // Апи для рдактирования и удаления расхода
-// export const API_URL_EDIT ="https://wedev-api.sky.pro/api/transactions/:id";
 
 // Eindpoints для адресной строки
 export const RoutesApp = {
@@ -46,8 +44,7 @@ export const RoutesApp = {
 //Обьект ошибок
 export const textErrors = {
   signInAndSignUpError:
-    "Упс! Введенные вами данные не корректны. Введите данные корректно и повторите попытку.",
-
+  "Упс! Введенные вами данные не корректны. Введите данные корректно и повторите попытку.",
   addExpenseError: "Ошибка добавления расхода",
   updateExpenseError: "Ошибка редактирования расхода",
   deleteExpenseError: "Ошибка удаления расхода",

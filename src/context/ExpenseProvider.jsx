@@ -1,5 +1,10 @@
 import { useCallback, useState, useEffect } from "react";
-import { fetchExpenses, postExpense, patchExpense } from "../services/api";
+import {
+  fetchExpenses,
+  postExpense,
+  patchExpense,
+  deleteExpense,
+} from "../services/api";
 import { toast } from "react-toastify";
 import { textErrors } from "../const";
 import { ExpenseContext } from "./ExpenseContext";
@@ -43,9 +48,19 @@ export const ExpenseProvider = ({ children }) => {
     }
   };
 
+  const deleteExpenseByID = async ({ id }) => {
+    try {
+      await deleteExpense({ token: token, id });
+      await getExpenses();
+    } catch (error) {
+      toast.error(textErrors.deleteExpenseError);
+      console.error(textErrors.deleteExpenseError, error);
+    }
+  };
+
   return (
     <ExpenseContext.Provider
-      value={{ expenses, error, addNewExpense, editExpense }}
+      value={{ expenses, error, addNewExpense, editExpense, deleteExpenseByID }}
     >
       {children}
     </ExpenseContext.Provider>

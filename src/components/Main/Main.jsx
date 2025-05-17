@@ -33,13 +33,14 @@ const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
-  const { expenses } = useContext(ExpenseContext);
+  const { expenses,deleteExpenseByID } = useContext(ExpenseContext);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(false);
   const [selectedSorting, setSelectedSorting] = useState(false);
   const [filteredData, setFilteredData] = useState(expenses);
-  const [editingExpenseId, setEditingExpenseId] = useState(null);
+  const [selectedExpense, setSelectedExpense] = useState(null);
+
 
 
   useEffect(() => {
@@ -56,10 +57,6 @@ function Main() {
     { name: "Образование", icon: MiniTeacher },
     { name: "Другое", icon: MiniOther },
   ];
-  // const formatDate = (dateString) => {
-  //   const parsedDate = parseISO(dateString);
-  //   return format(parsedDate, "dd.MM.yyyy");
-  // };
 
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
@@ -96,21 +93,19 @@ function Main() {
     }
   };
 
- const handleEditClick = (expenseId) => {
-    setEditingExpenseId(expenseId);
-
+  const handleEditClick = (expenseId) => {
+    setSelectedExpense(expenseId);
   };
 
   const handleEditComplete = () => {
-    setEditingExpenseId(null);
+    setSelectedExpense(null);
   };
 
- 
+const handleDelete = async (expenseId) => {
+  await deleteExpenseByID({ id: expenseId });
 
-  const handleDelete = (id) => {
-    console.log("Удалить запись с id:", id);
-  };
-  // На стадии примера - потом необходимо доработать обработчики с API
+};
+
 
   return (
     <>
@@ -239,10 +234,10 @@ function Main() {
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
-         <ExpenseForm
-        editingExpenseId={editingExpenseId}
-        onEditComplete={handleEditComplete}
-      />
+          <ExpenseForm
+            selectedExpense={selectedExpense}
+            onEditComplete={handleEditComplete}
+          />
         </STables>
       </SMain>
     </>
