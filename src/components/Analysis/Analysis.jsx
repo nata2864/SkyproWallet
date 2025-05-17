@@ -6,21 +6,13 @@ import { useState, useEffect, useCallback, useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import { sortByCategorie } from '../../utils'
 import { ExpenseContext } from '../../context/ExpenseContext'
-// import { data } from 'react-router-dom'
 
 function Analysis() {
     const { expenses } = useContext(ExpenseContext)
     const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
     const [filter, setMode] = useState(true)
-    // const [expenses, setData] = useState([])
     const [period, setPeriod] = useState('все время')
     const [diagramData, setDiagramData] = useState({})
-    // const [diagramSum, setDiagramData] = useState({})
-    // const [loading, setLoading] = useState(true)
-    // const [error, setError] = useState('')
-    // const { user } = useContext(AuthContext)
-
-    console.log(period)
     const handleRangeChange = useCallback(
         (range) => {
             if (!range?.start || !range?.end) return
@@ -63,13 +55,12 @@ function Analysis() {
         }
     }, [expenses])
 
-
     return (
         <S.Analysis>
             <S.AnalysisHeader>Анализ расходов</S.AnalysisHeader>
 
             <S.AnalysisExspenseContainer>
-                <S.AnalysisExpenseContainer>
+                <S.AnalysisCalendarContainer>
                     <S.CalendarHeaderContainer>
                         <S.CalendarHeader>
                             <S.CalendarHeaderTitle>
@@ -104,20 +95,16 @@ function Analysis() {
                         {filter ? (
                             <Calendar onRangeChange={handleRangeChange} />
                         ) : (
-                          
                             <CalendarMonth onRangeChange={handleRangeChange} />
                         )}
-
                     </S.CalendarBody>
-                </S.AnalysisExpenseContainer>
+                </S.AnalysisCalendarContainer>
 
                 <S.AnalysisTableContainer>
                     <S.AnalysisTableHeaderblock>
                         <Diagram
-
                             diagramData={diagramData}
                             period={period}
-
                         ></Diagram>
                         {/* <S.AnalysisTableHeader>Таблица расходов</S.AnalysisTableHeader> */}
                         <S.AnalysisTableHeaderFilterBlock></S.AnalysisTableHeaderFilterBlock>

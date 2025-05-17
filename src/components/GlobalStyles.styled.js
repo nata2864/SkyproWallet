@@ -8,6 +8,11 @@ export const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #27ae60;
+    --bg-color: #ffff;
+  }
+
   *:before,
   *:after {
     box-sizing: border-box;
@@ -42,4 +47,5 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #000 !important;
   transition: background-color 9999s ease-out, color 9999s ease-out;
   transition-delay: 9999s;
-  `;
+}
+`;

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { textSizes, buttonStyles } from '../../const'
-import { NavLink } from 'react-router-dom'
+
 
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
@@ -10,7 +10,6 @@ export const Analysis = styled.div`
 `
 
 export const AnalysisHeader = styled.h1`
-    font: var(--font-main);
     font-size: ${textSizes.largeH1.fontSize};
     font-weight: ${textSizes.largeH1.fontWeight};
     color: ${textSizes.largeH1.color};
@@ -31,6 +30,15 @@ export const AnalysisExspenseContainer = styled.div`
         flex-wrap: wrap;
     }
 `
+export const AnalysisCalendarContainer = styled.div`
+    box-sizing: border-box;
+    background-color: var(--bg-color);
+    width: 100%;
+    @media (max-width: 800px) {
+        display:none;
+    }
+`
+
 export const AnalysisTableContainer = styled.div`
     min-width: 789px;
     max-width: 100%;
@@ -43,7 +51,7 @@ export const AnalysisTableHeaderblock = styled.div`
 `
 
 export const AnalysisTableHeader = styled.h2`
-    font: var(--font-main);
+    
     font-size: ${textSizes.largeH2.fontSize};
     font-weight: ${textSizes.largeH2.fontWeight};
     color: ${textSizes.largeH1.color};
@@ -60,7 +68,7 @@ export const AnalysisExpenseContainer = styled.div`
     max-width: 400px;
     height: 618px;
     border-radius: 30px;
-    background-color: #fff;
+    background-color: var(--bg-color);
 `
 
 export const CalendarHeaderContainer = styled.div`
