@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { textSizes } from "../../const";
 
-export const STag = styled.span`
-  background-color: ${({ $isActive }) =>
-    $isActive ? "rgba(219, 255, 233, 1)" : "#f3f4f6"};
-  color: ${({ $isActive }) =>
-    $isActive? " rgba(31, 164, 108, 1)" : " rgba(0, 0, 0, 1)"};
+export const Tag = styled.span`
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "rgba(219, 255, 233, 1)" : "#f3f4f6"};
+  color: ${({ $isSelected }) =>
+    $isSelected? " rgba(31, 164, 108, 1)" : " rgba(0, 0, 0, 1)"};
   border-radius: 30px;
   font-size: ${textSizes.small.fontSize};
   font-weight: ${textSizes.small.fontWeight};
@@ -18,7 +18,7 @@ export const STag = styled.span`
   img {
     margin-right: 12px;
      filter: ${(props) =>
-      props.$isActive
+      props.$isSelected
     ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(75%) contrast(80%)"
     : "brightness(0) saturate(100%)"};
   }

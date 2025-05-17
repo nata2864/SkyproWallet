@@ -10,6 +10,7 @@ import {
   SSortLink,
 } from "./Fiters.styled";
 import { categoryTranslations } from "../../const";
+import { Tag } from "../Categories/Categories.styled";
 
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
@@ -103,7 +104,7 @@ function Filters({
         {isOpenCategory && (
           <SCategoryFiltration>
             {categories.map((category) => (
-              <SCategoryFiltrationElement
+              <Tag
                 key={category.name}
                 onClick={() => {
                   handleCategorySelect(category.name);
@@ -113,7 +114,7 @@ function Filters({
               >
                 <img src={category.icon} alt="icon" />
                 {category.name}
-              </SCategoryFiltrationElement>
+              </Tag>
             ))}
           </SCategoryFiltration>
         )}
