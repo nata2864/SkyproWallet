@@ -8,10 +8,12 @@ let expenses = [
     { name: 'Другое', latinName: 'others', value: 0, color: '#FFB9B8' },
 ]
 
+
 export default function Diagram({ diagramData, period }) {
     const max = Math.max(...expenses.map((e) => e.value))
     let totalSum = 0
     console.log(period)
+
 
     expenses = expenses.map((item) => {
         const value = diagramData[item.latinName] || 0

@@ -7,11 +7,25 @@ import { parse, format } from "date-fns";
 import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
 
-function ExpenseForm() {
-  // Временно добавлено для проверки, что наименование формы меняется. Далее измения будут происходить после нажатия на кнопку "Редактировать" в таблице расхода
-  const isExitExpenseForm = false;
+import { toast } from "react-toastify";
+import { validateEmptyFields } from "../../Validators/validateEmptyFields";
+import { validateExpenseErrors } from "../../Validators/expenceValidator";
+import { useEffect } from "react";
 
-  const { addNewExpense } = useContext(ExpenseContext);
+
+
+function ExpenseForm({editingExpenseId}) {
+
+
+  const { addNewExpense, expenses } = useContext(ExpenseContext);
+ 
+const editingExpense = expenses.find((expense) => expense._id === editingExpenseId);
+
+console.log("editingExpenseId:", editingExpenseId);
+
+console.log("editingExpense:", editingExpense);
+  
+
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
@@ -26,62 +40,39 @@ function ExpenseForm() {
     handleBlur,
     validateForm,
     resetForm,
+
   } = useForm({
     initialValues: { name: "", date: "", amount: "", category: "" },
 
     validate: (values) => {
-      const newErrors = {
-        name: false,
-        date: false,
-        amount: false,
-        category: false,
-      };
-      let isValid = true;
-      const messages = [];
 
-      const isNameEmpty = !values.name.trim();
-      const isDateEmpty = !values.date.trim();
-      const isAmountEmpty = !values.amount.trim();
-      const isCategoryEmpty = !values.category.trim();
+  const requiredFields = ["name", "date", "amount", "category"];
+  const { hasEmpty, errors: emptyErrors } = validateEmptyFields(values, requiredFields);
 
-      const isNameTooShort = !isNameEmpty && values.name.length < 4;
-      const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-      const isDateInvalid = !isDateEmpty && !dateRegex.test(values.date);
-      const isAmountInvalid =
-        !isAmountEmpty &&
-        (isNaN(values.amount) || parseFloat(values.amount) <= 0);
+  if (hasEmpty) {
+    toast.error("Все поля должны быть заполнены");
+    return { isValid: false, newErrors: emptyErrors };
+  }
 
-      if (isNameEmpty || isDateEmpty || isAmountEmpty || isCategoryEmpty) {
-        if (isNameEmpty) newErrors.name = true;
-        if (isDateEmpty) newErrors.date = true;
-        if (isAmountEmpty) newErrors.amount = true;
-        if (isCategoryEmpty) newErrors.category = true;
-
-        messages.push("Все поля должны быть заполнены");
-        isValid = false;
-      }
-
-      if (isNameTooShort) {
-        newErrors.name = true;
-        messages.push("Наименование расхода должно быть не менее 4 символов");
-        isValid = false;
-      }
-
-      if (isDateInvalid) {
-        newErrors.date = true;
-        messages.push("Дата должна быть в формате MM.ДД.ГГГГ");
-        isValid = false;
-      }
-
-      if (isAmountInvalid) {
-        newErrors.amount = true;
-        messages.push("Введите корректную сумму больше 0");
-        isValid = false;
-      }
-
-      return { isValid, newErrors, messages };
-    },
+  const { isValid, errors: fieldErrors } = validateExpenseErrors(values);
+  return { isValid, newErrors: fieldErrors };
+}
+     
   });
+
+    useEffect(() => {
+    if (editingExpense) {
+      setFormData({
+        name: editingExpense.description,
+        date: editingExpense.date,
+        amount: editingExpense.sum.toString(),
+        category: editingExpense.category,
+      });
+    } else {
+      resetForm(); 
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingExpenseId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,7 +103,9 @@ function ExpenseForm() {
   return (
     <ModalBlok>
       <S.TitleForm>
-        {isExitExpenseForm ? "Редактирование" : "Новый расход"}
+
+         {editingExpenseId ? "Редактирование" : "Новый расход"}
+
       </S.TitleForm>
       <Form onSubmit={handleSubmit}>
         <S.InputTitle>Описание</S.InputTitle>
@@ -164,7 +157,9 @@ function ExpenseForm() {
           type="submit"
           disabled={Object.values(errors).some((err) => err)}
         >
-          Добавить новый расход
+
+       {editingExpenseId ? "Сохранить редактирование" : "Добавить новый расход"}
+
         </S.ExpenseButton>
       </Form>
     </ModalBlok>

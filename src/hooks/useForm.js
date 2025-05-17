@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+
+
+
 
 export const useForm = ({ initialValues, validate }) => {
   const [formData, setFormData] = useState(initialValues);
@@ -22,7 +24,8 @@ export const useForm = ({ initialValues, validate }) => {
 
   const handleBlur = (field) => {
     setFocus((prev) => ({ ...prev, [field]: false }));
-    validateForm();
+
+
   };
 
   const resetForm = () => {
@@ -31,10 +34,15 @@ export const useForm = ({ initialValues, validate }) => {
   };
 
   const validateForm = () => {
-    const { isValid, newErrors, messages } = validate(formData);
-    setErrors(newErrors);
 
-    messages.forEach((msg) => toast.error(msg));
+    const { isValid, newErrors} = validate(formData);
+   
+      const fullErrors = Object.fromEntries(
+    Object.keys(formData).map((key) => [key, !!newErrors[key]])
+  );
+
+  setErrors(fullErrors);
+
 
     return isValid;
   };

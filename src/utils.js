@@ -40,7 +40,8 @@ export function checkLs() {
     return { isValid, errors };
   };
 
-  
+
+
   export const sortByCategorie = (data) => {
     let diagramData = {
       food: 0,
@@ -63,4 +64,6 @@ export function checkLs() {
 return diagramData
 
 
+
   }
+

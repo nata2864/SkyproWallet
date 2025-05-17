@@ -17,13 +17,13 @@ export const STableFirstRow = styled.tr`
     font-size: ${textSizes.small.fontSize};
     font-weight: ${textSizes.small.fontWeight};
     text-align: left;
-    padding-right: 20px;
   }
 
   color: rgb(153, 153, 153);
   line-height: 15px;
   letter-spacing: 0px;
   border-bottom: 0.5px solid rgb(153, 153, 153);
+  padding-right: 34px;
 `;
 
 export const STableOrderRowHead = styled.thead`
@@ -36,7 +36,7 @@ export const STableOrderRowHead = styled.thead`
 `;
 export const STableOrderRow = styled.tr`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 55px;
   align-items: start;
   color: rgb(0, 0, 0);
   font-family: Montserrat;
@@ -45,10 +45,11 @@ export const STableOrderRow = styled.tr`
   line-height: 15px;
   letter-spacing: 0px;
   padding-top: 18px;
+  padding-right: 34px;
 
   td {
     text-align: left;
-    padding-right: 40px;
+    max-width: 158.25px;
   }
 `;
 export const IconButton = styled.button`

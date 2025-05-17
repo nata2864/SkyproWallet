@@ -11,9 +11,10 @@ function Categories({onCategorySelect,selectedCategory}) {
     $isActive={selectedCategory === item.value} 
   >
     <img  src={
-      selectedCategory === item.value
-        ? item.srcIcon.active
-        : item.srcIcon.default
+
+       item.srcIcon.default
+       
+
     } alt="Иконка категории" /> {item.name}
   </STag>
       ))}

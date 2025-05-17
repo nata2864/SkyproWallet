@@ -63,6 +63,7 @@ function Analysis() {
         }
     }, [expenses])
 
+
     return (
         <S.Analysis>
             <S.AnalysisHeader>Анализ расходов</S.AnalysisHeader>
@@ -98,23 +99,25 @@ function Analysis() {
                             ))}
                         </S.CalendarWeekDays>
                     </S.CalendarHeaderContainer>
+
                     <S.CalendarBody>
                         {filter ? (
                             <Calendar onRangeChange={handleRangeChange} />
                         ) : (
-                            // <Calendar onRangeChange={handleRangeChange} />
+                          
                             <CalendarMonth onRangeChange={handleRangeChange} />
                         )}
-                        {/* <Calendar /> */}
-                        {/* <CalendarMonth /> */}
+
                     </S.CalendarBody>
                 </S.AnalysisExpenseContainer>
 
                 <S.AnalysisTableContainer>
                     <S.AnalysisTableHeaderblock>
                         <Diagram
+
                             diagramData={diagramData}
                             period={period}
+
                         ></Diagram>
                         {/* <S.AnalysisTableHeader>Таблица расходов</S.AnalysisTableHeader> */}
                         <S.AnalysisTableHeaderFilterBlock></S.AnalysisTableHeaderFilterBlock>
