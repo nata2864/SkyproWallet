@@ -14,7 +14,7 @@ import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
 import { categoryTranslations } from "../../const";
 import { useState } from "react";
-import { formatedDate } from "../../utils";
+import { formatedDate } from "../../utils/utils";
 import { useEffect } from "react";
 import Filters from "../Fiters/Fiters";
 

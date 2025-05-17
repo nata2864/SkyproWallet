@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { textSizes } from "../../const";
+import { getImageFilter,getSelectedColor,getSelectedBackground } from "../../utils/styledUtils";
 
 export const Tag = styled.span`
-  background-color: ${({ $isSelected }) =>
-    $isSelected ? "rgba(219, 255, 233, 1)" : "#f3f4f6"};
-  color: ${({ $isSelected }) =>
-    $isSelected? " rgba(31, 164, 108, 1)" : " rgba(0, 0, 0, 1)"};
+   background-color: ${({ $isSelected }) => getSelectedBackground($isSelected)};
+  color:  ${({ $isSelected }) => getSelectedColor($isSelected)};
   border-radius: 30px;
   font-size: ${textSizes.small.fontSize};
   font-weight: ${textSizes.small.fontWeight};
@@ -17,10 +16,6 @@ export const Tag = styled.span`
   padding: 8px 20px 8px 20px;
   img {
     margin-right: 12px;
-     filter: ${(props) =>
-      props.$isSelected
-    ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(75%) contrast(80%)"
-    : "brightness(0) saturate(100%)"};
-  }
+     filter: ${({ $isSelected }) => getImageFilter($isSelected)};
   }
 `;

@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
 import { useEffect } from "react";
-import { formatedDate, formatedInputDate } from "../../utils";
+import { formatedDate, formatedInputDate } from "../../utils/utils";
 
 function ExpenseForm({ selectedExpense, onEditComplete }) {
   const { addNewExpense, expenses, editExpense } = useContext(ExpenseContext);
@@ -17,7 +17,6 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
   const editingExpense = expenses.find(
     (expense) => expense._id === selectedExpense
   );
-
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });

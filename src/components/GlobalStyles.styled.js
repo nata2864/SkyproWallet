@@ -22,17 +22,21 @@ export const GlobalStyles = createGlobalStyle`
     background-color: #F4F5F6;
     color:  '#000000';
   } 
+input,
+textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 1); 
+}
 
-   ::placeholder {
-    font-family: 'Montserrat', sans-serif;   
-font-weight: 400;
-font-size: 12px;
-line-height: 100%;
-letter-spacing: 0px;
-vertical-align: middle;
-color: rgba(153, 153, 153, 1);
-
-  }
+input::placeholder,
+textarea::placeholder {
+  color: rgba(153, 153, 153, 1); 
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

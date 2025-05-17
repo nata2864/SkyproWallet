@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import { checkLs } from "../utils";
+import { checkLs } from "../utils/utils";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(checkLs());
