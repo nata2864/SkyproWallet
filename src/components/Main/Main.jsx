@@ -22,8 +22,7 @@ import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
 import { categoryTranslations } from "../../const";
 import { useState } from "react";
-
-import { parseISO, format } from "date-fns";
+import { formatedDate } from "../../utils";
 import { useEffect } from "react";
 
 const MiniCar = "/second-box/mini-car.svg";
@@ -57,10 +56,10 @@ function Main() {
     { name: "Образование", icon: MiniTeacher },
     { name: "Другое", icon: MiniOther },
   ];
-  const formatDate = (dateString) => {
-    const parsedDate = parseISO(dateString);
-    return format(parsedDate, "dd.MM.yyyy");
-  };
+  // const formatDate = (dateString) => {
+  //   const parsedDate = parseISO(dateString);
+  //   return format(parsedDate, "dd.MM.yyyy");
+  // };
 
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
@@ -229,7 +228,7 @@ function Main() {
                     category={
                       categoryTranslations[expense.category] || expense.category
                     }
-                    date={formatDate(expense.date)}
+                    date={formatedDate(expense.date)}
                     amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
                     onEdit={() => handleEditClick(expense._id)}
                     onDelete={() => handleDelete(expense._id)}

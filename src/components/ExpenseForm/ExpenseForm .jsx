@@ -3,27 +3,24 @@ import { textErrors } from "../../const";
 import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
 import Categories from "../Categories/Categories";
 import { useForm } from "../../hooks/useForm";
-import { parse, format } from "date-fns";
 import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
 import { toast } from "react-toastify";
 import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
 import { useEffect } from "react";
+import { formatedDate, formatedInputDate } from "../../utils";
 
-
-
-function ExpenseForm({editingExpenseId}) {
-
-
+function ExpenseForm({ editingExpenseId }) {
   const { addNewExpense, expenses } = useContext(ExpenseContext);
- 
-const editingExpense = expenses.find((expense) => expense._id === editingExpenseId);
 
-console.log("editingExpenseId:", editingExpenseId);
+  const editingExpense = expenses.find(
+    (expense) => expense._id === editingExpenseId
+  );
 
-console.log("editingExpense:", editingExpense);
-  
+  console.log("editingExpenseId:", editingExpenseId);
+
+  console.log("editingExpense:", editingExpense);
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
@@ -38,60 +35,57 @@ console.log("editingExpense:", editingExpense);
     handleBlur,
     validateForm,
     resetForm,
-     setFormData,
+    setFormData,
   } = useForm({
     initialValues: { name: "", date: "", amount: "", category: "" },
 
     validate: (values) => {
-  const requiredFields = ["name", "date", "amount", "category"];
-  const { hasEmpty, errors: emptyErrors } = validateEmptyFields(values, requiredFields);
+      const requiredFields = ["name", "date", "amount", "category"];
+      const { hasEmpty, errors: emptyErrors } = validateEmptyFields(
+        values,
+        requiredFields
+      );
 
-  if (hasEmpty) {
-    toast.error("Все поля должны быть заполнены");
-    return { isValid: false, newErrors: emptyErrors };
-  }
+      if (hasEmpty) {
+        toast.error("Все поля должны быть заполнены");
+        return { isValid: false, newErrors: emptyErrors };
+      }
 
-  const { isValid, errors: fieldErrors } = validateExpenseErrors(values);
-  return { isValid, newErrors: fieldErrors };
-}
-     
+      const { isValid, errors: fieldErrors } = validateExpenseErrors(values);
+      return { isValid, newErrors: fieldErrors };
+    },
   });
 
-    useEffect(() => {
+  useEffect(() => {
     if (editingExpense) {
       setFormData({
         name: editingExpense.description,
-        date: editingExpense.date,
+        date: formatedDate(editingExpense.date),
         amount: editingExpense.sum.toString(),
         category: editingExpense.category,
       });
     } else {
-      resetForm(); 
+      resetForm();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editingExpenseId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-
     if (!validateForm()) {
       return;
     }
-
-    const formatDate = (inputDate) => {
-      const parsed = parse(inputDate, "dd.MM.yyyy", new Date());
-      return format(parsed, "M-d-yyyy");
-    };
 
     const expense = {
       description: formData.name.trim(),
       sum: parseFloat(formData.amount),
       category: formData.category,
-      date: formatDate(formData.date),
+
+      date: formatedInputDate(formData.date),
     };
     try {
+      console.log("Отправляем на сервер:", expense);
       await addNewExpense({ expense });
       resetForm();
     } catch (err) {
@@ -102,7 +96,7 @@ console.log("editingExpense:", editingExpense);
   return (
     <ModalBlok>
       <S.TitleForm>
-         {editingExpenseId ? "Редактирование" : "Новый расход"}
+        {editingExpenseId ? "Редактирование" : "Новый расход"}
       </S.TitleForm>
       <Form onSubmit={handleSubmit}>
         <S.InputTitle>Описание</S.InputTitle>
@@ -154,7 +148,9 @@ console.log("editingExpense:", editingExpense);
           type="submit"
           disabled={Object.values(errors).some((err) => err)}
         >
-       {editingExpenseId ? "Сохранить редактирование" : "Добавить новый расход"}
+          {editingExpenseId
+            ? "Сохранить редактирование"
+            : "Добавить новый расход"}
         </S.ExpenseButton>
       </Form>
     </ModalBlok>
