@@ -1,24 +1,34 @@
 import styled from 'styled-components'
 import { textSizes } from '../../const'
 
+
 export const Wrapper = styled.div`
     height: 100%;
     background: #fff;
     border-radius: 24px;
     width: 100%;
     padding: 32px;
+    @media (max-width: 600px) {
+        padding: 0px;
+        background: linear-gradient(to bottom, #ffffff 80%, #F4F5F6 100%);
+       
+    }
 `
 
 export const Total = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 21px;
+    margin-bottom: 24px;
 `
 
 export const TotalAmount = styled.h2`
     font-size: ${textSizes.largeH2.fontSize};
     font-weight: ${textSizes.largeH2.fontWeight};
+    @media (max-width: 600px) {
+        font-size: ${textSizes.mobileH2.fontSize};
+        line-height: 100%;
+    }
 `
 
 export const Subtext = styled.p`
@@ -39,6 +49,12 @@ export const Chart = styled.div`
     justify-content: space-between;
     gap: 32px;
     height: 465px;
+    @media (max-width: 800px) {
+        gap: 12px;
+    }
+    @media (max-width: 600px) {
+        gap: 6px;
+    }
 `
 
 export const BarBlock = styled.div`
@@ -54,8 +70,10 @@ export const BarBlock = styled.div`
 export const ValueText = styled.span`
     font-size: 14px;
     font-weight: 600;
-
-    /* height: 100%; */
+    @media (max-width: 600px) {
+        font-size: ${textSizes.mobileText.fontSize};
+        line-height: 100%;
+    }
 `
 
 export const Bar = styled.div`
@@ -70,32 +88,10 @@ export const Label = styled.span`
     font-size: ${textSizes.small.fontSize};
     font-weight: ${textSizes.small.fontWeight};
     text-align: center;
+    @media (max-width: 600px) {
+        font-size: ${textSizes.mobileText.fontSize};
+        line-height: 100%;
+    }
 `
 
-// import { Cell } from 'recharts'
-// import styled from 'styled-components'
 
-// export const Wrapper = styled.div`
-//   background: #fff;
-//   border-radius: 24px;
-//   padding: 32px;
-//   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
-//   max-width: 860px;
-//   margin: 0 auto;
-// `
-
-// export const Total = styled.div`
-//   margin-bottom: 24px;
-// `
-
-// export const TotalAmount = styled.h2`
-//   font-size: 28px;
-//   font-weight: 700;
-//   margin: 0;
-// `
-
-// export const Subtext = styled.p`
-//   margin: 4px 0 0 0;
-//   color: #94a6be;
-//   font-size: 14px;
-// `

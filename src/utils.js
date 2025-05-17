@@ -58,3 +58,10 @@ export const sortByCategorie = (data) => {
 
     return diagramData
 }
+
+export function truncateString(str) {
+  if (str.length > 6) {
+    return str.slice(0, 6) + '...';
+  }
+  return str;
+}

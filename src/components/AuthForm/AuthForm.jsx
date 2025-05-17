@@ -66,6 +66,7 @@ function AuthForm({ isSignUp }) {
     } catch (err) {
       toast.error(err.message || "Что-то пошло не так");
     }
+    
   };
 
   return (

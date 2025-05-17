@@ -1,12 +1,17 @@
 import styled from 'styled-components'
 import { textSizes, buttonStyles } from '../../const'
-
-
+import Button from '../Button/Button'
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
     /* background-color: #f1f1f1; */
     /* overflow-x: hidden; */
     width: 100%;
+    @media (max-width: 600px) {
+        background-color: var(--bg-color);
+        padding-left: calc(8.3%);
+        padding-right: calc(8.3%);
+        background: linear-gradient(to bottom, #ffffff 50%, #F4F5F6 100%);
+    }
 `
 
 export const AnalysisHeader = styled.h1`
@@ -15,12 +20,20 @@ export const AnalysisHeader = styled.h1`
     color: ${textSizes.largeH1.color};
     padding-top: 36px;
     padding-bottom: 32px;
+    line-height: 150%;
     padding-left: calc(8.3%);
+    @media (max-width: 600px) {
+        font-size: ${textSizes.largeH2.fontSize};
+        line-height: 100%;
+        padding-left: 0px;
+        padding-top: 24px;
+    padding-bottom: 24px;
+    }
 `
 export const AnalysisExspenseContainer = styled.div`
     display: flex;
     gap: 34px;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     justify-content: space-around;
     padding-left: calc(8.3%);
     padding-right: calc(8.3%);
@@ -28,14 +41,17 @@ export const AnalysisExspenseContainer = styled.div`
     width: 100%;
     @media (max-width: 800px) {
         flex-wrap: wrap;
+        padding-left: 0px;
+    padding-right: 0px;
+    
     }
 `
 export const AnalysisCalendarContainer = styled.div`
     box-sizing: border-box;
     background-color: var(--bg-color);
     width: 100%;
-    @media (max-width: 800px) {
-        display:none;
+    @media (max-width: 600px) {
+        display: none;
     }
 `
 
@@ -44,14 +60,25 @@ export const AnalysisTableContainer = styled.div`
     max-width: 100%;
     height: 618px;
     border-radius: 30px;
-    background-color: #fff;
+    background-color: var(--bg-color);
+    @media (max-width: 800px) {
+        min-width: 343px;
+        max-width: 100%;
+        /* padding-left: calc(8.3%);
+        padding-right: calc(8.3%); */
+    }
+    @media (max-width: 600px) {
+        min-width: 343px;
+        max-width: 100%;
+        background: linear-gradient(to bottom, #ffffff 50%, #F4F5F6 100%);
+    }
 `
 export const AnalysisTableHeaderblock = styled.div`
     display: flex;
+   
 `
 
 export const AnalysisTableHeader = styled.h2`
-    
     font-size: ${textSizes.largeH2.fontSize};
     font-weight: ${textSizes.largeH2.fontWeight};
     color: ${textSizes.largeH1.color};
@@ -69,6 +96,7 @@ export const AnalysisExpenseContainer = styled.div`
     height: 618px;
     border-radius: 30px;
     background-color: var(--bg-color);
+
 `
 
 export const CalendarHeaderContainer = styled.div`
@@ -78,6 +106,9 @@ export const CalendarHeaderContainer = styled.div`
     justify-content: space-between;
     /* align-items: center; */
     border-bottom: 1px solid #999999;
+        @media (max-width: 600px) {
+        background: linear-gradient(to bottom, #ffffff 50%, #F4F5F6 100%);
+    }
 `
 
 export const CalendarHeader = styled.div`
@@ -155,4 +186,13 @@ export const CalendarBody = styled.div`
     padding-left: 32px;
     box-sizing: border-box;
     /* overflow-y: auto; */
+`
+export const PeriodButtonBlock = styled.div`
+    padding: 24px 16px;
+`
+export const PeriodButton = styled(Button)`
+    font-size: ${textSizes.small.fontSize};
+    font-weight: ${textSizes.small.fontWeight};
+    /* color: var(--bg-color); */
+    color: white;
 `

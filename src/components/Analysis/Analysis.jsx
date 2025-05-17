@@ -3,7 +3,7 @@ import Diagram from '../Diagram/Diagram'
 import Calendar from '../Calendar/Calendar'
 import CalendarMonth from '../CalendarMonth/CalendarMonth'
 import { useState, useEffect, useCallback, useContext } from 'react'
-import { AuthContext } from '../../context/AuthContext'
+// import { AuthContext } from '../../context/AuthContext'
 import { sortByCategorie } from '../../utils'
 import { ExpenseContext } from '../../context/ExpenseContext'
 
@@ -13,6 +13,7 @@ function Analysis() {
     const [filter, setMode] = useState(true)
     const [period, setPeriod] = useState('все время')
     const [diagramData, setDiagramData] = useState({})
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
     const handleRangeChange = useCallback(
         (range) => {
             if (!range?.start || !range?.end) return
@@ -54,7 +55,14 @@ function Analysis() {
             setDiagramData(sortByCategorie(expenses))
         }
     }, [expenses])
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 474)
+        }
 
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
     return (
         <S.Analysis>
             <S.AnalysisHeader>Анализ расходов</S.AnalysisHeader>
@@ -110,7 +118,14 @@ function Analysis() {
                         <S.AnalysisTableHeaderFilterBlock></S.AnalysisTableHeaderFilterBlock>
                     </S.AnalysisTableHeaderblock>
                 </S.AnalysisTableContainer>
+                
             </S.AnalysisExspenseContainer>
+            <S.PeriodButtonBlock>
+            {isMobile && (<S.PeriodButton 
+            type="submit">
+                Выбрать другой период
+                </S.PeriodButton>)}
+                </S.PeriodButtonBlock>
         </S.Analysis>
     )
 }
