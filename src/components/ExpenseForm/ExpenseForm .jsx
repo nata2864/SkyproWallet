@@ -11,8 +11,8 @@ import { validateExpenseErrors } from "../../Validators/expenceValidator";
 import { useEffect } from "react";
 import { formatedDate, formatedInputDate } from "../../utils";
 
-function ExpenseForm({ editingExpenseId }) {
-  const { addNewExpense, expenses } = useContext(ExpenseContext);
+function ExpenseForm({ editingExpenseId, onEditComplete }) {
+  const { addNewExpense, expenses, editExpense } = useContext(ExpenseContext);
 
   const editingExpense = expenses.find(
     (expense) => expense._id === editingExpenseId
@@ -81,12 +81,20 @@ function ExpenseForm({ editingExpenseId }) {
       description: formData.name.trim(),
       sum: parseFloat(formData.amount),
       category: formData.category,
-
       date: formatedInputDate(formData.date),
     };
     try {
-      console.log("Отправляем на сервер:", expense);
-      await addNewExpense({ expense });
+      if (editingExpenseId) {
+        console.log("ID для редактирования:", editingExpenseId);
+        console.log("Отправляемый expense:", expense);
+        await editExpense({ id: editingExpenseId, expense });
+        toast.success("Расход обновлён");
+        onEditComplete();
+      } else {
+        await addNewExpense({ expense });
+        toast.success("Новый расход добавлен");
+      }
+
       resetForm();
     } catch (err) {
       console.error(textErrors.addExpenseError, err.message);

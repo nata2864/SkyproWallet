@@ -105,6 +105,8 @@ function Main() {
     setEditingExpenseId(null);
   };
 
+ 
+
   const handleDelete = (id) => {
     console.log("Удалить запись с id:", id);
   };

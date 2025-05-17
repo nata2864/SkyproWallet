@@ -1,10 +1,11 @@
 import axios from "axios";
+import {  API_URL_NEW } from "../const";
 
-const API_URL = " https://wedev-api.sky.pro/api/transactions";
+
 
 export async function fetchExpenses({ token }) {
   try {
-    const data = await axios.get(API_URL, {
+    const data = await axios.get(API_URL_NEW, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -17,7 +18,7 @@ export async function fetchExpenses({ token }) {
 
 export async function postExpense({ token, expense }) {
   try {
-    const data = await axios.post(API_URL, expense, {
+    const data = await axios.post(API_URL_NEW, expense, {
       headers: {
         Authorization: "Bearer " + token,
         "Content-Type": "",
@@ -30,18 +31,48 @@ export async function postExpense({ token, expense }) {
   }
 }
 
-export async function patchExpense({ token, id, expense}) {
-    try {
-        const data = await axios.patch(API_URL + id, expense, {
-            headers: {
-                Authorization: 'Bearer ' + token,
-            'Content-Type': 'text/html',
+// export async function patchExpense({ token, id, expense }) {
+//   try {
+//     const { data } = await axios.patch(
+//       `https://wedev-api.sky.pro/api/transactions/${id}`,
+//       expense,
+//       {
+//         headers: {
+//           Authorization: 'Bearer ' + token,
+//           // 'Content-Type': 'application/json',
+//         },
+//       }
+//     );
+//     return data.data;
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
+// }
+
+export async function patchExpense({ token, id, expense }) {
+  if (!id) {
+    throw new Error("ID не передан в patchExpense!");
+  }
+
+  try {
+    console.log("ID:", id);
+    console.log("Expense для отправки:", expense);
+
+    const response = await axios.patch(
+      `https://wedev-api.sky.pro/api/transactions/${id}`,
+      expense,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+           "Content-Type": "",
         },
-        })
-        return data.data
-    } catch (error) {
-        throw new Error(error.message)
-    }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка PATCH запроса:", error.response?.data || error.message);
+    throw new Error(error.message);
+  }
 }
 
 

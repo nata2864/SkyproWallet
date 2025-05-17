@@ -25,6 +25,13 @@ export const textSizes = {
 // Апи для регистрации и авторизации пользователя
 export const API_URL = "https://wedev-api.sky.pro/api/user";
 
+// Апи для получения всех данных с сервера и создания нового расхода
+export const API_URL_NEW = "https://wedev-api.sky.pro/api/transactions";
+
+
+// // Апи для рдактирования и удаления расхода
+// export const API_URL_EDIT ="https://wedev-api.sky.pro/api/transactions/:id";
+
 // Eindpoints для адресной строки
 export const RoutesApp = {
   MAIN: "/",
