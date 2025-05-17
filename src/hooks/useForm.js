@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 
+
+
 export const useForm = ({ initialValues, validate }) => {
   const [formData, setFormData] = useState(initialValues);
   const [errors, setErrors] = useState(
@@ -22,7 +24,8 @@ export const useForm = ({ initialValues, validate }) => {
 
   const handleBlur = (field) => {
     setFocus((prev) => ({ ...prev, [field]: false }));
-    // validateForm();
+
+
   };
 
   const resetForm = () => {
@@ -31,6 +34,7 @@ export const useForm = ({ initialValues, validate }) => {
   };
 
   const validateForm = () => {
+
     const { isValid, newErrors} = validate(formData);
    
       const fullErrors = Object.fromEntries(
@@ -38,6 +42,7 @@ export const useForm = ({ initialValues, validate }) => {
   );
 
   setErrors(fullErrors);
+
 
     return isValid;
   };

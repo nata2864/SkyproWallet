@@ -6,6 +6,7 @@ import { useForm } from "../../hooks/useForm";
 import { parse, format } from "date-fns";
 import { useContext } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
+
 import { toast } from "react-toastify";
 import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
@@ -25,6 +26,7 @@ console.log("editingExpenseId:", editingExpenseId);
 console.log("editingExpense:", editingExpense);
   
 
+
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
   };
@@ -38,11 +40,12 @@ console.log("editingExpense:", editingExpense);
     handleBlur,
     validateForm,
     resetForm,
-     setFormData,
+
   } = useForm({
     initialValues: { name: "", date: "", amount: "", category: "" },
 
     validate: (values) => {
+
   const requiredFields = ["name", "date", "amount", "category"];
   const { hasEmpty, errors: emptyErrors } = validateEmptyFields(values, requiredFields);
 
@@ -74,8 +77,6 @@ console.log("editingExpense:", editingExpense);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-
     if (!validateForm()) {
       return;
     }
@@ -102,7 +103,9 @@ console.log("editingExpense:", editingExpense);
   return (
     <ModalBlok>
       <S.TitleForm>
+
          {editingExpenseId ? "Редактирование" : "Новый расход"}
+
       </S.TitleForm>
       <Form onSubmit={handleSubmit}>
         <S.InputTitle>Описание</S.InputTitle>
@@ -154,7 +157,9 @@ console.log("editingExpense:", editingExpense);
           type="submit"
           disabled={Object.values(errors).some((err) => err)}
         >
+
        {editingExpenseId ? "Сохранить редактирование" : "Добавить новый расход"}
+
         </S.ExpenseButton>
       </Form>
     </ModalBlok>

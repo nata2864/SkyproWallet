@@ -102,6 +102,7 @@ function Main() {
 
   };
 
+
   const handleEditComplete = () => {
     setEditingExpenseId(null);
   };
@@ -221,6 +222,7 @@ function Main() {
             </STableHeader>
             <SExpenseTable>
               <TableFirstRow />
+
               <STableBodyWrapper>
                 {filteredData.map((expense) => (
                   <TableRow
@@ -233,15 +235,18 @@ function Main() {
                     amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
                     onEdit={() => handleEditClick(expense._id)}
                     onDelete={() => handleDelete(expense._id)}
+
                   />
                 ))}
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
+
          <ExpenseForm
         editingExpenseId={editingExpenseId}
         onEditComplete={handleEditComplete}
       />
+
         </STables>
       </SMain>
     </>

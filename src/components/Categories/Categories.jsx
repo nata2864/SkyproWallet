@@ -11,8 +11,10 @@ function Categories({onCategorySelect,selectedCategory}) {
     $isActive={selectedCategory === item.value} 
   >
     <img  src={
+
        item.srcIcon.default
        
+
     } alt="Иконка категории" /> {item.name}
   </STag>
       ))}

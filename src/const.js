@@ -145,6 +145,7 @@ export const categoryTranslations = {
   others: "Другое",
 };
 
+
 export const exspenses = 
 [
   {
@@ -220,3 +221,4 @@ export const exspenses =
       "sum": 2123
   }
 ]
+

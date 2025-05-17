@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 
 export function checkLs() {
     try {
@@ -39,6 +40,8 @@ export function checkLs() {
     return { isValid, errors };
   };
 
+
+
   export const sortByCategorie = (data) => {
     let diagramData = {
       food: 0,
@@ -61,6 +64,6 @@ export function checkLs() {
 return diagramData
 
 
+
   }
 
-  
