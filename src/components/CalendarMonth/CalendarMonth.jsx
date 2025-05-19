@@ -31,7 +31,7 @@ const CalendarMonth = ({ onRangeChange }) => {
         )
     }
 
-    // Вычисляем диапазон при изменении выбора
+  
     useEffect(() => {
         if (selected.length === 0) return
 

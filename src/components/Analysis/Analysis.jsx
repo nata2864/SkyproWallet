@@ -1,9 +1,8 @@
-import * as S from './Analysis.styled'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import Diagram from '../Diagram/Diagram'
 import Calendar from '../Calendar/Calendar'
 import CalendarMonth from '../CalendarMonth/CalendarMonth'
-import { useState, useEffect, useCallback, useContext } from 'react'
-// import { AuthContext } from '../../context/AuthContext'
+import * as S from './Analysis.styled'
 import { sortByCategorie } from '../../utils'
 import { ExpenseContext } from '../../context/ExpenseContext'
 
@@ -45,7 +44,7 @@ function Analysis() {
             }
 
             setPeriod(formatRange(startDate, endDate))
-            // Only update if data actually changed
+
             setDiagramData((prev) => {
                 if (JSON.stringify(prev) !== JSON.stringify(newDiagramData)) {
                     return newDiagramData
@@ -63,12 +62,12 @@ function Analysis() {
     }, [expenses])
     useEffect(() => {
         const handleResize = () => {
-            const mobileBreakpoint = 600
+            const mobileBreakpoint = 475
             const isNowMobile = window.innerWidth <= mobileBreakpoint
             setIsMobile(isNowMobile)
         }
 
-        handleResize() // вызов сразу, чтобы установить начальное значение
+        handleResize()
         window.addEventListener('resize', handleResize)
 
         return () => {

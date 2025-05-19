@@ -3,10 +3,6 @@ import { ru } from 'react-day-picker/locale'
 import 'react-day-picker/dist/style.css'
 import * as S from './Calendar.styled'
 
-// function formatDate(date) {
-//     return date.toLocaleDateString('ru-RU').split('.').join('.')
-// }
-
 function formatDate(date) {
     const day = String(date.getDate()).padStart(2, '0')
     const month = String(date.getMonth() + 1).padStart(2, '0') // месяцы с 0
@@ -23,10 +19,8 @@ export default function Calendar({ onRangeChange }) {
         }
 
         if (!range.to) {
-            // один клик — формируем диапазон, где начало = конец
             setRange({ from: range.from, to: range.from })
         } else {
-            // нормальный диапазон
             setRange(range)
         }
     }
@@ -49,13 +43,20 @@ export default function Calendar({ onRangeChange }) {
                 onSelect={handleSelect}
                 numberOfMonths={12}
                 locale={ru}
-                
                 defaultMonth={new Date()}
                 month={new Date(new Date().getFullYear(), 0)}
                 pagedNavigation={false} // отключает разбивку на страницы (чтобы 12 месяцев были сразу)
                 disabled={{
-                  before: new Date(new Date().getFullYear() - 1, new Date().getMonth(), 1),
-                  after: new Date(new Date().getFullYear() + 1, new Date().getMonth() + 1, 0),
+                    before: new Date(
+                        new Date().getFullYear() - 1,
+                        new Date().getMonth(),
+                        1
+                    ),
+                    after: new Date(
+                        new Date().getFullYear() + 1,
+                        new Date().getMonth() + 1,
+                        0
+                    ),
                 }}
                 formatters={{
                     formatMonthCaption: (date) =>
@@ -80,4 +81,3 @@ export default function Calendar({ onRangeChange }) {
         </S.CalendarContainer>
     )
 }
-

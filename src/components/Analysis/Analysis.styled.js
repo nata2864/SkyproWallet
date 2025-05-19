@@ -3,13 +3,9 @@ import { textSizes, buttonStyles } from '../../const'
 import Button from '../Button/Button'
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
-    /* background-color: #f1f1f1; */
-    /* overflow-x: hidden; */
     width: 100%;
     @media (max-width: 600px) {
         background-color: var(--bg-color);
-        /* padding-left: calc(8.3%);
-        padding-right: calc(8.3%); */
         padding-left: 0px;
         padding-right: 0px;
         background: linear-gradient(to bottom, #ffffff 50%, #f4f5f6 100%);
@@ -36,13 +32,15 @@ export const AnalysisHeader = styled.h1`
 export const AnalysisExspenseContainer = styled.div`
     display: flex;
     gap: 34px;
-    /* flex-wrap: wrap; */
     justify-content: space-around;
     padding-left: calc(8.3%);
     padding-right: calc(8.3%);
     box-sizing: border-box;
     width: 100%;
-    @media (max-width: 800px) {
+    @media (max-width: 1300px) {
+        flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
         flex-wrap: wrap;
         padding-left: 0px;
         padding-right: 0px;
@@ -61,7 +59,6 @@ export const AnalysisCalendarContainer = styled.div`
 export const AnalysisTableContainer = styled.div`
     min-width: 789px;
     max-width: 100%;
-    /* height: 618px; */
     border-radius: 30px;
     background-color: var(--bg-color);
     @media (max-width: 800px) {
@@ -94,9 +91,7 @@ export const AnalysisTableHeaderFilterBlock = styled.div`
 
 export const AnalysisExpenseContainer = styled.div`
     box-sizing: border-box;
-    /* width: 379px; */
     max-width: 400px;
-    /* height: 618px; */
     border-radius: 30px;
     background-color: var(--bg-color);
 `
@@ -106,10 +101,8 @@ export const CalendarHeaderContainer = styled.div`
     flex-direction: column;
     gap: 24px;
     justify-content: space-between;
-    /* align-items: center; */
     border-bottom: 1px solid #999999;
     @media (max-width: 600px) {
-        /* background: linear-gradient(to bottom, #ffffff 50%, #f4f5f6 100%); */
     }
 `
 
@@ -133,25 +126,6 @@ export const CalendarFilterLinks = styled.div`
 `
 
 export const CalendarNavLink = styled.button`
-    /* font-weight: ${textSizes.small.fontWeight};
-    font-size: ${textSizes.small.fontSize};
-    line-height: 150%;
-    text-align: center;
-    text-decoration: none;
-    color: #000;
-    transition: all 0.3s ease;
-
-    &.active {
-        color: #27ae60;
-        font-weight: 600;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-    }
-
-    &:hover {
-        color: ${buttonStyles.active.color};
-        transition: all 0.3s ease;
-    } */
     background: none;
     border: none;
     font-size: ${textSizes.small.fontSize};
@@ -172,7 +146,6 @@ export const CalendarWeekDays = styled.div`
     padding-right: 32px;
 `
 export const CalendarWeekDayBlock = styled.div`
-    /* display: flex; */
     align-items: center;
 `
 export const CalendarWeekDay = styled.p`
@@ -184,10 +157,9 @@ export const CalendarWeekDay = styled.p`
 `
 export const CalendarBody = styled.div`
     padding-top: 24px;
-    /* padding-right: 32px; */
     padding-left: 32px;
     box-sizing: border-box;
-    /* overflow-y: auto; */
+
 `
 export const PeriodButtonBlock = styled.div`
     display: none;
@@ -201,6 +173,5 @@ export const PeriodButtonBlock = styled.div`
 export const PeriodButton = styled(Button)`
     font-size: ${textSizes.small.fontSize};
     font-weight: ${textSizes.medium.fontWeight};
-    /* color: var(--bg-color); */
     color: white;
 `
