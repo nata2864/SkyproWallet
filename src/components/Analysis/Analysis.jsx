@@ -13,7 +13,13 @@ function Analysis() {
     const [filter, setMode] = useState(true)
     const [period, setPeriod] = useState('все время')
     const [diagramData, setDiagramData] = useState({})
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
+    const [isMobile, setIsMobile] = useState(false)
+    const [showCalendarMobile, setShowCalendarMobile] = useState(false)
+    const toggleCalendar = () => {
+        console.log('Нажали на кнопку!')
+        setShowCalendarMobile((prev) => !prev)
+    }
+
     const handleRangeChange = useCallback(
         (range) => {
             if (!range?.start || !range?.end) return
@@ -57,75 +63,90 @@ function Analysis() {
     }, [expenses])
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 474)
+            const mobileBreakpoint = 600
+            const isNowMobile = window.innerWidth <= mobileBreakpoint
+            setIsMobile(isNowMobile)
         }
 
+        handleResize() // вызов сразу, чтобы установить начальное значение
         window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
     }, [])
+
     return (
         <S.Analysis>
             <S.AnalysisHeader>Анализ расходов</S.AnalysisHeader>
-
             <S.AnalysisExspenseContainer>
-                <S.AnalysisCalendarContainer>
-                    <S.CalendarHeaderContainer>
-                        <S.CalendarHeader>
-                            <S.CalendarHeaderTitle>
-                                Период
-                            </S.CalendarHeaderTitle>
+                {(!isMobile || showCalendarMobile) && (
+                    <S.AnalysisCalendarContainer>
+                        <S.CalendarHeaderContainer>
+                            <S.CalendarHeader>
+                                <S.CalendarHeaderTitle>
+                                    Период
+                                </S.CalendarHeaderTitle>
+                                <S.CalendarFilterLinks>
+                                    <S.CalendarNavLink
+                                        onClick={() => setMode(true)}
+                                        $active={filter}
+                                    >
+                                        Месяц
+                                    </S.CalendarNavLink>
+                                    <S.CalendarNavLink
+                                        onClick={() => setMode(false)}
+                                        $active={!filter}
+                                    >
+                                        Год
+                                    </S.CalendarNavLink>
+                                </S.CalendarFilterLinks>
+                            </S.CalendarHeader>
+                            <S.CalendarWeekDays>
+                                {daysOfWeek.map((day) => (
+                                    <S.CalendarWeekDayBlock key={day}>
+                                        <S.CalendarWeekDay>
+                                            {day}
+                                        </S.CalendarWeekDay>
+                                    </S.CalendarWeekDayBlock>
+                                ))}
+                            </S.CalendarWeekDays>
+                        </S.CalendarHeaderContainer>
 
-                            <S.CalendarFilterLinks>
-                                <S.CalendarNavLink
-                                    onClick={() => setMode(true)}
-                                    $active={filter}
-                                >
-                                    Месяц
-                                </S.CalendarNavLink>
-                                <S.CalendarNavLink
-                                    onClick={() => setMode(false)}
-                                    $active={!filter}
-                                >
-                                    Год
-                                </S.CalendarNavLink>
-                            </S.CalendarFilterLinks>
-                        </S.CalendarHeader>
-                        <S.CalendarWeekDays>
-                            {daysOfWeek.map((day) => (
-                                <S.CalendarWeekDayBlock key={day}>
-                                    <S.CalendarWeekDay>{day}</S.CalendarWeekDay>
-                                </S.CalendarWeekDayBlock>
-                            ))}
-                        </S.CalendarWeekDays>
-                    </S.CalendarHeaderContainer>
+                        <S.CalendarBody>
+                            {filter ? (
+                                <Calendar onRangeChange={handleRangeChange} />
+                            ) : (
+                                <CalendarMonth
+                                    onRangeChange={handleRangeChange}
+                                />
+                            )}
+                        </S.CalendarBody>
+                    </S.AnalysisCalendarContainer>
+                )}
 
-                    <S.CalendarBody>
-                        {filter ? (
-                            <Calendar onRangeChange={handleRangeChange} />
-                        ) : (
-                            <CalendarMonth onRangeChange={handleRangeChange} />
-                        )}
-                    </S.CalendarBody>
-                </S.AnalysisCalendarContainer>
-
-                <S.AnalysisTableContainer>
-                    <S.AnalysisTableHeaderblock>
-                        <Diagram
-                            diagramData={diagramData}
-                            period={period}
-                        ></Diagram>
-                        {/* <S.AnalysisTableHeader>Таблица расходов</S.AnalysisTableHeader> */}
-                        <S.AnalysisTableHeaderFilterBlock></S.AnalysisTableHeaderFilterBlock>
-                    </S.AnalysisTableHeaderblock>
-                </S.AnalysisTableContainer>
-                
+                {(!isMobile || !showCalendarMobile) && (
+                    <S.AnalysisTableContainer>
+                        <S.AnalysisTableHeaderblock>
+                            <Diagram
+                                diagramData={diagramData}
+                                period={period}
+                            />
+                            <S.AnalysisTableHeaderFilterBlock />
+                        </S.AnalysisTableHeaderblock>
+                    </S.AnalysisTableContainer>
+                )}
             </S.AnalysisExspenseContainer>
+
             <S.PeriodButtonBlock>
-            {isMobile && (<S.PeriodButton 
-            type="submit">
-                Выбрать другой период
-                </S.PeriodButton>)}
-                </S.PeriodButtonBlock>
+                {isMobile && (
+                    <S.PeriodButton type="button" onClick={toggleCalendar}>
+                        {showCalendarMobile
+                            ? 'Выбрать период'
+                            : 'Выбрать другой период'}
+                    </S.PeriodButton>
+                )}
+            </S.PeriodButtonBlock>
         </S.Analysis>
     )
 }
