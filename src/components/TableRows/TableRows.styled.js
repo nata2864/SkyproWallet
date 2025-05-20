@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { textSizes } from "../../const";
+import { getSelectedColor} from "../../utils/styledUtils";
 
 const getTextStyles = () => `
   font-family: Montserrat;
   font-size: ${textSizes.small.fontSize};
   font-weight: ${textSizes.small.fontWeight};
   letter-spacing: 0px;
-  color:background: rgba(153, 153, 153, 1);
+
 ;
 `;
 
@@ -29,6 +30,7 @@ export const Row = styled.div`
   padding: 7px 32px;
   box-sizing: border-box;
   gap: 32px;
+  color: ${({ $isSelected }) => getSelectedColor($isSelected)};
   ${getTextStyles()}
 `;
 
@@ -51,6 +53,11 @@ export const IconButton = styled.button`
   padding: 0;
   margin: 0;
   cursor: pointer;
+
+  filter: ${({ $isSelected }) =>
+    $isSelected
+      ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(75%) contrast(80%)"
+      : "transparent"};
 
   &:focus {
     outline: none;

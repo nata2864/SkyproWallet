@@ -24,10 +24,10 @@ export const TableRow = ({
     <S.Cell>{date}</S.Cell>
     <S.Cell>{amount}</S.Cell>
     <S.Icons>
-      <S.IconButton onClick={onEdit}>
+      <S.IconButton $isSelected={isSelected} onClick={onEdit}>
         <img src="/first-box/mini-pen.svg" alt="Иконка карандаша" />
       </S.IconButton>
-      <S.IconButton onClick={onDelete}>
+      <S.IconButton $isSelected={isSelected} onClick={onDelete}>
         <img src="/first-box/mini-bucket.svg" alt="Иконка корзинки" />
       </S.IconButton>
     </S.Icons>
