@@ -4,7 +4,6 @@ import {
   STableHeader,
   STableSection,
   SSectionTitle,
-  SExpenseTable,
   STables,
   STableBodyWrapper,
 } from "./Main.styled";
@@ -52,7 +51,6 @@ function Main() {
           <STableSection>
             <STableHeader>
               <SSectionTitle>Таблица расходов</SSectionTitle>
-
               <Filters
                 expenses={expenses}
                 setFilteredData={setFilteredData}
@@ -62,24 +60,23 @@ function Main() {
                 setSelectedSorting={setSelectedSorting}
               />
             </STableHeader>
-            <SExpenseTable>
-              <TableFirstRow />
-              <STableBodyWrapper>
-                {filteredData.map((expense) => (
-                  <TableRow
-                    key={expense._id}
-                    description={expense.description}
-                    category={
-                      categoryTranslations[expense.category] || expense.category
-                    }
-                    date={formatedDate(expense.date)}
-                    amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
-                    onEdit={() => handleEditClick(expense._id)}
-                    onDelete={() => handleDelete(expense._id)}
-                  />
-                ))}
-              </STableBodyWrapper>
-            </SExpenseTable>
+            <TableFirstRow />
+            <STableBodyWrapper>
+              {filteredData.map((expense) => (
+                <TableRow
+                  key={expense._id}
+                  description={expense.description}
+                  category={
+                    categoryTranslations[expense.category] || expense.category
+                  }
+                  date={formatedDate(expense.date)}
+                  amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
+                  onEdit={() => handleEditClick(expense._id)}
+                  onDelete={() => handleDelete(expense._id)}
+                  isSelected={selectedExpense === expense._id}
+                />
+              ))}
+            </STableBodyWrapper>
           </STableSection>
           <ExpenseForm
             selectedExpense={selectedExpense}

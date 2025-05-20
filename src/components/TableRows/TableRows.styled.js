@@ -1,75 +1,62 @@
 import styled from "styled-components";
 import { textSizes } from "../../const";
 
-export const STableFirstRowHead = styled.thead`
-  color: rgb(153, 153, 153);
-  line-height: 15px;
+const getTextStyles = () => `
+  font-family: Montserrat;
+  font-size: ${textSizes.small.fontSize};
+  font-weight: ${textSizes.small.fontWeight};
   letter-spacing: 0px;
+  color:background: rgba(153, 153, 153, 1);
+;
 `;
-export const STableFirstRow = styled.tr`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
-  align-items: start;
-  padding-bottom: 6px;
 
-  th {
-    font-family: Montserrat;
-    font-size: ${textSizes.small.fontSize};
-    font-weight: ${textSizes.small.fontWeight};
-    text-align: left;
-  }
-
-  color: rgb(153, 153, 153);
-  line-height: 15px;
-  letter-spacing: 0px;
+export const RowHeader = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 32px;
+  padding: 7px 32px;
   border-bottom: 0.5px solid rgb(153, 153, 153);
-  padding-right: 34px;
-`;
-
-export const STableOrderRowHead = styled.thead`
   color: rgb(153, 153, 153);
-  font-family: Montserrat;
-  font-size: ${textSizes.small.fontSize};
-  font-weight: ${textSizes.small.fontWeight};
-  line-height: 15px;
-  letter-spacing: 0px;
+  ${getTextStyles()}
 `;
-export const STableOrderRow = styled.tr`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 55px;
-  align-items: start;
-  color: rgb(0, 0, 0);
-  font-family: Montserrat;
-  font-size: ${textSizes.small.fontSize};
-  font-weight: ${textSizes.small.fontWeight};
-  line-height: 15px;
-  letter-spacing: 0px;
-  padding-top: 18px;
-  padding-right: 34px;
+export const Row = styled.div`
+  width: 100%;
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "rgba(219, 255, 233, 1)" : "transparent"};
+  display: flex;
+  align-items: center;
+  padding: 7px 32px;
+  box-sizing: border-box;
+  gap: 32px;
+  ${getTextStyles()}
+`;
 
-  td {
-    text-align: left;
-    max-width: 158.25px;
-  }
+export const Cell = styled.div`
+  width: 140px;
+  font-size: 12px;
+  line-height: 15px;
 `;
+
+export const Icons = styled.div`
+  flex: 0 1 auto;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+`;
+
 export const IconButton = styled.button`
   background: transparent;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
-  outline: none;
 
   &:focus {
     outline: none;
   }
 
-  svg {
+  img {
     display: block;
   }
-`;
-export const SIcons = styled.td`
-  display: flex;
-  gap: 12px;
-  justify-content: flex-start;
 `;

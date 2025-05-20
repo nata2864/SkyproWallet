@@ -4,13 +4,13 @@ import {
   STableFiltersGroup,
   SCategoryLink,
   SCategoryFiltration,
-  SCategoryFiltrationElement,
   SSorting,
   SSortingElement,
   SSortLink,
 } from "./Fiters.styled";
 import { categoryTranslations } from "../../const";
 import { Tag } from "../Categories/Categories.styled";
+import { categorieName } from "../../const";
 
 const MiniCar = "/second-box/mini-car.svg";
 const MiniFood = "/second-box/mini-food.svg";
@@ -96,14 +96,11 @@ function Filters({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M3.03 5.25L6.06 0L0 0L3.03 5.25Z"
-            fill="#000000"
-          />
+          <path d="M3.03 5.25L6.06 0L0 0L3.03 5.25Z" fill="#000000" />
         </svg>
         {isOpenCategory && (
           <SCategoryFiltration>
-            {categories.map((category) => (
+            {categorieName.map((category) => (
               <Tag
                 key={category.name}
                 onClick={() => {
@@ -112,8 +109,10 @@ function Filters({
                 }}
                 $isSelected={selectedCategory === category.name}
               >
-                <img src={category.icon} alt="icon" />
-                {category.name}
+                 <img  src={
+       category.srcIcon.default
+       
+    } alt="Иконка категории" /> {category.name}
               </Tag>
             ))}
           </SCategoryFiltration>
@@ -138,10 +137,7 @@ function Filters({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M3.03 5.25L6.06 0L0 0L3.03 5.25Z"
-            fill="#000000"
-          />
+          <path d="M3.03 5.25L6.06 0L0 0L3.03 5.25Z" fill="#000000" />
         </svg>
         {isOpenSorting && (
           <SSorting>

@@ -1,24 +1,12 @@
-import {
-  STableFirstRowHead,
-  STableFirstRow,
-  STableOrderRow,
-  IconButton,
-  SIcons,
-} from "./TableRows.styled";
-
-const MiniBucket = "/first-box/mini-bucket.svg";
-const MiniPen = "/first-box/mini-pen.svg";
+import * as S from "./TableRows.styled";
 
 export const TableFirstRow = () => (
-  <STableFirstRowHead>
-    <STableFirstRow>
-      <th>Описание</th>
-      <th>Категория</th>
-      <th>Дата</th>
-      <th>Сумма</th>
-      <th>Действия</th>
-    </STableFirstRow>
-  </STableFirstRowHead>
+  <S.RowHeader>
+    <S.Cell>Описание</S.Cell>
+    <S.Cell>Категория</S.Cell>
+    <S.Cell>Дата</S.Cell>
+    <S.Cell>Сумма</S.Cell>
+  </S.RowHeader>
 );
 
 export const TableRow = ({
@@ -28,19 +16,20 @@ export const TableRow = ({
   amount,
   onEdit,
   onDelete,
+  isSelected,
 }) => (
-  <STableOrderRow>
-    <td>{description}</td>
-    <td>{category}</td>
-    <td>{date}</td>
-    <td>{amount}</td>
-    <SIcons>
-      <IconButton onClick={onEdit}>
-        <img src={MiniPen} alt="Редактировать" />
-      </IconButton>
-      <IconButton onClick={onDelete}>
-        <img src={MiniBucket} alt="Удалить" />
-      </IconButton>
-    </SIcons>
-  </STableOrderRow>
+  <S.Row $isSelected={isSelected}>
+    <S.Cell>{description}</S.Cell>
+    <S.Cell>{category}</S.Cell>
+    <S.Cell>{date}</S.Cell>
+    <S.Cell>{amount}</S.Cell>
+    <S.Icons>
+      <S.IconButton onClick={onEdit}>
+        <img src="/first-box/mini-pen.svg" alt="Иконка карандаша" />
+      </S.IconButton>
+      <S.IconButton onClick={onDelete}>
+        <img src="/first-box/mini-bucket.svg" alt="Иконка корзинки" />
+      </S.IconButton>
+    </S.Icons>
+  </S.Row>
 );

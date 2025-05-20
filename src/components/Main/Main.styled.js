@@ -16,7 +16,7 @@ export const SMainHeader = styled.h1`
   font-weight: ${textSizes.largeH1.fontWeight};
   color: ${textSizes.largeH1.color};
   padding-top: 36px;
-  padding-bottom: 32px;
+  padding-bottom: 25px;
   margin: 0px;
 `;
 
@@ -27,20 +27,22 @@ export const STables = styled.div`
   max-width: 1200px;
 `;
 
-export const STableSection = styled.section`
+export const STableSection = styled.div`
+  width: 789px;
+  height: 618px;
   background: white;
   border-radius: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  padding-left: 32px;
-  padding-bottom: 7px;
-  flex: 1 1 788px;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 `;
 
 export const STableHeader = styled.div`
   display: flex;
   margin-top: 32px;
   margin-bottom: 32px;
+  margin-left: 32px;
   align-items: center;
   justify-content: space-between;
   margin-right: 34px;
@@ -49,16 +51,15 @@ export const STableHeader = styled.div`
 export const SSectionTitle = styled.h2`
   font-weight: ${textSizes.largeH2.fontWeight};
   font-size: ${textSizes.largeH2.fontSize};
+  margin-left: 32 px;
 `;
 
-export const SExpenseTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-`;
-export const STableBodyWrapper = styled.tbody`
+export const STableBodyWrapper = styled.div`
+  margin-bottom: 32px;
   display: block;
   max-height: 618px;
   overflow-y: auto;
+
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -84,5 +85,3 @@ export const SExpenseForm = styled.form`
     font-size: ${textSizes.medium.fontSize};
   }
 `;
-
-
