@@ -1,4 +1,9 @@
+import { useState,useEffect } from 'react'
 import * as S from './Diagram.styled'
+// import {truncateString } from '../../utils';
+import { truncateString } from '../../utils/utils';
+
+
 let expenses = [
     { name: 'Еда', latinName: 'food', value: 0, color: '#D9B6FF' },
     { name: 'Транспорт', latinName: 'transport', value: 0, color: '#FFB53D' },
@@ -7,20 +12,31 @@ let expenses = [
     { name: 'Образование', latinName: 'education', value: 0, color: '#BCEC30' },
     { name: 'Другое', latinName: 'others', value: 0, color: '#FFB9B8' },
 ]
-export default function Diagram({ diagramData = {} }) {
+
+export default function Diagram({ diagramData, period }) {
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600)
     const max = Math.max(...expenses.map((e) => e.value))
     let totalSum = 0
+
     expenses = expenses.map((item) => {
         const value = diagramData[item.latinName] || 0
         totalSum += value
         return { ...item, value }
     })
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 474)
+        }
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
     return (
         <S.Wrapper>
             <S.Total>
                 <S.TotalAmount>{totalSum} ₽</S.TotalAmount>
                 <S.Subtext>
-                    Расходы за <S.SubtextSpan>10 июля 2024</S.SubtextSpan>{' '}
+                    Расходы за <S.SubtextSpan>{period}</S.SubtextSpan>{' '}
                 </S.Subtext>
             </S.Total>
 
@@ -32,10 +48,11 @@ export default function Diagram({ diagramData = {} }) {
                             height={max > 0 ? (value / max) * 100 : 0}
                             style={{ backgroundColor: color }}
                         />
-                        <S.Label>{name}</S.Label>
+                         <S.Label>{!isMobile? name:truncateString(name)}</S.Label>
                     </S.BarBlock>
                 ))}
             </S.Chart>
+
         </S.Wrapper>
     )
 }

@@ -5,9 +5,9 @@ export const Container = styled.div`
     height: 100%;
     max-height: 480px;
     overflow-y: auto;
-    padding-right: 29px; /* небольшой отступ, чтобы не обрезалось */
+    padding-right: 29px; 
 
-    /* Кастомный скроллбар (по желанию) */
+   
     scrollbar-width: thin;
     scrollbar-color: #ccc transparent;
 
@@ -86,6 +86,6 @@ export const MonthButton = styled.button`
 
     &:hover {
         background-color: #dbffe9;
-        /* color: #1fa46c; */
+       
     }
 `

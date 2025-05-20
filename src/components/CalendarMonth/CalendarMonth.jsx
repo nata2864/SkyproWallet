@@ -22,6 +22,8 @@ const years = [currentYear - 1, currentYear, currentYear + 1]
 const CalendarMonth = ({ onRangeChange }) => {
     const [selected, setSelected] = useState([])
 
+
+
     const toggleMonth = (year, monthIndex) => {
         const key = `${year}-${String(monthIndex).padStart(2, '0')}`
         setSelected((prev) =>
@@ -29,7 +31,7 @@ const CalendarMonth = ({ onRangeChange }) => {
         )
     }
 
-    // Вычисляем диапазон при изменении выбора
+  
     useEffect(() => {
         if (selected.length === 0) return
 
@@ -91,62 +93,3 @@ const CalendarMonth = ({ onRangeChange }) => {
 
 export default CalendarMonth
 
-// import React, { useState } from 'react'
-// import * as S from './CalendarMonth.styled'
-
-// const years = [2024, 2025, 2026]
-// const months = [
-//     'Январь',
-//     'Февраль',
-//     'Март',
-//     'Апрель',
-//     'Май',
-//     'Июнь',
-//     'Июль',
-//     'Август',
-//     'Сентябрь',
-//     'Октябрь',
-//     'Ноябрь',
-//     'Декабрь',
-// ]
-
-// const CalendarMonth = () => {
-//     //   const [mode, setMode] = useState('год') // или 'месяц'
-//     const [selected, setSelected] = useState([])
-
-//     const toggleMonth = (year, monthIndex) => {
-//         const key = `${year}-${monthIndex}`
-//         setSelected((prev) =>
-//             prev.includes(key) ? prev.filter((m) => m !== key) : [...prev, key]
-//         )
-//     }
-
-//     return (
-//         <S.Container>
-//             <S.Content>
-//                 {years.map((year) => (
-//                     <div key={year}>
-//                         <S.YearLabel>{year}</S.YearLabel>
-//                         <S.MonthGrid>
-//                             {months.map((month, i) => {
-//                                 const key = `${year}-${i}`
-//                                 const isSelected = selected.includes(key)
-//                                 return (
-//                                     <S.MonthButton
-//                                         key={month}
-//                                         selected={isSelected}
-//                                         onClick={() => toggleMonth(year, i)}
-//                                     >
-//                                         {month}
-//                                     </S.MonthButton>
-//                                 )
-//                             })}
-//                         </S.MonthGrid>
-//                     </div>
-//                 ))}
-//             </S.Content>
-//         </S.Container>
-//     )
-// }
-
-// export default CalendarMonth

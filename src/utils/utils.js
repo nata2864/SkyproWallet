@@ -69,4 +69,9 @@ export const formatedInputDate = (dateString) => {
   return format(parsed, "M-d-yyyy");
 };
 
-
+export function truncateString(str) {
+  if (str.length > 6) {
+    return str.slice(0, 6) + '...';
+  }
+  return str;
+}

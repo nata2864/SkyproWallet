@@ -20,6 +20,12 @@ export const textSizes = {
     fontSize: "32px",
     fontWeight: "700",
   },
+    mobileH2: {
+        fontSize: '20px',
+    },
+    mobileText: {
+      fontSize: '10px',
+    }
 };
 
 // Апи для регистрации и авторизации пользователя
