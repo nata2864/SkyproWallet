@@ -5,9 +5,12 @@ import CalendarMonth from '../CalendarMonth/CalendarMonth'
 import * as S from './Analysis.styled'
 import { sortByCategorie } from '../../utils'
 import { ExpenseContext } from '../../context/ExpenseContext'
+import { getDataPeriod } from '../../services/api'
+import { AuthContext } from '../../context/AuthContext'
 
 function Analysis() {
     const { expenses } = useContext(ExpenseContext)
+    const { user } = useContext(AuthContext)
     const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
     const [filter, setMode] = useState(true)
     const [period, setPeriod] = useState('все время')
@@ -18,20 +21,22 @@ function Analysis() {
         console.log('Нажали на кнопку!')
         setShowCalendarMobile((prev) => !prev)
     }
-
+    const token =  'asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k'
     const handleRangeChange = useCallback(
-        (range) => {
+       
+        async (range) => {
             if (!range?.start || !range?.end) return
 
             const startDate = new Date(range.start)
             const endDate = new Date(range.end)
-
-            const filtered = expenses.filter((item) => {
-                const itemDate = new Date(item.date)
-                return itemDate >= startDate && itemDate <= endDate
-            })
-
-            const newDiagramData = sortByCategorie(filtered)
+            const formatDate = (date) => {
+                const month = date.getMonth() + 1 // месяцы с 0 по 11
+                const day = date.getDate()
+                // const month = String(date.getMonth() + 1).padStart(2, '0')
+                // const day = String(date.getDate()).padStart(2, '0')
+                const year = date.getFullYear()
+                return `${month}-${day}-${year}`
+            }
             const formatRange = (start, end) => {
                 const options = {
                     day: '2-digit',
@@ -43,16 +48,28 @@ function Analysis() {
                 return `${startStr} – ${endStr}`
             }
 
+           
             setPeriod(formatRange(startDate, endDate))
 
-            setDiagramData((prev) => {
-                if (JSON.stringify(prev) !== JSON.stringify(newDiagramData)) {
-                    return newDiagramData
-                }
-                return prev
-            })
+            try {
+                const result = await getDataPeriod({
+                    // token: user.token,
+                    token: token,
+                    period: {
+                        start: formatDate(startDate),
+                        end: formatDate(endDate),
+
+                    },
+
+                    
+                })
+
+                setDiagramData(sortByCategorie(result))
+            } catch (error) {
+                console.error('Ошибка при получении данных:', error.message)
+            }
         },
-        [expenses]
+        [user.token]
     )
 
     useEffect(() => {

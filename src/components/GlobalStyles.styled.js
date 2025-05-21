@@ -11,6 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 :root {
     --primary-color: #F4F5F6;
     --bg-color: #ffff;
+    --fontFamily: 'Montserrat', Arial,  sans-serif;
   }
 
   *:before,

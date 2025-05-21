@@ -6,6 +6,7 @@ export const Container = styled.div`
     max-height: 480px;
     overflow-y: auto;
     padding-right: 29px; 
+ 
 
    
     scrollbar-width: thin;
@@ -41,6 +42,7 @@ export const ModeSwitch = styled.div`
 export const ModeButton = styled.button`
     background: none;
     border: none;
+    
     font-size: 16px;
     font-weight: ${(props) => (props.active ? 600 : 400)};
     color: ${(props) => (props.active ? '#27ae60' : '#000')};
@@ -57,12 +59,14 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+
 `
 
 export const YearLabel = styled.div`
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 12px;
+    font-family: var(--fontFamily);
 `
 
 export const MonthGrid = styled.div`
@@ -81,6 +85,7 @@ export const MonthButton = styled.button`
     background: ${(props) => (props.selected ? '#dbffe9' : '#F4F5F6')};
     color: ${(props) => (props.selected ? '#1fa46c' : '#000')};
     font-size: 14px;
+    font-family: var(--fontFamily);
     cursor: pointer;
     transition: 0.3s;
 
