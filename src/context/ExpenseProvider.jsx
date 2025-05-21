@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useContext } from "react";
 import {
   fetchExpenses,
   postExpense,
@@ -8,12 +8,16 @@ import {
 import { toast } from "react-toastify";
 import { textErrors } from "../const";
 import { ExpenseContext } from "./ExpenseContext";
+import {AuthContext} from "../../src/context/AuthContext"
 
 export const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [error, setError] = useState("");
 
-  const token = "bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
+  const {user} = useContext(AuthContext);
+  
+  const token = user.token;
+  // const token = "bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
 
   const getExpenses = useCallback(async () => {
     try {

@@ -81,8 +81,6 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
     };
     try {
       if (selectedExpense) {
-        console.log("ID для редактирования:", selectedExpense);
-        console.log("Отправляемый expense:", expense);
         await editExpense({ id: selectedExpense, expense });
         toast.success("Расход обновлён");
         onEditComplete();

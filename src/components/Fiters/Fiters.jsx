@@ -12,22 +12,6 @@ import { categoryTranslations } from "../../const";
 import { Tag } from "../Categories/Categories.styled";
 import { categorieName } from "../../const";
 
-const MiniCar = "/second-box/mini-car.svg";
-const MiniFood = "/second-box/mini-food.svg";
-const MiniGames = "/second-box/mini-games.svg";
-const MiniHouse = "/second-box/mini-house.svg";
-const MiniOther = "/second-box/mini-other.svg";
-const MiniTeacher = "/second-box/mini-teacher.svg";
-
-const categories = [
-  { name: "Еда", icon: MiniFood },
-  { name: "Транспорт", icon: MiniCar },
-  { name: "Жилье", icon: MiniHouse },
-  { name: "Развлечение", icon: MiniGames },
-  { name: "Образование", icon: MiniTeacher },
-  { name: "Другое", icon: MiniOther },
-];
-
 const sortings = [{ name: "Дате" }, { name: "Сумме" }];
 
 function Filters({
@@ -109,10 +93,8 @@ function Filters({
                 }}
                 $isSelected={selectedCategory === category.name}
               >
-                 <img  src={
-       category.srcIcon.default
-       
-    } alt="Иконка категории" /> {category.name}
+                <img src={category.srcIcon.default} alt="Иконка категории" />{" "}
+                {category.name}
               </Tag>
             ))}
           </SCategoryFiltration>
