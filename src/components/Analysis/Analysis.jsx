@@ -18,7 +18,6 @@ function Analysis() {
     const [isMobile, setIsMobile] = useState(false)
     const [showCalendarMobile, setShowCalendarMobile] = useState(false)
     const toggleCalendar = () => {
-        console.log('Нажали на кнопку!')
         setShowCalendarMobile((prev) => !prev)
     }
 
