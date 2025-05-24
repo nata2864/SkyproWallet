@@ -62,16 +62,13 @@ export async function getDataPeriod({ token, period }) {
             method: 'POST',
             headers: {
                 Authorization: 'Bearer ' + token,
-                // 'Content-Type': 'text/html', // заменено с text/html на правильный тип
+               
             },
             body: JSON.stringify({
                 'start': period.start,
                 'end': period.end,
             }),
-            // body: JSON.stringify({
-            //     'start': '6-1-2024',
-            //     'end': '6-1-2025',
-            // }),
+
  
         });
 
@@ -88,62 +85,4 @@ export async function getDataPeriod({ token, period }) {
 }
 
 
-// export async function getDataPeriod({ token, period }) {
-//     if (!navigator.onLine) {
-//         throw new Error('Сеть недоступна');
-//     }
-
-//     try {
-//         const response = await axios.post(
-//             "https://wedev-api.sky.pro/api/transactions/period",
-//             {
-//                 start: period.start,
-//                 end: period.end,
-//             },
-//             {
-//                 headers: {
-//                     Authorization: 'Bearer ' + token,
-//                     'Content-Type': 'text/html',
-//                 },
-//             }
-//         );
-
-//         return response.data;
-//     } catch (error) {
-//         throw new Error(error.response?.data?.message || error.message);
-//     }
-// }
-
-
-
-
-// export async function getDataPeriod({token, period} ) {
-//     // console.log(token, JSON.stringify(params))
-//     try {
-//         if (!isNetworkAvailable()) {
-//             throw new Error('Сеть недоступна')
-//         }
-
-//         const data = await axios.post(`${API_URL_PERIOD}`,  {
-//             headers: {
-//                 Authorization: 'Bearer ' + token,
-
-                
-//             },
-//             body: {
-//                 'start': '01-01-2024',
-//                 'end':'12-01-2025',
-//             }
-
-//         })
-
- 
-
-
-//         return data.data
-//         // когда работаем с axios, не забываем, что результат лежит в ключе datа
-//     } catch (error) {
-//         throw new Error(error.message)
-//     }
-// }
 

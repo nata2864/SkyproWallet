@@ -21,9 +21,8 @@ function Analysis() {
         console.log('Нажали на кнопку!')
         setShowCalendarMobile((prev) => !prev)
     }
-    const token =  'asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k'
+
     const handleRangeChange = useCallback(
-       
         async (range) => {
             if (!range?.start || !range?.end) return
 
@@ -32,8 +31,6 @@ function Analysis() {
             const formatDate = (date) => {
                 const month = date.getMonth() + 1 // месяцы с 0 по 11
                 const day = date.getDate()
-                // const month = String(date.getMonth() + 1).padStart(2, '0')
-                // const day = String(date.getDate()).padStart(2, '0')
                 const year = date.getFullYear()
                 return `${month}-${day}-${year}`
             }
@@ -48,20 +45,16 @@ function Analysis() {
                 return `${startStr} – ${endStr}`
             }
 
-           
             setPeriod(formatRange(startDate, endDate))
 
             try {
                 const result = await getDataPeriod({
-                    // token: user.token,
-                    token: token,
+                    token: user.token,
+
                     period: {
                         start: formatDate(startDate),
                         end: formatDate(endDate),
-
                     },
-
-                    
                 })
 
                 setDiagramData(sortByCategorie(result))

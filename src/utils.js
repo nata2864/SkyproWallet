@@ -1,5 +1,3 @@
-// import { data } from 'react-router-dom'
-
 export function checkLs() {
     try {
         const data = window.localStorage.getItem('userInfo')
@@ -60,8 +58,8 @@ export const sortByCategorie = (data) => {
 }
 
 export function truncateString(str) {
-  if (str.length > 6) {
-    return str.slice(0, 6) + '...';
-  }
-  return str;
+    if (str.length > 6) {
+        return str.slice(0, 6) + '...'
+    }
+    return str
 }
