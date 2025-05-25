@@ -34,14 +34,48 @@ const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
-  const { expenses } = useContext(ExpenseContext);
+  const { expenses, fetchExpenses, token } = useContext(ExpenseContext);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(false);
-  const [selectedSorting, setSelectedSorting] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSorting, setSelectedSorting] = useState(null);
   const [filteredData, setFilteredData] = useState(expenses);
   const [editingExpenseId, setEditingExpenseId] = useState(null);
 
+  const reverseCategoryTranslations = Object.entries(
+    categoryTranslations
+  ).reduce((acc, [key, value]) => {
+    acc[value] = key;
+    return acc;
+  }, {});
+  useEffect(() => {
+    const fetchFilteredData = async () => {
+      try {
+        const filterBy = selectedCategory
+          ? [reverseCategoryTranslations[selectedCategory]]
+          : null;
+        const sortBy =
+          selectedSorting === "Дате"
+            ? "date"
+            : selectedSorting === "Сумме"
+            ? "sum"
+            : null;
+
+        const data = await fetchExpenses({
+          token,
+          sortBy,
+          filterBy,
+        });
+        setFilteredData(data);
+      } catch (error) {
+        console.error("Ошибка при загрузке данных:", error);
+        // В случае ошибки показываем исходные данные
+        setFilteredData(expenses);
+      }
+    };
+
+    fetchFilteredData();
+  }, [selectedCategory, selectedSorting, token]);
 
   useEffect(() => {
     // Обновлять только если ничего не выбрано
@@ -49,6 +83,7 @@ function Main() {
       setFilteredData(expenses);
     }
   }, [expenses, selectedCategory, selectedSorting]);
+
   const categories = [
     { name: "Еда", icon: MiniFood },
     { name: "Транспорт", icon: MiniCar },
@@ -64,42 +99,17 @@ function Main() {
 
   const sortings = [{ name: "Дате" }, { name: "Сумме" }];
   const handleCategorySelect = (category) => {
-    const newCategory = category === selectedCategory ? false : category;
+    const newCategory = category === selectedCategory ? null : category;
     setSelectedCategory(newCategory);
-    if (!newCategory) {
-      setFilteredData(expenses);
-    } else {
-      const categoryKey = Object.keys(categoryTranslations).find(
-        (key) => categoryTranslations[key] === category
-      );
-
-      setFilteredData(
-        expenses.filter((expense) => expense.category === categoryKey)
-      );
-    }
   };
 
   const handleSortingsSelect = (sorting) => {
-    const newSorting = sorting === selectedSorting ? false : sorting;
+    const newSorting = sorting === selectedSorting ? null : sorting;
     setSelectedSorting(newSorting);
-    if (!newSorting) {
-      setFilteredData(expenses);
-    } else {
-      setFilteredData((prevData) => {
-        const sorted = [...prevData];
-        if (sorting === "Дате") {
-          sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-        } else if (sorting === "Сумме") {
-          sorted.sort((a, b) => b.sum - a.sum);
-        }
-        return sorted;
-      });
-    }
   };
 
- const handleEditClick = (expenseId) => {
+  const handleEditClick = (expenseId) => {
     setEditingExpenseId(expenseId);
-
   };
 
   const handleEditComplete = () => {
@@ -238,10 +248,10 @@ function Main() {
               </STableBodyWrapper>
             </SExpenseTable>
           </STableSection>
-         <ExpenseForm
-        editingExpenseId={editingExpenseId}
-        onEditComplete={handleEditComplete}
-      />
+          <ExpenseForm
+            editingExpenseId={editingExpenseId}
+            onEditComplete={handleEditComplete}
+          />
         </STables>
       </SMain>
     </>
