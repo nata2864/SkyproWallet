@@ -66,9 +66,9 @@ export const ExpenseProvider = ({ children }) => {
         error,
         isLoading,
         token,
-        fetchExpenses: getExpenses, // Переименовано для ясности
-        addExpense: addNewExpense,
-        updateExpense: editExpense,
+        getExpenses,
+        addNewExpense,
+        editExpense,
       }}
     >
       {children}

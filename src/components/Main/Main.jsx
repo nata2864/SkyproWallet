@@ -34,7 +34,7 @@ const MiniOther = "/second-box/mini-other.svg";
 const MiniTeacher = "/second-box/mini-teacher.svg";
 
 function Main() {
-  const { expenses, fetchExpenses, token } = useContext(ExpenseContext);
+  const { expenses, getExpenses, token } = useContext(ExpenseContext);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -61,7 +61,7 @@ function Main() {
             ? "sum"
             : null;
 
-        const data = await fetchExpenses({
+        const data = await getExpenses({
           token,
           sortBy,
           filterBy,
@@ -69,7 +69,6 @@ function Main() {
         setFilteredData(data);
       } catch (error) {
         console.error("Ошибка при загрузке данных:", error);
-        // В случае ошибки показываем исходные данные
         setFilteredData(expenses);
       }
     };
