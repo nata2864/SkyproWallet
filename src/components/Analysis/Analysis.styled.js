@@ -51,6 +51,7 @@ export const AnalysisCalendarContainer = styled.div`
     max-width: 379px;
     background-color: var(--bg-color);
     width: 100%;
+    border-radius: 30px;
     @media (max-width: 600px) {
         background: linear-gradient(to bottom, #ffffff 80%, #f4f5f6 100%);
     }
@@ -128,6 +129,7 @@ export const CalendarFilterLinks = styled.div`
 export const CalendarNavLink = styled.button`
     background: none;
     border: none;
+    font-family: var(--fontFamily)
     font-size: ${textSizes.small.fontSize};
     font-weight: ${(props) => (props.$active ? 600 : 400)};
     color: ${(props) => (props.$active ? '#27ae60' : '#000')};

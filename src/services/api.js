@@ -68,3 +68,37 @@ export async function deleteExpense({ token, id }) {
   }
 }
 
+const API_URL_PERIOD = " https://wedev-api.sky.pro/api/transactions/period";
+
+export async function getDataPeriod({ token, period }) {
+    if (!navigator.onLine) {
+        throw new Error('Сеть недоступна');
+    }
+
+    try {
+        const response = await fetch("https://wedev-api.sky.pro/api/transactions/period", {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token,
+               
+            },
+            body: JSON.stringify({
+                'start': period.start,
+                'end': period.end,
+            }),
+
+ 
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ошибка при запросе');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
