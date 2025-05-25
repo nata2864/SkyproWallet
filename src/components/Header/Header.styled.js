@@ -9,6 +9,10 @@ export const Header = styled.header`
     height: 64px;
     margin: 0 auto;
     background-color: #ffffff;
+    @media (max-width: 600px) {
+        height: 54px;
+        background-color: var(--primary-color);
+    }
 `
 
 export const HeaderBlock = styled.div`
@@ -49,15 +53,13 @@ export const HeaderLinkExitText = styled(HeaderLinkText)`
     @media (max-width: 600px) {
         font-weight: ${textSizes.medium.fontWeight};
         font-size: ${textSizes.small.fontSize};
-
-
     }
 `
 
 export const HeaderContainer = styled.div`
     width: 100%;
     display: block;
-    display: 'flex';
+    display: flex;
     justify-content: 'space-between';
     align-items: 'center';
     padding: '10px 40px';
@@ -79,7 +81,7 @@ export const HeaderLogoImg = styled.img`
 `
 
 export const HeaderNav = styled.nav`
-    display: 'flex';
+    display: flex;
     gap: '40px';
     align-items: 'center';
 `
@@ -122,14 +124,15 @@ export const MobileMenuButton = styled.button`
     border: none;
     cursor: pointer;
     display: none;
-    
+    color: ${buttonStyles.active.color};
 
     @media (max-width: 600px) {
         display: block;
+        box-sizing: border-box;
         &:hover {
-        color: ${buttonStyles.active.color};
-        transition: all 0.3s ease;
-    }
+            color: ${buttonStyles.active.color};
+            transition: all 0.3s ease;
+        }
     }
 `
 
@@ -146,7 +149,6 @@ export const MobileDropdown = styled.div`
 
 export const MobileDropdownLink = styled.div`
     display: block;
-    /* padding: 8px 12px; */
     white-space: nowrap;
     text-decoration: none;
     color: #000;
@@ -155,12 +157,12 @@ export const MobileDropdownLink = styled.div`
         font-weight: ${textSizes.small.fontWeight};
         font-size: ${textSizes.small.fontSize};
     }
-
 `
 
 export const MobileHeaderLogoImg = styled.img`
     width: 7px;
     height: 7px;
+    margin-left: 8px;
     transition: transform 0.3s ease;
     transform: ${(props) => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0)')};
 `
@@ -168,7 +170,8 @@ export const MobileHeaderLogoImg = styled.img`
 export const MobileHeaderMenuItem = styled.div`
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
+    align-items: center;
     /* gap: 10px; */
     width: auto;
     height: 30px;
@@ -177,8 +180,14 @@ export const MobileHeaderMenuItem = styled.div`
     margin-top: 10px;
     opacity: 0.4;
     background-color: ${(props) => (props.$isActive ? '#dbffe9' : ' #f1f1f1')};
+    opacity: ${(props) => (props.$isActive ? 1 : 0.4)};
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
 
-    p {
+    &:hover {
+        opacity: 1;
+    }
+    a {
         font-size: 10px;
         font-weight: 400;
         line-height: 100%;
@@ -190,7 +199,11 @@ export const MobileMenuItemLink = styled(NavLink)`
     outline: none;
     color: #000;
     &.active {
-        color: #1FA46C;
+        color: #1fa46c;
         background-color: #dbffe9;
+    }
+    &:hover {
+        color: ${buttonStyles.active.color};
+        transition: all 0.3s ease;
     }
 `
