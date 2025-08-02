@@ -9,6 +9,13 @@ export const Header = styled.header`
   height: 64px;
   margin: 0 auto;
   background-color: #ffffff;
+
+  @media (max-width: 450px) {
+  width: 100%;
+  height: 64px;
+  margin: 0 auto;
+  background: rgb(244, 245, 246);
+  }  
 `;
 
 export const HeaderBlock = styled.div`
@@ -25,6 +32,10 @@ export const HeaderBlock = styled.div`
   padding-right: 120px;
   max-width: 1440px;
   margin: 0 auto;
+
+  @media (max-width: 450px) {
+  padding-left:16px;
+  }  
 `;
 
 export const HeaderLinkText = styled(Link)`
@@ -36,7 +47,7 @@ export const HeaderLinkText = styled(Link)`
   text-decoration: none;
   outline: none;
   color: #000;
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -48,7 +59,7 @@ export const HeaderLinkExitText = styled(HeaderLinkText)`
     color: ${buttonStyles.active.color};
     transition: all 0.3s ease;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.medium.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -72,9 +83,9 @@ export const HeaderLogo = styled(Link)`
 export const HeaderLogoImg = styled.img`
   width: 144px;
   height: 19px;
-  @media (max-width: 600px) {
-    width: 109px;
-    height: 14px;
+  @media (max-width: 450px) {
+    width: 144px;
+    height: 19px;
   }
 `;
 
@@ -86,7 +97,7 @@ export const HeaderNav = styled.nav`
 export const HeaderLinks = styled.div`
   display: flex;
   gap: 48px;
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     gap: 8px;
   }
 `;
@@ -111,7 +122,7 @@ export const HeaderNavLink = styled(NavLink)`
     transition: all 0.3s ease;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -123,7 +134,7 @@ export const MobileMenuButton = styled.button`
   cursor: pointer;
   display: none;
 
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     display: block;
     &:hover {
       color: ${buttonStyles.active.color};
@@ -150,7 +161,7 @@ export const MobileDropdownLink = styled.div`
   text-decoration: none;
   color: #000;
   outline: none;
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }

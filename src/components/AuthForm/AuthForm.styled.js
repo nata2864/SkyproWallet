@@ -40,25 +40,23 @@ export const ModalBlok = styled.div`
   @media (max-width: 450px) {
     max-width: 100%;
     min-height: 100vh;
-    padding: 24px 16px;
+    padding: 151px 16px;
     border-radius: 0;
     box-shadow: none;
   }
 `;
 
 export const Title = styled.h2`
-  /* --- Стили для десктопа (старые) --- */
   text-align: center;
   font-weight: ${textSizes.largeH2.fontWeight};
   font-size: ${textSizes.largeH2.fontSize};
   line-height: 100%;
   margin-bottom: 20px;
 
-  /* --- Стили для мобильных (новые) --- */
   @media (max-width: 450px) {
     font-size: 24px;
     font-weight: 700;
-    text-align: left;
+    text-align: center;
     margin-bottom: 24px;
   }
 `;
@@ -87,10 +85,11 @@ export const InputAuthForm = styled(BasisInput)`
 
   @media (max-width: 450px) {
     height: auto;
+    width:100%;
     padding: 12px;
     font-size: 16px;
     border-radius: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     border-color: #D1D1D1;
     background: #FFF;
 
@@ -102,7 +101,6 @@ export const InputAuthForm = styled(BasisInput)`
 `;
 
 export const AuthButton = styled(Button)`
-  margin-top: 12px;
   margin-bottom: 24px;
   background-color: ${(props) =>
     props.disabled ? "rgba(153, 153, 153, 1)" : "rgba(31, 164, 108, 1)"};
@@ -110,12 +108,12 @@ export const AuthButton = styled(Button)`
 
   @media (max-width: 450px) {
     height: auto;
+    width:100%;
     padding: 12px;
     font-size: 16px;
     font-weight: 500;
     border-radius: 8px;
-    margin-top: 8px; 
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     background-color: #27AE60;
   }
 `;
@@ -131,8 +129,10 @@ export const ModalText = styled.p`
   line-height: 100%;
 
   @media (max-width: 450px) {
-    font-size: 14px;
+    font-size: 12px;
     color: #A0A0A0;
+    margin-bottom: 4px;
+
   }
 `;
 
@@ -141,8 +141,4 @@ export const ModalLink = styled(ModalText).attrs({ as: Link })`
   margin-top: 4px;
   cursor: pointer;
 
-  @media (max-width: 450px) {
-    color: #27AE60;
-    margin-left: 4px;
-  }
 `;
