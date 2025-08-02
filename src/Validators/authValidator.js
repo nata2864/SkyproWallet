@@ -1,5 +1,3 @@
-import { toast } from "react-toastify";
-
 export const validateLoginErrors = (values) => {
   const errors = {};
   let isValid = true;
@@ -7,14 +5,17 @@ export const validateLoginErrors = (values) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(values.login)) {
-    errors.login = true;
-    toast.error("Введите корректный email");
+    errors.login = "Введите корректный email";
     isValid = false;
   }
 
   if (values.password.length < 4) {
-    errors.password = true;
-    toast.error("Пароль должен быть не менее 4 символов");
+    errors.password = "Пароль должен быть не менее 4 символов";
+    isValid = false;
+  }
+  
+  if (values.name !== undefined && values.name.length < 2) {
+    errors.name = "Имя должно содержать не менее 2 символов";
     isValid = false;
   }
 

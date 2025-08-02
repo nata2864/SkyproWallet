@@ -1,11 +1,16 @@
 import { useState } from "react";
 
-
 export const useForm = ({ initialValues, validate }) => {
   const [formData, setFormData] = useState(initialValues);
+  
   const [errors, setErrors] = useState(
+    Object.fromEntries(Object.keys(initialValues).map((key) => [key, ""]))
+  );
+  
+  const [dirty, setDirty] = useState(
     Object.fromEntries(Object.keys(initialValues).map((key) => [key, false]))
   );
+
   const [focus, setFocus] = useState(
     Object.fromEntries(Object.keys(initialValues).map((key) => [key, false]))
   );
@@ -13,7 +18,8 @@ export const useForm = ({ initialValues, validate }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: false }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+    setDirty((prev) => ({ ...prev, [name]: true }));
   };
 
   const handleFocus = (field) => {
@@ -22,31 +28,28 @@ export const useForm = ({ initialValues, validate }) => {
 
   const handleBlur = (field) => {
     setFocus((prev) => ({ ...prev, [field]: false }));
-    // validateForm();
+    validateForm();
   };
 
   const resetForm = () => {
     setFormData(initialValues);
     setErrors({});
+    setDirty({});
   };
 
   const validateForm = () => {
-    const { isValid, newErrors} = validate(formData);
-   
-      const fullErrors = Object.fromEntries(
-    Object.keys(formData).map((key) => [key, !!newErrors[key]])
-  );
-
-  setErrors(fullErrors);
+    const { isValid, errors: newErrors } = validate(formData);
+    const fullErrors = { ...errors, ...newErrors };
+    setErrors(fullErrors);
 
     return isValid;
   };
 
   return {
     formData,
-    setFormData,
     errors,
     focus,
+    dirty,
     handleChange,
     handleFocus,
     handleBlur,

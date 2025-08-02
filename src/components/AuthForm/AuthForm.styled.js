@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { textSizes, inputColors } from "../../const";
+import styled, { css } from "styled-components";
+import { textSizes } from "../../const";
 import { Link } from "react-router-dom";
 import { BasisInput } from "../Input/Input.styled";
 import { Button } from "../Button/Button.styled";
@@ -68,35 +68,56 @@ export const Form = styled.form`
   justify-content: center;
 `;
 
+export const ErrorMessage = styled.p`
+  color: rgb(242, 80, 80);
+  font-size: 14px;
+  margin-top: -8px;
+  margin-bottom: 12px;
+  padding-left: 4px;
+  text-align: center;
+`;
+
 export const InputAuthForm = styled(BasisInput)`
   margin-bottom: 12px;
   border-color: ${({ $error, $isFocused }) =>
     $error
-      ? inputColors.error.border
+      ? 'rgb(242, 80, 80)'
       : $isFocused
-      ? inputColors.active.border
-      : inputColors.static.border};
+      ? '#1FA46C'
+      : '#999999'};
+
   background: ${({ $error, $isFocused }) =>
     $error
-      ? inputColors.error.background
+      ? 'rgb(255, 235, 235)'
       : $isFocused
-      ? inputColors.active.background
-      : inputColors.static.background};
+      ? '#DBFFE9'
+      : 'transparent'};
 
   @media (max-width: 450px) {
     height: auto;
-    width:100%;
-    padding: 12px;
+    padding: 12px 16px;
     font-size: 16px;
     border-radius: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
+    width: 100%;
+    max-width: 100%;
+    
     border-color: #D1D1D1;
     background: #FFF;
 
-    &:focus {
-      border-color: #27AE60;
-      background: #FFF;
-    }
+    ${({ $success }) =>
+      $success &&
+      css`
+        border-color: rgb(31, 164, 108);
+        background: rgb(219, 255, 233);
+      `}
+
+    ${({ $error }) =>
+      $error &&
+      css`
+        border-color: rgb(242, 80, 80);
+        background: rgb(255, 235, 235);
+      `}
   }
 `;
 
@@ -108,11 +129,11 @@ export const AuthButton = styled(Button)`
 
   @media (max-width: 450px) {
     height: auto;
-    width:100%;
     padding: 12px;
     font-size: 16px;
     font-weight: 500;
     border-radius: 8px;
+    margin-top: 12px;
     margin-bottom: 24px;
     background-color: #27AE60;
   }
@@ -131,8 +152,7 @@ export const ModalText = styled.p`
   @media (max-width: 450px) {
     font-size: 12px;
     color: #A0A0A0;
-    margin-bottom: 4px;
-
+    margin-bottom:4px
   }
 `;
 
