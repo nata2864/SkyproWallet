@@ -12,7 +12,7 @@ export const SMain = styled.main`
   max-width: 1440px;
 
   @media (max-width: 450px) {
-    padding: 0 16px 24px 16px;
+    padding: 0 0 0 0;
     background: white;
   }
 `;
@@ -27,6 +27,8 @@ export const SMainHeaderContainer = styled.div`
 
   @media (max-width: 450px) {
     padding-top: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
     padding-bottom: 20px;
   }
 `;
@@ -101,6 +103,8 @@ export const STableHeader = styled.div`
 
   @media (max-width: 450px) {
     margin: 0 0 16px 0;
+    padding-left:16px;
+    padding-right:16px;
   }
 `;
 

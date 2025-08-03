@@ -16,7 +16,7 @@ export const RowHeader = styled.div`
   width: 100%;
   align-items: center;
   gap: 32px;
-  padding: 7px 32px;
+  padding: 7px 16px;
   border-bottom: 0.5px solid rgb(153, 153, 153);
   color: rgb(153, 153, 153);
   ${getTextStyles()}
@@ -27,7 +27,7 @@ export const Row = styled.div`
     $isSelected ? "rgba(219, 255, 233, 1)" : "transparent"};
   display: flex;
   align-items: center;
-  padding: 7px 32px;
+  padding: 7px 16px;
   box-sizing: border-box;
   gap: 32px;
   color: ${({ $isSelected }) => getSelectedColor($isSelected)};
