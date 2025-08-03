@@ -54,37 +54,37 @@ export default function Header() {
                 <S.HeaderLinks>
                   <S.MobileMenuButton onClick={toggleMenu} $isOpen={isMenuOpen}>
                     <S.HeaderNavLink to="/">Мои расходы</S.HeaderNavLink>
-
+                      {isMenuOpen && (
+                      <S.MobileDropdown>
+                        <S.MobileDropdownLink
+                          to="/"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <S.MobileHeaderMenuItem $isActive={true}>
+                            <S.MobileMenuItemLink>
+                              Мои расходы
+                            </S.MobileMenuItemLink>
+                          </S.MobileHeaderMenuItem>
+                          <S.MobileHeaderMenuItem>
+                            <S.MobileMenuItemLink to="/newExpense">
+                              Новый расход
+                            </S.MobileMenuItemLink>
+                          </S.MobileHeaderMenuItem>
+                          <S.MobileHeaderMenuItem>
+                            <S.MobileMenuItemLink to="/analysis">
+                              Анализ расходов
+                            </S.MobileMenuItemLink>
+                          </S.MobileHeaderMenuItem>
+                        </S.MobileDropdownLink>
+                      </S.MobileDropdown>
+                    )}
                     <S.MobileHeaderLogoImg
                       alt=""
-                      src="/Polygon.svg"
+                      src="/first-box/target.svg"
                       $isOpen={isMenuOpen}
                     />
                   </S.MobileMenuButton>
-                  {isMenuOpen && (
-                    <S.MobileDropdown>
-                      <S.MobileDropdownLink
-                        to="/"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <S.MobileHeaderMenuItem $isActive={true}>
-                          <S.MobileMenuItemLink>
-                            Мои расходы
-                          </S.MobileMenuItemLink>
-                        </S.MobileHeaderMenuItem>
-                        <S.MobileHeaderMenuItem>
-                          <S.MobileMenuItemLink to="/newExpense">
-                            Новый расход
-                          </S.MobileMenuItemLink>
-                        </S.MobileHeaderMenuItem>
-                        <S.MobileHeaderMenuItem>
-                          <S.MobileMenuItemLink to="/analysis">
-                            Анализ расходов
-                          </S.MobileMenuItemLink>
-                        </S.MobileHeaderMenuItem>
-                      </S.MobileDropdownLink>
-                    </S.MobileDropdown>
-                  )}
+                  
                 </S.HeaderLinks>
               )}
             </S.HeaderNav>

@@ -24,7 +24,6 @@ export const HeaderBlock = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   top: 0;
   left: 0;
 
@@ -35,6 +34,7 @@ export const HeaderBlock = styled.div`
 
   @media (max-width: 450px) {
   padding-left:16px;
+  padding-right:18px;
   }  
 `;
 
@@ -97,6 +97,7 @@ export const HeaderNav = styled.nav`
 export const HeaderLinks = styled.div`
   display: flex;
   gap: 48px;
+  position: relative;
   @media (max-width: 450px) {
     gap: 8px;
   }
@@ -135,23 +136,28 @@ export const MobileMenuButton = styled.button`
   display: none;
 
   @media (max-width: 450px) {
-    display: block;
+    display: flex;
+    gap:8px;
     &:hover {
       color: ${buttonStyles.active.color};
       transition: all 0.3s ease;
     }
+    img {
+      margin-top: 7px;
+      }
   }
 `;
 
 export const MobileDropdown = styled.div`
   position: absolute;
-  top: 100%;
-  right: 20px;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  top: 32px;
+  right:0;
   z-index: 1001;
+  box-sizing: border-box;
+  border: 0.5px solid rgb(153, 153, 153);
+  border-radius: 6px;
+  box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgb(255, 255, 255);
 `;
 
 export const MobileDropdownLink = styled.div`
@@ -183,10 +189,10 @@ export const MobileHeaderMenuItem = styled.div`
   height: 30px;
   padding: 7px 14px;
   border-radius: 24px;
-  margin-top: 10px;
+  margin: 10px;
   opacity: 0.4;
   background-color: ${(props) => (props.$isActive ? "#dbffe9" : " #f1f1f1")};
-
+  }
   p {
     font-size: 10px;
     font-weight: 400;
@@ -197,9 +203,16 @@ export const MobileHeaderMenuItem = styled.div`
 export const MobileMenuItemLink = styled(NavLink)`
   text-decoration: none;
   outline: none;
-  color: #000;
+  color: rgb(0, 0, 0);
+  font-family: Montserrat;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0%;
+  text-align: left;
+  
   &.active {
-    color: #1fa46c;
+    color: rgb(31, 164, 108);
     background-color: #dbffe9;
   }
 `;

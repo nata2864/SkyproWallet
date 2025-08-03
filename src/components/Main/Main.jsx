@@ -44,7 +44,7 @@ function Main() {
           <SMainHeader>Мои расходы</SMainHeader>
           {isMobile && (
             <SNewExpenseButton onClick={() => navigate(RoutesApp.NEW_EXPENSE)}>
-              <img src="/new-expense-icon.svg" alt="add"/>
+              <img src="/first-box/new-expense.svg" alt="add"/>
               Новый расход
             </SNewExpenseButton>
           )}
