@@ -1,21 +1,13 @@
-import {
-  SMain,
-  SMainHeader,
-  STableHeader,
-  STableSection,
-  SSectionTitle,
-  STables,
-  STableBodyWrapper,
-} from "./Main.styled";
+import { SMain, SMainHeader, SMainHeaderContainer, SNewExpenseButton, STableHeader, STableSection, SSectionTitle, STables, STableBodyWrapper } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
 import ExpenseForm from "../ExpenseForm/ExpenseForm ";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ExpenseContext } from "../../context/ExpenseContext";
-import { categoryTranslations } from "../../const";
-import { useState } from "react";
+import { categoryTranslations, RoutesApp } from "../../const";
 import { formatedDate } from "../../utils/utils";
-import { useEffect } from "react";
 import Filters from "../Fiters/Fiters";
+import { useViewport } from "../../hooks/useViewport";
 
 function Main() {
   const { expenses, deleteExpenseByID } = useContext(ExpenseContext);
@@ -24,8 +16,10 @@ function Main() {
   const [filteredData, setFilteredData] = useState(expenses);
   const [selectedExpense, setSelectedExpense] = useState(null);
 
+  const isMobile = useViewport(451); // ПРОВЕРКА МОБИЛЬНОЙ ВЕРСИИ
+  const navigate = useNavigate(); 
+
   useEffect(() => {
-    // Обновлять только если ничего не выбрано
     if (!selectedCategory && !selectedSorting) {
       setFilteredData(expenses);
     }
@@ -46,11 +40,20 @@ function Main() {
   return (
     <>
       <SMain>
-        <SMainHeader>Мои расходы</SMainHeader>
+        <SMainHeaderContainer>
+          <SMainHeader>Мои расходы</SMainHeader>
+          {isMobile && (
+            <SNewExpenseButton onClick={() => navigate(RoutesApp.NEW_EXPENSE)}>
+              <img src="/new-expense-icon.svg" alt="add"/>
+              Новый расход
+            </SNewExpenseButton>
+          )}
+        </SMainHeaderContainer>
+
         <STables>
           <STableSection>
             <STableHeader>
-              <SSectionTitle>Таблица расходов</SSectionTitle>
+              {!isMobile && <SSectionTitle>Таблица расходов</SSectionTitle>}
               <Filters
                 expenses={expenses}
                 setFilteredData={setFilteredData}
@@ -66,9 +69,7 @@ function Main() {
                 <TableRow
                   key={expense._id}
                   description={expense.description}
-                  category={
-                    categoryTranslations[expense.category] || expense.category
-                  }
+                  category={categoryTranslations[expense.category] || expense.category}
                   date={formatedDate(expense.date)}
                   amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
                   onEdit={() => handleEditClick(expense._id)}
@@ -78,10 +79,14 @@ function Main() {
               ))}
             </STableBodyWrapper>
           </STableSection>
-          <ExpenseForm
-            selectedExpense={selectedExpense}
-            onEditComplete={handleEditComplete}
-          />
+          
+          {/* Форма показывается только на десктопе */}
+          {!isMobile && (
+            <ExpenseForm
+              selectedExpense={selectedExpense}
+              onEditComplete={handleEditComplete}
+            />
+          )}
         </STables>
       </SMain>
     </>
