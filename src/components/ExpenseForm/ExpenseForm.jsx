@@ -1,4 +1,4 @@
-import * as S from "./ExpenseForm .styled";
+import * as S from "./ExpenseForm.styled.js";
 import { textErrors } from "../../const";
 import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
 import Categories from "../Categories/Categories";

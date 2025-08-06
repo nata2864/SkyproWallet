@@ -1,6 +1,6 @@
 import { SMain, SMainHeader, SMainHeaderContainer, SNewExpenseButton, STableHeader, STableSection, SSectionTitle, STables, STableBodyWrapper } from "./Main.styled";
 import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import ExpenseForm from "../ExpenseForm/ExpenseForm ";
+import ExpenseForm from "../ExpenseForm/ExpenseForm.jsx";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ExpenseContext } from "../../context/ExpenseContext";

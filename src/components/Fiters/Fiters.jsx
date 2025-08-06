@@ -11,9 +11,9 @@ import {
 import { categoryTranslations } from "../../const";
 import { Tag } from "../Categories/Categories.styled";
 import { categorieName } from "../../const";
+import { useViewport } from "../../hooks/useViewport";
 
-const sortings = [{ name: "Дате" }, { name: "Сумме" }];
-
+const sortings = [{ name: "Дате" }, { name: "Сумме" }]; 
 function Filters({
   expenses,
   setFilteredData,
@@ -24,7 +24,7 @@ function Filters({
 }) {
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
-
+  const isMobile = useViewport(451);
   const handleCategorySelect = (category) => {
     const newCategory = category === selectedCategory ? false : category;
     setSelectedCategory(newCategory);
@@ -69,9 +69,12 @@ function Filters({
         }}
       >
         Фильтровать по категории
+        {(!isMobile && selectedCategory) &&
         <SCategoryLink href="#">
           {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
         </SCategoryLink>
+        }
+        {(selectedCategory)&&<SCategoryLink>{selectedCategory.toLowerCase()}</SCategoryLink>}
         <svg
           onClick={() => setIsOpenCategory(!isOpenCategory)}
           width="6"
@@ -108,9 +111,12 @@ function Filters({
         }}
       >
         Сортировать по
+        {(!isMobile) &&
         <SSortLink href="#">
           {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
         </SSortLink>
+        }
+        {(selectedSorting)&&<SSortLink>{selectedSorting.toLowerCase()}</SSortLink>}
         <svg
           onClick={() => setIsOpenSorting(!isOpenSorting)}
           width="6"

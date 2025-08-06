@@ -86,6 +86,7 @@ export const STableSection = styled.div`
 
   @media (max-width: 450px) {
     width: 100%;
+    min-height: 400px;
     box-shadow: none;
     background: transparent;
     border-radius: 0;

@@ -1,4 +1,4 @@
-import ExpenseForm from '../../components/ExpenseForm/ExpenseForm ';
+import ExpenseForm from '../../components/ExpenseForm/ExpenseForm';
 import styled from 'styled-components';
 
 const FormWrapper = styled.div`
