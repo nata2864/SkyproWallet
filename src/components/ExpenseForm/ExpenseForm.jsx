@@ -1,6 +1,6 @@
 import * as S from "./ExpenseForm.styled.js";
 import { textErrors } from "../../const";
-import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
+import { ModalBlok, Form } from "./ExpenseForm.styled.js";
 import Categories from "../Categories/Categories";
 import { useForm } from "../../hooks/useForm";
 import { useContext } from "react";
@@ -10,10 +10,11 @@ import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
 import { useEffect } from "react";
 import { formatedDate, formatedInputDate } from "../../utils/utils";
+import { useViewport } from "../../hooks/useViewport.js";
 
 function ExpenseForm({ selectedExpense, onEditComplete }) {
   const { addNewExpense, expenses, editExpense } = useContext(ExpenseContext);
-
+  const isMobile = useViewport(451);
   const editingExpense = expenses.find(
     (expense) => expense._id === selectedExpense
   );
@@ -97,6 +98,8 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
 
   return (
     <ModalBlok>
+      {isMobile && <S.ToExpenses to="/"><img src="/first-box/to-expenses.svg" alt="выход на страницу расходов"></img>
+      <img src="/first-box/my-expenses.svg" alt="Мои расходы" /></S.ToExpenses>}
       <S.TitleForm>
         {selectedExpense ? "Редактирование" : "Новый расход"}
       </S.TitleForm>

@@ -151,6 +151,7 @@ export const MobileMenuButton = styled.button`
 export const MobileDropdown = styled.div`
   position: absolute;
   top: 32px;
+  width: 160px;
   right:0;
   z-index: 1001;
   box-sizing: border-box;
@@ -192,6 +193,14 @@ export const MobileHeaderMenuItem = styled.div`
   margin: 10px;
   opacity: 0.4;
   background-color: ${(props) => (props.$isActive ? "#dbffe9" : " #f1f1f1")};
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 30px;
+  width: fit-content;
+  color: rgb(0, 0, 0);  
   }
   p {
     font-size: 10px;
