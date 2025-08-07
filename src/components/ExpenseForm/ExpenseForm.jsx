@@ -3,21 +3,27 @@ import { textErrors } from "../../const";
 import { ModalBlok, Form } from "./ExpenseForm.styled.js";
 import Categories from "../Categories/Categories";
 import { useForm } from "../../hooks/useForm";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ExpenseContext } from "../../context/ExpenseContext";
 import { toast } from "react-toastify";
 import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateExpenseErrors } from "../../Validators/expenceValidator";
-import { useEffect } from "react";
 import { formatedDate, formatedInputDate } from "../../utils/utils";
 import { useViewport } from "../../hooks/useViewport.js";
+import { useNavigate } from 'react-router-dom';
 
 function ExpenseForm({ selectedExpense, onEditComplete }) {
+  const navigate = useNavigate();
   const { addNewExpense, expenses, editExpense } = useContext(ExpenseContext);
   const isMobile = useViewport(451);
   const editingExpense = expenses.find(
     (expense) => expense._id === selectedExpense
   );
+
+  const handleNavigate = (event) => {
+    event.stopPropagation();
+    navigate('/');
+  };
 
   const handleCategoryChange = (category) => {
     handleChange({ target: { name: "category", value: category } });
@@ -44,7 +50,6 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
       );
 
       if (hasEmpty) {
-        toast.error("Все поля должны быть заполнены");
         return { isValid: false, newErrors: emptyErrors };
       }
 
@@ -71,6 +76,9 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
     e.preventDefault();
 
     if (!validateForm()) {
+      if (!isMobile) {
+        toast.error("Все поля должны быть заполнены");
+      }
       return;
     }
 
@@ -98,7 +106,7 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
 
   return (
     <ModalBlok>
-      {isMobile && <S.ToExpenses to="/"><img src="/first-box/to-expenses.svg" alt="выход на страницу расходов"></img>
+      {isMobile && <S.ToExpenses onClick={handleNavigate} to="/"><img src="/first-box/to-expenses.svg" alt="выход на страницу расходов"></img>
       <img src="/first-box/my-expenses.svg" alt="Мои расходы" /></S.ToExpenses>}
       <S.TitleForm>
         {selectedExpense ? "Редактирование" : "Новый расход"}
