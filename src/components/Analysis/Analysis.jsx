@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import Diagram from '../Diagram/Diagram';
 import Calendar from '../Calendar/Calendar';
 import CalendarMonth from '../CalendarMonth/CalendarMonth';
@@ -35,7 +35,7 @@ const CalendarView = ({ onRangeChange, onDayClick, setMode, filter, selectedDate
           </S.CalendarFilterLinks>
         </S.CalendarHeader>
         <S.CalendarWeekDays>
-          {daysOfWeek.map((day) => (
+          {filter && daysOfWeek.map((day) => (
             <S.CalendarWeekDayBlock key={day}>
               <S.CalendarWeekDay>{day}</S.CalendarWeekDay>
             </S.CalendarWeekDayBlock>
@@ -62,6 +62,9 @@ function Analysis() {
   const [showCalendarMobile, setShowCalendarMobile] = useState(false);
   const isMobile = useViewport(451);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  // --- ИЗМЕНЕНИЕ №1: Добавляем ref для предотвращения "двойных" кликов ---
+  const isClickProcessing = useRef(false);
 
   const toggleCalendar = () => {
     setShowCalendarMobile((prev) => !prev);
@@ -112,8 +115,14 @@ function Analysis() {
     [user.token, isMobile]
   );
 
-  // Так как был баг ждем два нажатия
+  // --- ИЗМЕНЕНИЕ №2: Обновляем обработчик для мобильной версии с защитой от двойного срабатывания ---
   const handleDaySelectionMobile = (range) => {
+    // Если клик уже обрабатывается, выходим, чтобы избежать двойного срабатывания
+    if (isClickProcessing.current) {
+      return;
+    }
+    isClickProcessing.current = true;
+
     const day = new Date(range.start); 
 
     if (!selectedDate) {
@@ -124,9 +133,13 @@ function Analysis() {
       handleRangeChange({ start: startDate, end: endDate });
       setSelectedDate(null);
     }
+
+    // Снимаем блокировку через короткое время, чтобы быть готовым к следующему реальному клику
+    setTimeout(() => {
+      isClickProcessing.current = false;
+    }, 300);
   };
   
-  // Если Мобильная то для мобильной
   const calendarDayChangeHandler = isMobile ? handleDaySelectionMobile : handleRangeChange;
 
   useEffect(() => {
@@ -135,7 +148,7 @@ function Analysis() {
     }
   }, [expenses]);
 
-  return (  
+  return (
     <S.Analysis>
       {(isMobile && showCalendarMobile)&&  <S.ToAnalysis onClick={toggleCalendar}><img src="/first-box/to-expenses.svg" alt="выход на страницу анализа"></img>
       <img src="/first-box/my-analysis.svg" alt="Мои расходы" /></S.ToAnalysis>}
