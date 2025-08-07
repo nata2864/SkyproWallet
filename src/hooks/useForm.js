@@ -33,14 +33,22 @@ export const useForm = ({ initialValues, validate }) => {
 
   const resetForm = () => {
     setFormData(initialValues);
-    setErrors({});
-    setDirty({});
+    // Также исправлена функция сброса, чтобы возвращать ошибки в исходное состояние
+    setErrors(
+      Object.fromEntries(Object.keys(initialValues).map((key) => [key, ""]))
+    );
+    setDirty(
+      Object.fromEntries(Object.keys(initialValues).map((key) => [key, false]))
+    );
   };
 
+  // Исправлена ошибка связанная с выводом ошибок, теперь создаем каждый раз новый объект ошибок.
   const validateForm = () => {
-    const { isValid, errors: newErrors } = validate(formData);
-    const fullErrors = { ...errors, ...newErrors };
-    setErrors(fullErrors);
+    const { isValid, newErrors } = validate(formData);
+    const initialErrorState = Object.fromEntries(
+      Object.keys(initialValues).map((key) => [key, ""])
+    );
+    setErrors({ ...initialErrorState, ...newErrors });
 
     return isValid;
   };
@@ -55,5 +63,6 @@ export const useForm = ({ initialValues, validate }) => {
     handleBlur,
     validateForm,
     resetForm,
+    setFormData,
   };
 };

@@ -1,20 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { checkLs } from "../utils/utils";
+
+const getInitialUser = () => {
+  try {
+    const storedUser = localStorage.getItem("userInfo");
+    if (!storedUser) {
+      return null;
+    }
+    
+    const userObject = JSON.parse(storedUser);
+    
+    // Проверяем, что объект не пустой
+    if (userObject && Object.keys(userObject).length > 0) {
+      return userObject;
+    }
+
+    // Если объект пустой или некорректный, считаем, что пользователя нет
+    return null;
+  } catch (error) {
+    console.error("Ошибка при чтении данных из localStorage:", error);
+    return null;
+  }
+};
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(checkLs());
-
-  useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem("userInfo");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    } catch (error) {
-      console.error("Ошибка при загрузке данных из localStorage:", error);
-    }
-  }, []);
+  // Используем нашу безопасную функцию для инициализации
+  const [user, setUser] = useState(getInitialUser());
 
   const updateUserInfo = (userData) => {
     setUser(userData);
