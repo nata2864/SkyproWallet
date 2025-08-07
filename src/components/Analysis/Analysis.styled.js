@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { textSizes, buttonStyles } from '../../const'
-import Button from '../Button/Button'
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
     width: 100%;
@@ -165,14 +164,27 @@ export const CalendarBody = styled.div`
 `
 export const PeriodButtonBlock = styled.div`
     display: none;
-    @media (max-width: 475px) {
+    @media (max-width: 450px) {
         display: block;
         padding: 24px 16px;
         width: 100%;
         background-color: var(--bg-color);
     }
 `
-export const PeriodButton = styled(Button)`
+// Теперь не наследуется button
+export const PeriodButton = styled.button`
+    width: 100%;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    border: none;
+    background: #27AE60; 
+    transition: opacity 0.2s ease-in-out;
+    font-family: Montserrat, sans-serif;
+
+    &:hover {
+        opacity: 0.9;
+    }
     font-size: ${textSizes.small.fontSize};
     font-weight: ${textSizes.medium.fontWeight};
     color: white;
