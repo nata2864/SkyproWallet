@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { textSizes, buttonStyles } from '../../const'
+import { Link } from "react-router-dom";
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
     width: 100%;
@@ -22,7 +23,7 @@ export const AnalysisHeader = styled.h1`
     @media (max-width: 600px) {
         font-size: ${textSizes.largeH2.fontSize};
         line-height: 100%;
-        padding-top: 24px;
+        padding-top: ${({ $isCalendarOpen }) => $isCalendarOpen ? '24px' : '0'};
         padding-left: 16px;
         padding-right: 16px;
         padding-bottom: 24px;
@@ -189,3 +190,12 @@ export const PeriodButton = styled.button`
     font-weight: ${textSizes.medium.fontWeight};
     color: white;
 `
+export const ToAnalysis = styled(Link)`
+  display: flex;
+  gap: 6px;
+  padding-bottom: 12px;
+  padding-top: 24px;
+  margin-left: 16px;
+  align-items: center;
+  text-decoration: none;
+`;

@@ -18,7 +18,7 @@ const DiagramView = ({ diagramData, period }) => (
   </S.AnalysisTableContainer>
 );
 
-const CalendarView = ({ onRangeChange, setMode, filter }) => {
+const CalendarView = ({ onRangeChange, onDayClick, setMode, filter, selectedDate }) => {
   const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
   return (
     <S.AnalysisCalendarContainer>
@@ -44,7 +44,7 @@ const CalendarView = ({ onRangeChange, setMode, filter }) => {
       </S.CalendarHeaderContainer>
       <S.CalendarBody>
         {filter ? (
-          <Calendar onRangeChange={onRangeChange} />
+          <Calendar onRangeChange={onDayClick} selectedDate={selectedDate} />
         ) : (
           <CalendarMonth onRangeChange={onRangeChange} />
         )}
@@ -60,8 +60,8 @@ function Analysis() {
   const [period, setPeriod] = useState('все время');
   const [diagramData, setDiagramData] = useState({});
   const [showCalendarMobile, setShowCalendarMobile] = useState(false);
-
-  const isMobile = useViewport(451); 
+  const isMobile = useViewport(451);
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const toggleCalendar = () => {
     setShowCalendarMobile((prev) => !prev);
@@ -112,27 +112,56 @@ function Analysis() {
     [user.token, isMobile]
   );
 
+  // Так как был баг ждем два нажатия
+  const handleDaySelectionMobile = (range) => {
+    const day = new Date(range.start); 
+
+    if (!selectedDate) {
+      setSelectedDate(day);
+    } else {
+      const startDate = selectedDate < day ? selectedDate : day;
+      const endDate = selectedDate < day ? day : selectedDate;
+      handleRangeChange({ start: startDate, end: endDate });
+      setSelectedDate(null);
+    }
+  };
+  
+  // Если Мобильная то для мобильной
+  const calendarDayChangeHandler = isMobile ? handleDaySelectionMobile : handleRangeChange;
+
   useEffect(() => {
     if (expenses?.length > 0) {
       setDiagramData(sortByCategorie(expenses));
     }
   }, [expenses]);
 
-  return (
+  return (  
     <S.Analysis>
-      <S.AnalysisHeader>Анализ расходов</S.AnalysisHeader>
+      {(isMobile && showCalendarMobile)&&  <S.ToAnalysis onClick={toggleCalendar}><img src="/first-box/to-expenses.svg" alt="выход на страницу анализа"></img>
+      <img src="/first-box/my-analysis.svg" alt="Мои расходы" /></S.ToAnalysis>}
+      <S.AnalysisHeader $isCalendarOpen={!showCalendarMobile}>Анализ расходов</S.AnalysisHeader>
       <S.AnalysisExspenseContainer>
         {isMobile ? (
-          // МОБАЙЛ
           showCalendarMobile ? (
-            <CalendarView onRangeChange={handleRangeChange} setMode={setMode} filter={filter} />
+            <CalendarView
+              onRangeChange={handleRangeChange} // Месяца
+              onDayClick={calendarDayChangeHandler} // Дни
+              setMode={setMode}
+              filter={filter}
+              selectedDate={selectedDate}
+            />
           ) : (
             <DiagramView diagramData={diagramData} period={period} />
           )
         ) : (
-          // ДЕСКТОП
           <>
-            <CalendarView onRangeChange={handleRangeChange} setMode={setMode} filter={filter} />
+            <CalendarView
+              onRangeChange={handleRangeChange}
+              onDayClick={calendarDayChangeHandler}
+              setMode={setMode}
+              filter={filter}
+              selectedDate={selectedDate}
+            />
             <DiagramView diagramData={diagramData} period={period} />
           </>
         )}
