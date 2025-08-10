@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useContext, useRef } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import Diagram from '../Diagram/Diagram';
 import Calendar from '../Calendar/Calendar';
 import CalendarMonth from '../CalendarMonth/CalendarMonth';
@@ -63,9 +63,6 @@ function Analysis() {
   const isMobile = useViewport(451);
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // --- ИЗМЕНЕНИЕ №1: Добавляем ref для предотвращения "двойных" кликов ---
-  const isClickProcessing = useRef(false);
-
   const toggleCalendar = () => {
     setShowCalendarMobile((prev) => !prev);
   };
@@ -115,15 +112,12 @@ function Analysis() {
     [user.token, isMobile]
   );
 
-  // --- ИЗМЕНЕНИЕ №2: Обновляем обработчик для мобильной версии с защитой от двойного срабатывания ---
+  // Изменен обработчик
   const handleDaySelectionMobile = (range) => {
-    // Если клик уже обрабатывается, выходим, чтобы избежать двойного срабатывания
-    if (isClickProcessing.current) {
-      return;
-    }
-    isClickProcessing.current = true;
-
     const day = new Date(range.start); 
+    if (selectedDate && selectedDate.getTime() === day.getTime()) {
+        return;
+    }
 
     if (!selectedDate) {
       setSelectedDate(day);
@@ -131,13 +125,8 @@ function Analysis() {
       const startDate = selectedDate < day ? selectedDate : day;
       const endDate = selectedDate < day ? day : selectedDate;
       handleRangeChange({ start: startDate, end: endDate });
-      setSelectedDate(null);
+      setSelectedDate(null); // Сбрасываем для следующего выбора.
     }
-
-    // Снимаем блокировку через короткое время, чтобы быть готовым к следующему реальному клику
-    setTimeout(() => {
-      isClickProcessing.current = false;
-    }, 300);
   };
   
   const calendarDayChangeHandler = isMobile ? handleDaySelectionMobile : handleRangeChange;
