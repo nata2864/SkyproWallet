@@ -8,6 +8,9 @@ import {
   SSectionTitle,
   STables,
   STableBodyWrapper,
+  SMobileActions,
+  MobileActionButton,
+  MobileActionLink,
 } from './Main.styled';
 import { TableRow, TableFirstRow } from '../TableRows/TableRows';
 import ExpenseForm from '../ExpenseForm/ExpenseForm.jsx';
@@ -37,7 +40,11 @@ function Main() {
   const handleEditClick = (expenseId) => {
     setSelectedExpense(expenseId);
   };
-
+  const handleRowSelect = (expenseId) => {
+    setSelectedExpense((prevSelected) =>
+      prevSelected === expenseId ? null : expenseId
+    );
+  };
   const handleEditComplete = () => {
     setSelectedExpense(null);
   };
@@ -84,6 +91,7 @@ function Main() {
                   date={formatedDate(expense.date)}
                   amount={`${expense.sum.toLocaleString('ru-RU')} ₽`}
                   onEdit={() => handleEditClick(expense._id)}
+                  onSelect={() => handleRowSelect(expense._id)}
                   onDelete={() => handleDelete(expense._id)}
                   isSelected={selectedExpense === expense._id}
                 />
@@ -97,6 +105,18 @@ function Main() {
             />
           )}
         </STables>
+        {isMobile && selectedExpense && (
+          <SMobileActions>
+            <MobileActionButton
+              onClick={() => navigate(`/new-expense/${selectedExpense}`)}
+            >
+              Редактировать расход
+            </MobileActionButton>
+            <MobileActionLink onClick={() => handleDelete(selectedExpense)}>
+              Удалить расход
+            </MobileActionLink>
+          </SMobileActions>
+        )}
       </SMain>
     </>
   );

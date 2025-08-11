@@ -16,6 +16,8 @@ export const TableRow = ({
   date,
   amount,
   onSelect,
+  onDelete,
+  onEdit,
   isSelected,
 }) => {
   const isMobile = useViewport(451);
@@ -30,10 +32,22 @@ export const TableRow = ({
           <span>{amount}</span>
           {!isMobile && (
             <S.Icons>
-              <S.IconButton $isSelected={isSelected}>
+              <S.IconButton
+                $isSelected={isSelected}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit();
+                }}
+              >
                 <img src="/first-box/mini-pen.svg" alt="Иконка карандаша" />
               </S.IconButton>
-              <S.IconButton $isSelected={isSelected}>
+              <S.IconButton
+                $isSelected={isSelected}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete();
+                }}
+              >
                 <img src="/first-box/mini-bucket.svg" alt="Иконка корзинки" />
               </S.IconButton>
             </S.Icons>

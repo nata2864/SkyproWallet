@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { textSizes } from "../../const";
+import styled from 'styled-components';
+import { textSizes } from '../../const';
 
 export const SMain = styled.main`
   background: rgb(244, 245, 246);
@@ -52,7 +52,7 @@ export const SNewExpenseButton = styled.button`
   align-items: center;
   gap: 8px;
   border: none;
-  background:transparent;
+  background: transparent;
   padding: 8px 16px;
   color: rgb(0, 0, 0);
   font-family: Montserrat;
@@ -104,8 +104,8 @@ export const STableHeader = styled.div`
 
   @media (max-width: 450px) {
     margin: 0 0 16px 0;
-    padding-left:16px;
-    padding-right:16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `;
 
@@ -134,4 +134,49 @@ export const STableBodyWrapper = styled.div`
     background: #c1c1c1;
     border-radius: 3px;
   }
+`;
+export const SMobileActions = styled.div`
+  display: none; // По умолчанию скрыто
+
+  @media (max-width: 450px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+  }
+`;
+
+export const MobileActionButton = styled.button`
+  width: 100%;
+  border-radius: 6px;
+  padding: 12px;
+  background: rgb(31, 164, 108);
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+`;
+
+export const MobileActionLink = styled.button`
+  background: transparent;
+  border: none;
+  color: #999999;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: Montserrat;
 `;
