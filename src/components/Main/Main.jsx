@@ -1,13 +1,23 @@
-import { SMain, SMainHeader, SMainHeaderContainer, SNewExpenseButton, STableHeader, STableSection, SSectionTitle, STables, STableBodyWrapper } from "./Main.styled";
-import { TableRow, TableFirstRow } from "../TableRows/TableRows";
-import ExpenseForm from "../ExpenseForm/ExpenseForm.jsx";
-import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { ExpenseContext } from "../../context/ExpenseContext";
-import { categoryTranslations, RoutesApp } from "../../const";
-import { formatedDate } from "../../utils/utils";
-import Filters from "../Fiters/Fiters";
-import { useViewport } from "../../hooks/useViewport";
+import {
+  SMain,
+  SMainHeader,
+  SMainHeaderContainer,
+  SNewExpenseButton,
+  STableHeader,
+  STableSection,
+  SSectionTitle,
+  STables,
+  STableBodyWrapper,
+} from './Main.styled';
+import { TableRow, TableFirstRow } from '../TableRows/TableRows';
+import ExpenseForm from '../ExpenseForm/ExpenseForm.jsx';
+import { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ExpenseContext } from '../../context/ExpenseContext';
+import { categoryTranslations, RoutesApp } from '../../const';
+import { formatedDate } from '../../utils/utils';
+import Filters from '../Fiters/Fiters';
+import { useViewport } from '../../hooks/useViewport';
 
 function Main() {
   const { expenses, deleteExpenseByID } = useContext(ExpenseContext);
@@ -15,9 +25,8 @@ function Main() {
   const [selectedSorting, setSelectedSorting] = useState(false);
   const [filteredData, setFilteredData] = useState(expenses);
   const [selectedExpense, setSelectedExpense] = useState(null);
-
   const isMobile = useViewport(451); // ПРОВЕРКА МОБИЛЬНОЙ ВЕРСИИ
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!selectedCategory && !selectedSorting) {
@@ -44,7 +53,7 @@ function Main() {
           <SMainHeader>Мои расходы</SMainHeader>
           {isMobile && (
             <SNewExpenseButton onClick={() => navigate(RoutesApp.NEW_EXPENSE)}>
-              <img src="/first-box/new-expense.svg" alt="add"/>
+              <img src="/first-box/new-expense.svg" alt="add" />
               Новый расход
             </SNewExpenseButton>
           )}
@@ -69,9 +78,11 @@ function Main() {
                 <TableRow
                   key={expense._id}
                   description={expense.description}
-                  category={categoryTranslations[expense.category] || expense.category}
+                  category={
+                    categoryTranslations[expense.category] || expense.category
+                  }
                   date={formatedDate(expense.date)}
-                  amount={`${expense.sum.toLocaleString("ru-RU")} ₽`}
+                  amount={`${expense.sum.toLocaleString('ru-RU')} ₽`}
                   onEdit={() => handleEditClick(expense._id)}
                   onDelete={() => handleDelete(expense._id)}
                   isSelected={selectedExpense === expense._id}
@@ -79,8 +90,6 @@ function Main() {
               ))}
             </STableBodyWrapper>
           </STableSection>
-          
-          {/* Форма показывается только на десктопе */}
           {!isMobile && (
             <ExpenseForm
               selectedExpense={selectedExpense}
