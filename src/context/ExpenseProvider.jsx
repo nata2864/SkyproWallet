@@ -1,35 +1,38 @@
-import { useCallback, useState, useEffect, useContext } from "react";
+import { useCallback, useState, useEffect, useContext } from 'react';
 import {
   fetchExpenses,
   postExpense,
   patchExpense,
   deleteExpense,
-} from "../services/api";
-import { toast } from "react-toastify";
-import { textErrors } from "../const";
-import { ExpenseContext } from "./ExpenseContext";
-import {AuthContext} from "../../src/context/AuthContext"
+} from '../services/api';
+import { toast } from 'react-toastify';
+import { textErrors } from '../const';
+import { ExpenseContext } from './ExpenseContext';
+import { AuthContext } from '../../src/context/AuthContext';
 
 export const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
-  const {user} = useContext(AuthContext);
-  
+  const { user } = useContext(AuthContext);
+
   const token = user.token;
   // const token = "bgc0b8awbwas6g5g5k5o5s5w606g37w3cc3bo3b83k39s3co3c83c03ck";
 
-  const getExpenses = useCallback(async () => {
-    try {
-      const data = await fetchExpenses({ token });
-      if (data) setExpenses(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  }, [token]);
+  const getExpenses = useCallback(
+    async (categories) => {
+      try {
+        const data = await fetchExpenses({ token, categories });
+        if (data) setExpenses(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    },
+    [token]
+  );
 
   useEffect(() => {
-    getExpenses();
+    getExpenses(); // ПЕРВАЯ ПРОГРУЗКА
   }, [getExpenses]);
 
   const addNewExpense = async ({ expense }) => {
@@ -64,7 +67,14 @@ export const ExpenseProvider = ({ children }) => {
 
   return (
     <ExpenseContext.Provider
-      value={{ expenses, error, addNewExpense, editExpense, deleteExpenseByID }}
+      value={{
+        expenses,
+        error,
+        addNewExpense,
+        editExpense,
+        deleteExpenseByID,
+        getExpenses,
+      }}
     >
       {children}
     </ExpenseContext.Provider>

@@ -8,7 +8,7 @@ import {
   SSortingElement,
   SSortLink,
 } from './Fiters.styled';
-import { categoryTranslations } from '../../const';
+// Теперь категория переводится в АПИ import { categoryTranslations } from '../../const';
 import { Tag } from '../Categories/Categories.styled';
 import { categorieName } from '../../const';
 import { useViewport } from '../../hooks/useViewport';
@@ -17,28 +17,22 @@ const sortings = [{ name: 'Дате' }, { name: 'Сумме' }];
 function Filters({
   expenses,
   setFilteredData,
-  selectedCategory,
-  setSelectedCategory,
+  selectedCategories,
+  setSelectedCategories,
   selectedSorting,
   setSelectedSorting,
 }) {
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
   const isMobile = useViewport(451);
-  const handleCategorySelect = (category) => {
-    const newCategory = category === selectedCategory ? false : category;
-    setSelectedCategory(newCategory);
-
-    if (!newCategory) {
-      setFilteredData(expenses);
-    } else {
-      const categoryKey = Object.keys(categoryTranslations).find(
-        (key) => categoryTranslations[key] === category
-      );
-      setFilteredData(
-        expenses.filter((expense) => expense.category === categoryKey)
-      );
-    }
+  const handleCategorySelect = (categoryName) => {
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(categoryName)) {
+        return prevCategories.filter((c) => c !== categoryName);
+      } else {
+        return [...prevCategories, categoryName];
+      }
+    });
   };
 
   const handleSortingsSelect = (sorting) => {
@@ -69,13 +63,13 @@ function Filters({
         }}
       >
         Фильтровать по категории
-        {!isMobile && selectedCategory && (
+        {!isMobile && selectedCategories && (
           <SCategoryLink href="#">
-            {selectedCategory ? selectedCategory.toLowerCase() : 'еда'}
+            {selectedCategories ? selectedCategories.join(', ') : 'еда'}
           </SCategoryLink>
         )}
-        {isMobile && selectedCategory && (
-          <SCategoryLink>{selectedCategory.toLowerCase()}</SCategoryLink>
+        {isMobile && selectedCategories && (
+          <SCategoryLink>{selectedCategories.join(', ')}</SCategoryLink>
         )}
         <svg
           onClick={() => setIsOpenCategory(!isOpenCategory)}
@@ -96,7 +90,7 @@ function Filters({
                   handleCategorySelect(category.name);
                   setIsOpenCategory(false);
                 }}
-                $isSelected={selectedCategory === category.name}
+                $isSelected={selectedCategories.includes(category.name)}
               >
                 <img src={category.srcIcon.default} alt="Иконка категории" />{' '}
                 {category.name}

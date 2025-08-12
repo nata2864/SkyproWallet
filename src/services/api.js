@@ -1,14 +1,30 @@
-import axios from "axios";
-import { API_URL_NEW } from "../const";
+import axios from 'axios';
+import { API_URL_NEW } from '../const';
+import { categoryTranslations } from '../const';
 
-export async function fetchExpenses({ token }) {
+export async function fetchExpenses({ token, categories }) {
   try {
-    const data = await axios.get(API_URL_NEW, {
+    const categoryKeys =
+      categories && categories.length > 0
+        ? Object.keys(categoryTranslations).filter((key) =>
+            categories.includes(categoryTranslations[key])
+          )
+        : [];
+    const filterQuery =
+      categoryKeys.length > 0
+        ? `?filterBy=${categoryKeys.join(',')}` // По доке к API
+        : '';
+
+    // Проверка
+    console.log('Отправляем запрос на URL:', `${API_URL_NEW}${filterQuery}`);
+
+    const { data } = await axios.get(`${API_URL_NEW}${filterQuery}`, {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
     });
-    return data.data;
+
+    return data;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -18,8 +34,8 @@ export async function postExpense({ token, expense }) {
   try {
     const data = await axios.post(API_URL_NEW, expense, {
       headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "",
+        Authorization: 'Bearer ' + token,
+        'Content-Type': '',
       },
     });
 
@@ -31,24 +47,20 @@ export async function postExpense({ token, expense }) {
 
 export async function patchExpense({ token, id, expense }) {
   if (!id) {
-    throw new Error("ID не передан в patchExpense!");
+    throw new Error('ID не передан в patchExpense!');
   }
 
   try {
-    const response = await axios.patch(
-      `${API_URL_NEW}/${id}`,
-      expense,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "",
-        },
-      }
-    );
+    const response = await axios.patch(`${API_URL_NEW}/${id}`, expense, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': '',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(
-      "Ошибка PATCH запроса:",
+      'Ошибка PATCH запроса:',
       error.response?.data || error.message
     );
     throw new Error(error.message);
@@ -57,48 +69,47 @@ export async function patchExpense({ token, id, expense }) {
 
 export async function deleteExpense({ token, id }) {
   try {
-    const response = await axios.delete( `${API_URL_NEW}/${id}`, {
+    const response = await axios.delete(`${API_URL_NEW}/${id}`, {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
     });
-     return response.data;
+    return response.data;
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
-const API_URL_PERIOD = " https://wedev-api.sky.pro/api/transactions/period";
+const API_URL_PERIOD = ' https://wedev-api.sky.pro/api/transactions/period';
 
 export async function getDataPeriod({ token, period }) {
-    if (!navigator.onLine) {
-        throw new Error('Сеть недоступна');
+  if (!navigator.onLine) {
+    throw new Error('Сеть недоступна');
+  }
+
+  try {
+    const response = await fetch(
+      'https://wedev-api.sky.pro/api/transactions/period',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        body: JSON.stringify({
+          start: period.start,
+          end: period.end,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Ошибка при запросе');
     }
 
-    try {
-        const response = await fetch("https://wedev-api.sky.pro/api/transactions/period", {
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + token,
-               
-            },
-            body: JSON.stringify({
-                'start': period.start,
-                'end': period.end,
-            }),
-
- 
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Ошибка при запросе');
-        }
-
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
-

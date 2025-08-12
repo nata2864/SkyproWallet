@@ -23,8 +23,9 @@ import Filters from '../Fiters/Fiters';
 import { useViewport } from '../../hooks/useViewport';
 
 function Main() {
-  const { expenses, deleteExpenseByID } = useContext(ExpenseContext);
-  const [selectedCategory, setSelectedCategory] = useState(false);
+  const { expenses, deleteExpenseByID, getExpenses } =
+    useContext(ExpenseContext);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedSorting, setSelectedSorting] = useState(false);
   const [filteredData, setFilteredData] = useState(expenses);
   const [selectedExpense, setSelectedExpense] = useState(null);
@@ -32,11 +33,11 @@ function Main() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!selectedCategory && !selectedSorting) {
-      setFilteredData(expenses);
-    }
-  }, [expenses, selectedCategory, selectedSorting]);
-
+    getExpenses(selectedCategories);
+  }, [selectedCategories, getExpenses]);
+  useEffect(() => {
+    setFilteredData(expenses);
+  }, [expenses]);
   const handleEditClick = (expenseId) => {
     setSelectedExpense(expenseId);
   };
@@ -73,8 +74,8 @@ function Main() {
               <Filters
                 expenses={expenses}
                 setFilteredData={setFilteredData}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
                 selectedSorting={selectedSorting}
                 setSelectedSorting={setSelectedSorting}
               />

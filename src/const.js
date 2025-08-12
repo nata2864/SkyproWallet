@@ -143,7 +143,7 @@ export const categoryTranslations = {
   food: 'Еда',
   transport: 'Транспорт',
   housing: 'Жилье',
-  joy: 'Развлечение',
+  joy: 'Развлечения',
   education: 'Образование',
   others: 'Другое',
 };
