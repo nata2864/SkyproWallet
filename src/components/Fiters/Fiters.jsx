@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   STableFilters,
   STableFiltersGroup,
@@ -7,13 +7,13 @@ import {
   SSorting,
   SSortingElement,
   SSortLink,
-} from "./Fiters.styled";
-import { categoryTranslations } from "../../const";
-import { Tag } from "../Categories/Categories.styled";
-import { categorieName } from "../../const";
-import { useViewport } from "../../hooks/useViewport";
+} from './Fiters.styled';
+import { categoryTranslations } from '../../const';
+import { Tag } from '../Categories/Categories.styled';
+import { categorieName } from '../../const';
+import { useViewport } from '../../hooks/useViewport';
 
-const sortings = [{ name: "Дате" }, { name: "Сумме" }]; 
+const sortings = [{ name: 'Дате' }, { name: 'Сумме' }];
 function Filters({
   expenses,
   setFilteredData,
@@ -50,9 +50,9 @@ function Filters({
     } else {
       setFilteredData((prevData) => {
         const sorted = [...prevData];
-        if (sorting === "Дате") {
+        if (sorting === 'Дате') {
           sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-        } else if (sorting === "Сумме") {
+        } else if (sorting === 'Сумме') {
           sorted.sort((a, b) => b.sum - a.sum);
         }
         return sorted;
@@ -69,12 +69,14 @@ function Filters({
         }}
       >
         Фильтровать по категории
-        {(!isMobile && selectedCategory) &&
-        <SCategoryLink href="#">
-          {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
-        </SCategoryLink>
-        }
-        {(selectedCategory)&&<SCategoryLink>{selectedCategory.toLowerCase()}</SCategoryLink>}
+        {!isMobile && selectedCategory && (
+          <SCategoryLink href="#">
+            {selectedCategory ? selectedCategory.toLowerCase() : 'еда'}
+          </SCategoryLink>
+        )}
+        {isMobile && selectedCategory && (
+          <SCategoryLink>{selectedCategory.toLowerCase()}</SCategoryLink>
+        )}
         <svg
           onClick={() => setIsOpenCategory(!isOpenCategory)}
           width="6"
@@ -96,7 +98,7 @@ function Filters({
                 }}
                 $isSelected={selectedCategory === category.name}
               >
-                <img src={category.srcIcon.default} alt="Иконка категории" />{" "}
+                <img src={category.srcIcon.default} alt="Иконка категории" />{' '}
                 {category.name}
               </Tag>
             ))}
@@ -111,12 +113,14 @@ function Filters({
         }}
       >
         Сортировать по
-        {(!isMobile) &&
-        <SSortLink href="#">
-          {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
-        </SSortLink>
-        }
-        {(selectedSorting)&&<SSortLink>{selectedSorting.toLowerCase()}</SSortLink>}
+        {!isMobile && (
+          <SSortLink href="#">
+            {selectedSorting ? selectedSorting.toLowerCase() : 'дате'}
+          </SSortLink>
+        )}
+        {selectedSorting && (
+          <SSortLink>{selectedSorting.toLowerCase()}</SSortLink>
+        )}
         <svg
           onClick={() => setIsOpenSorting(!isOpenSorting)}
           width="6"
