@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 
 export function checkLs() {
     try {
@@ -39,4 +40,30 @@ export function checkLs() {
     return { isValid, errors };
   };
 
-  
+
+
+  export const sortByCategorie = (data) => {
+    let diagramData = {
+      food: 0,
+      transport: 0,
+      housing: 0,
+      joy: 0,
+      education: 0,
+      others: 0,
+    }
+
+ diagramData = data.reduce((index, item) => {
+  if (!index[item.category]) {
+    index[item.category] = 0
+  }
+  index[item.category] += item.sum
+  return index
+}, {})
+
+
+return diagramData
+
+
+
+  }
+

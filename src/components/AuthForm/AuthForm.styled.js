@@ -8,8 +8,6 @@ import { inputColors } from "../../const";
 export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
 `;
 
 export const Container = styled.div`
@@ -33,9 +31,12 @@ export const ModalBlok = styled.div`
   display: block;
   margin: 0 auto;
   background-color: #ffffff;
-  width: 379px;
-  // width: 100%;
-  padding: 50px 60px;
+  padding: 32px;
+
+  width: 100%;
+  max-width: 380px;
+
+  box-sizing: border-box;
   border-radius: 30px;
   box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
 `;
@@ -51,24 +52,23 @@ export const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 `;
 
 export const InputAuthForm = styled(BasisInput)`
   margin-bottom: 12px;
   outline: none;
-  border-color: ${({ error, isFocused }) =>
-    error
+  border-color: ${({ $error, $isFocused }) =>
+    $error
       ? inputColors.error.border
-      : isFocused
+      : $isFocused
       ? inputColors.active.border
       : inputColors.static.border};
 
-  background: ${({ error, isFocused }) =>
-    error
+  background: ${({ $error, $isFocused }) =>
+    $error
       ? inputColors.error.background
-      : isFocused
+      : $isFocused
       ? inputColors.active.background
       : inputColors.static.background};
 `;
@@ -76,11 +76,9 @@ export const InputAuthForm = styled(BasisInput)`
 export const AuthButton = styled(Button)`
   margin-top: 12px;
   margin-bottom: 24px;
-  &:disabled {
-    background: rgba(153, 153, 153, 1);
-    cursor: not-allowed;
-    opacity: 0.6;
-  }
+  background-color: ${(props) =>
+    props.disabled ? "rgba(153, 153, 153, 1)" : "rgba(31, 164, 108, 1)"};
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
 export const TextGroep = styled.div`

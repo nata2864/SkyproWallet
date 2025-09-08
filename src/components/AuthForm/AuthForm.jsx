@@ -1,83 +1,48 @@
 import * as S from "./AuthForm.styled";
 import { signIn, signUp } from "../../services/auth";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { RoutesApp } from "../../const";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-import { textErrors } from "../../const";
+import { useForm } from "../../hooks/useForm";
+import { validateEmptyFields } from "../../Validators/validateEmptyFields";
+import { validateLoginErrors } from "../../Validators/authValidator";
 
 function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
+  const initialValues = isSignUp
+    ? { name: "", login: "", password: "" }
+    : { login: "", password: "" };
 
-  const [formData, setFormData] = useState({
-    name: "",
-    login: "",
-    password: "",
+  const {
+    formData,
+    focus,
+    errors,
+    handleChange,
+    handleFocus,
+    handleBlur,
+    validateForm,
+  } = useForm({
+    initialValues,
+    validate: (values) => {
+      const requiredFields = Object.keys(initialValues);
+      const { hasEmpty, errors: emptyErrors } = validateEmptyFields(
+        values,
+        requiredFields
+      );
+      if (hasEmpty) {
+        toast.error("Все поля должны быть заполнены");
+        return { isValid: false, newErrors: emptyErrors };
+      }
+
+      const { isValid, errors: fieldErrors } = validateLoginErrors(values);
+      console.log(isValid);
+      return { isValid, newErrors: fieldErrors };
+    },
   });
 
-  // состояние ошибок
-  const [errors, setErrors] = useState({
-    name: false,
-    login: false,
-    password: false,
-  });
-
-  const [focus, setFocus] = useState({
-    name: false,
-    login: false,
-    password: false,
-  });
-
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-
-  const handleFocus = (field) => {
-    setFocus((prev) => ({ ...prev, [field]: true }));
-  };
-
-  const handleBlur = (field) => {
-    setFocus((prev) => ({ ...prev, [field]: false }));
-  };
-
-  // функция валидации
-  const validateForm = () => {
-    const newErrors = { name: "", login: "", password: "" };
-    let isValid = true;
-
-    const isNameInvalid = isSignUp && !formData.name.trim();
-    const isLoginInvalid = !formData.login.trim();
-    const isPasswordInvalid = !formData.password.trim();
-
-    if (isNameInvalid || isLoginInvalid || isPasswordInvalid) {
-      if (isNameInvalid) newErrors.name = true;
-      if (isLoginInvalid) newErrors.login = true;
-      if (isPasswordInvalid) newErrors.password = true;
-
-      isValid = false;
-
-      toast.error(textErrors.signInAndSignUpError);
-      setButtonDisabled(true);
-    }
-
-    setErrors(newErrors);
-    setButtonDisabled(false);
-    return isValid;
-  };
-
-  // функция, которая отслеживает в полях изменения
-  // и меняет состояние компонента
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    setErrors({ ...errors, [name]: false });
-  };
-
-  // функция отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -114,28 +79,29 @@ function AuthForm({ isSignUp }) {
             <S.Form onSubmit={handleSubmit}>
               {isSignUp && (
                 <S.InputAuthForm
-                  type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Имя"
                   onFocus={() => handleFocus("name")}
                   onBlur={() => handleBlur("name")}
-                  isFocused={focus.name}
-                  error={errors.name}
+                  $isFocused={focus.name}
+                  $error={errors.name}
                 />
               )}
 
               <S.InputAuthForm
-                type="email"
+
+                type="text"
+
                 name="login"
                 value={formData.login}
                 onChange={handleChange}
                 placeholder="Эл. почта"
                 onFocus={() => handleFocus("login")}
                 onBlur={() => handleBlur("login")}
-                isFocused={focus.login}
-                error={errors.login}
+                $isFocused={focus.login}
+                $error={errors.login}
               />
               <S.InputAuthForm
                 type="password"
@@ -145,10 +111,14 @@ function AuthForm({ isSignUp }) {
                 placeholder="Пароль"
                 onFocus={() => handleFocus("password")}
                 onBlur={() => handleBlur("password")}
-                isFocused={focus.password}
-                error={errors.password}
+                $isFocused={focus.password}
+                $error={errors.password}
               />
-              <S.AuthButton type="submit" disabled={buttonDisabled}>
+              <S.AuthButton
+                type="submit"
+                // Блокировка кнопки, если есть хоть одна ошибка
+                disabled={Object.values(errors).some((err) => err)}
+              >
                 {isSignUp ? "Зарегистрироваться" : "Войти"}
               </S.AuthButton>
               <S.TextGroep>
