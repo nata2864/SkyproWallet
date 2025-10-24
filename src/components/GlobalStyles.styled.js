@@ -2,12 +2,6 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
-//   :root {
-//     --color-primary: #1fa46c;
-//     --color-secondary: #333;
-//     --font-main: Montserrat, sans-serif;
-//   }
-
 * {
   margin: 0;
   padding: 0;
@@ -19,25 +13,6 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-//   a,
-//   a:visited {
-//     text-decoration: none;
-//     cursor: pointer;
-//     color:  '#000000';
-//   }
-
-//   button,
-//   ._btn {
-//     cursor: pointer;
-//     outline: none;
-//     background:  '#f0f0f0';
-//     color:  '#000000';
-//     border:  '1px solid #ddd';
-//   }
-
-//   ul li {
-//     list-style: none;
-//   } 
 
    html,
   body {
@@ -47,4 +22,28 @@ export const GlobalStyles = createGlobalStyle`
     background-color: #F4F5F6;
     color:  '#000000';
   } 
+input,
+textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: rgba(0, 0, 0, 1); 
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(153, 153, 153, 1); 
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0px 1000px white inset !important; 
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 9999s ease-out, color 9999s ease-out;
+  transition-delay: 9999s;
   `;

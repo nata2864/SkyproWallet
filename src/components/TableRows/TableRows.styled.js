@@ -1,74 +1,69 @@
 import styled from "styled-components";
 import { textSizes } from "../../const";
+import { getSelectedColor} from "../../utils/styledUtils";
 
-export const STableFirstRowHead = styled.thead`
-  color: rgb(153, 153, 153);
-  line-height: 15px;
+const getTextStyles = () => `
+  font-family: Montserrat;
+  font-size: ${textSizes.small.fontSize};
+  font-weight: ${textSizes.small.fontWeight};
   letter-spacing: 0px;
+
+;
 `;
-export const STableFirstRow = styled.tr`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
-  align-items: start;
-  padding-bottom: 6px;
 
-  th {
-    font-family: Montserrat;
-    font-size: ${textSizes.small.fontSize};
-    font-weight: ${textSizes.small.fontWeight};
-    text-align: left;
-    padding-right: 20px;
-  }
-
-  color: rgb(153, 153, 153);
-  line-height: 15px;
-  letter-spacing: 0px;
+export const RowHeader = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 32px;
+  padding: 7px 32px;
   border-bottom: 0.5px solid rgb(153, 153, 153);
-`;
-
-export const STableOrderRowHead = styled.thead`
   color: rgb(153, 153, 153);
-  font-family: Montserrat;
-  font-size: ${textSizes.small.fontSize};
-  font-weight: ${textSizes.small.fontWeight};
-  line-height: 15px;
-  letter-spacing: 0px;
+  ${getTextStyles()}
 `;
-export const STableOrderRow = styled.tr`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
-  align-items: start;
-  color: rgb(0, 0, 0);
-  font-family: Montserrat;
-  font-size: ${textSizes.small.fontSize};
-  font-weight: ${textSizes.small.fontWeight};
-  line-height: 15px;
-  letter-spacing: 0px;
-  padding-top: 18px;
+export const Row = styled.div`
+  width: 100%;
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? "rgba(219, 255, 233, 1)" : "transparent"};
+  display: flex;
+  align-items: center;
+  padding: 7px 32px;
+  box-sizing: border-box;
+  gap: 32px;
+  color: ${({ $isSelected }) => getSelectedColor($isSelected)};
+  ${getTextStyles()}
+`;
 
-  td {
-    text-align: left;
-    padding-right: 40px;
-  }
+export const Cell = styled.div`
+  width: 140px;
+  font-size: 12px;
+  line-height: 15px;
 `;
+
+export const Icons = styled.div`
+  flex: 0 1 auto;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+`;
+
 export const IconButton = styled.button`
   background: transparent;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
-  outline: none;
+
+  filter: ${({ $isSelected }) =>
+    $isSelected
+      ? "brightness(0) saturate(100%) invert(56%) sepia(98%) saturate(365%) hue-rotate(101deg) brightness(75%) contrast(80%)"
+      : "transparent"};
 
   &:focus {
     outline: none;
   }
 
-  svg {
+  img {
     display: block;
   }
-`;
-export const SIcons = styled.td`
-  display: flex;
-  gap: 12px;
-  justify-content: flex-start;
 `;
