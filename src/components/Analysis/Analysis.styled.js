@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { textSizes, buttonStyles } from '../../const'
-import Button from '../Button/Button'
+import { Link } from "react-router-dom";
 export const Analysis = styled.div`
     color: ${textSizes.largeH1.color};
     width: 100%;
@@ -23,7 +23,7 @@ export const AnalysisHeader = styled.h1`
     @media (max-width: 600px) {
         font-size: ${textSizes.largeH2.fontSize};
         line-height: 100%;
-        padding-top: 24px;
+        padding-top: ${({ $isCalendarOpen }) => $isCalendarOpen ? '24px' : '0'};
         padding-left: 16px;
         padding-right: 16px;
         padding-bottom: 24px;
@@ -51,6 +51,7 @@ export const AnalysisCalendarContainer = styled.div`
     max-width: 379px;
     background-color: var(--bg-color);
     width: 100%;
+    border-radius: 30px;
     @media (max-width: 600px) {
         background: linear-gradient(to bottom, #ffffff 80%, #f4f5f6 100%);
     }
@@ -128,6 +129,7 @@ export const CalendarFilterLinks = styled.div`
 export const CalendarNavLink = styled.button`
     background: none;
     border: none;
+    font-family: var(--fontFamily)
     font-size: ${textSizes.small.fontSize};
     font-weight: ${(props) => (props.$active ? 600 : 400)};
     color: ${(props) => (props.$active ? '#27ae60' : '#000')};
@@ -163,15 +165,37 @@ export const CalendarBody = styled.div`
 `
 export const PeriodButtonBlock = styled.div`
     display: none;
-    @media (max-width: 475px) {
+    @media (max-width: 450px) {
         display: block;
         padding: 24px 16px;
         width: 100%;
         background-color: var(--bg-color);
     }
 `
-export const PeriodButton = styled(Button)`
+// Теперь не наследуется button
+export const PeriodButton = styled.button`
+    width: 100%;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    border: none;
+    background: #27AE60; 
+    transition: opacity 0.2s ease-in-out;
+    font-family: Montserrat, sans-serif;
+
+    &:hover {
+        opacity: 0.9;
+    }
     font-size: ${textSizes.small.fontSize};
     font-weight: ${textSizes.medium.fontWeight};
     color: white;
 `
+export const ToAnalysis = styled(Link)`
+  display: flex;
+  gap: 6px;
+  padding-bottom: 12px;
+  padding-top: 24px;
+  margin-left: 16px;
+  align-items: center;
+  text-decoration: none;
+`;

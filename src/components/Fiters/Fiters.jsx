@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   STableFilters,
   STableFiltersGroup,
@@ -7,38 +7,32 @@ import {
   SSorting,
   SSortingElement,
   SSortLink,
-} from "./Fiters.styled";
-import { categoryTranslations } from "../../const";
-import { Tag } from "../Categories/Categories.styled";
-import { categorieName } from "../../const";
+} from './Fiters.styled';
+// Теперь категория переводится в АПИ import { categoryTranslations } from '../../const';
+import { Tag } from '../Categories/Categories.styled';
+import { categorieName } from '../../const';
+import { useViewport } from '../../hooks/useViewport';
 
-const sortings = [{ name: "Дате" }, { name: "Сумме" }];
-
+const sortings = [{ name: 'Дате' }, { name: 'Сумме' }];
 function Filters({
   expenses,
   setFilteredData,
-  selectedCategory,
-  setSelectedCategory,
+  selectedCategories,
+  setSelectedCategories,
   selectedSorting,
   setSelectedSorting,
 }) {
   const [isOpenCategory, setIsOpenCategory] = useState(false);
   const [isOpenSorting, setIsOpenSorting] = useState(false);
-
-  const handleCategorySelect = (category) => {
-    const newCategory = category === selectedCategory ? false : category;
-    setSelectedCategory(newCategory);
-
-    if (!newCategory) {
-      setFilteredData(expenses);
-    } else {
-      const categoryKey = Object.keys(categoryTranslations).find(
-        (key) => categoryTranslations[key] === category
-      );
-      setFilteredData(
-        expenses.filter((expense) => expense.category === categoryKey)
-      );
-    }
+  const isMobile = useViewport(451);
+  const handleCategorySelect = (categoryName) => {
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(categoryName)) {
+        return prevCategories.filter((c) => c !== categoryName);
+      } else {
+        return [...prevCategories, categoryName];
+      }
+    });
   };
 
   const handleSortingsSelect = (sorting) => {
@@ -50,9 +44,9 @@ function Filters({
     } else {
       setFilteredData((prevData) => {
         const sorted = [...prevData];
-        if (sorting === "Дате") {
+        if (sorting === 'Дате') {
           sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-        } else if (sorting === "Сумме") {
+        } else if (sorting === 'Сумме') {
           sorted.sort((a, b) => b.sum - a.sum);
         }
         return sorted;
@@ -69,9 +63,14 @@ function Filters({
         }}
       >
         Фильтровать по категории
-        <SCategoryLink href="#">
-          {selectedCategory ? selectedCategory.toLowerCase() : "еда"}
-        </SCategoryLink>
+        {!isMobile && selectedCategories && (
+          <SCategoryLink href="#">
+            {selectedCategories ? selectedCategories.join(', ') : 'еда'}
+          </SCategoryLink>
+        )}
+        {isMobile && selectedCategories && (
+          <SCategoryLink>{selectedCategories.join(', ')}</SCategoryLink>
+        )}
         <svg
           onClick={() => setIsOpenCategory(!isOpenCategory)}
           width="6"
@@ -91,9 +90,9 @@ function Filters({
                   handleCategorySelect(category.name);
                   setIsOpenCategory(false);
                 }}
-                $isSelected={selectedCategory === category.name}
+                $isSelected={selectedCategories.includes(category.name)}
               >
-                <img src={category.srcIcon.default} alt="Иконка категории" />{" "}
+                <img src={category.srcIcon.default} alt="Иконка категории" />{' '}
                 {category.name}
               </Tag>
             ))}
@@ -108,9 +107,14 @@ function Filters({
         }}
       >
         Сортировать по
-        <SSortLink href="#">
-          {selectedSorting ? selectedSorting.toLowerCase() : "дате"}
-        </SSortLink>
+        {!isMobile && (
+          <SSortLink href="#">
+            {selectedSorting ? selectedSorting.toLowerCase() : 'дате'}
+          </SSortLink>
+        )}
+        {selectedSorting && (
+          <SSortLink>{selectedSorting.toLowerCase()}</SSortLink>
+        )}
         <svg
           onClick={() => setIsOpenSorting(!isOpenSorting)}
           width="6"

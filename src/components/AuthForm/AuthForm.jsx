@@ -6,48 +6,58 @@ import { RoutesApp } from "../../const";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { useForm } from "../../hooks/useForm";
-import { validateEmptyFields } from "../../Validators/validateEmptyFields";
 import { validateLoginErrors } from "../../Validators/authValidator";
+import { useViewport } from "../../hooks/useViewport";
 
 function AuthForm({ isSignUp }) {
   const navigate = useNavigate();
   const { updateUserInfo } = useContext(AuthContext);
+  const isMobile = useViewport(451);
+
   const initialValues = isSignUp
     ? { name: "", login: "", password: "" }
     : { login: "", password: "" };
 
   const {
     formData,
-    focus,
     errors,
+    dirty,
     handleChange,
-    handleFocus,
     handleBlur,
+    handleFocus,
     validateForm,
   } = useForm({
     initialValues,
     validate: (values) => {
-      const requiredFields = Object.keys(initialValues);
-      const { hasEmpty, errors: emptyErrors } = validateEmptyFields(
-        values,
-        requiredFields
-      );
+      const emptyFieldsErrors = {};
+      let hasEmpty = false;
+      Object.keys(values).forEach((key) => {
+        if (!values[key].trim()) {
+          emptyFieldsErrors[key] = "Это поле не может быть пустым";
+          hasEmpty = true;
+        }
+      });
+      
       if (hasEmpty) {
-        toast.error("Все поля должны быть заполнены");
-        return { isValid: false, newErrors: emptyErrors };
+        if (!isMobile) toast.error("Все поля должны быть заполнены");
+        return { isValid: false, errors: emptyFieldsErrors };
       }
 
       const { isValid, errors: fieldErrors } = validateLoginErrors(values);
-      return { isValid, newErrors: fieldErrors };
+
+      if (!isValid && !isMobile) {
+        Object.values(fieldErrors).forEach(msg => {
+            if(msg) toast.error(msg);
+        });
+      }
+
+      return { isValid, errors: fieldErrors };
     },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
       const data = !isSignUp
@@ -55,9 +65,8 @@ function AuthForm({ isSignUp }) {
         : await signUp(formData);
 
       if (data) {
-        if (isSignUp) {
-          navigate(RoutesApp.SIGN_IN);
-        } else {
+        if (isSignUp) navigate(RoutesApp.SIGN_IN);
+        else {
           updateUserInfo(data);
           navigate(RoutesApp.MAIN);
         }
@@ -66,7 +75,7 @@ function AuthForm({ isSignUp }) {
       toast.error(err.message || "Что-то пошло не так");
     }
   };
-
+  
   return (
     <S.Wrapper>
       <S.Container>
@@ -77,62 +86,60 @@ function AuthForm({ isSignUp }) {
             </div>
             <S.Form onSubmit={handleSubmit}>
               {isSignUp && (
-                <S.InputAuthForm
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Имя"
-                  onFocus={() => handleFocus("name")}
-                  onBlur={() => handleBlur("name")}
-                  $isFocused={focus.name}
-                  $error={errors.name}
-                />
+                <>
+                  <S.InputAuthForm
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onFocus={() => handleFocus("name")}
+                    onBlur={() => handleBlur("name")}
+                    placeholder="Имя"
+                    $error={isMobile && !!errors.name}
+                    $success={isMobile && dirty.name && !errors.name}
+                  />
+                  {isMobile && errors.name && <S.ErrorMessage>{errors.name}</S.ErrorMessage>}
+                </>
               )}
 
               <S.InputAuthForm
-                // type="email"
                 name="login"
                 value={formData.login}
                 onChange={handleChange}
-                placeholder="Эл. почта"
                 onFocus={() => handleFocus("login")}
                 onBlur={() => handleBlur("login")}
-                $isFocused={focus.login}
-                $error={errors.login}
+                placeholder="Эл. почта"
+                $error={isMobile && !!errors.login}
+                $success={isMobile && dirty.login && !errors.login}
               />
+              {isMobile && errors.login && <S.ErrorMessage>{errors.login}</S.ErrorMessage>}
+
               <S.InputAuthForm
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Пароль"
                 onFocus={() => handleFocus("password")}
                 onBlur={() => handleBlur("password")}
-                $isFocused={focus.password}
-                $error={errors.password}
+                placeholder="Пароль"
+                $error={isMobile && !!errors.password}
+                $success={isMobile && dirty.password && !errors.password}
               />
-              <S.AuthButton
-                type="submit"
-                // Блокировка кнопки, если есть хоть одна ошибка
-                disabled={Object.values(errors).some((err) => err)}
-              >
+              {isMobile && errors.password && <S.ErrorMessage>{errors.password}</S.ErrorMessage>}
+
+              <S.AuthButton type="submit">
                 {isSignUp ? "Зарегистрироваться" : "Войти"}
               </S.AuthButton>
+
               <S.TextGroep>
-                {isSignUp && (
+                {isSignUp ? (
                   <>
                     <S.ModalText>Уже есть аккаунт?</S.ModalText>
-                    <S.ModalLink to={RoutesApp.SIGN_IN}>
-                      Войдите здесь
-                    </S.ModalLink>
+                    <S.ModalLink to={RoutesApp.SIGN_IN}>Войдите здесь</S.ModalLink>
                   </>
-                )}
-                {!isSignUp && (
+                ) : (
                   <>
                     <S.ModalText>Нужно зарегистрироваться?</S.ModalText>
-                    <S.ModalLink to={RoutesApp.SIGN_UP}>
-                      Регистрируйтесь здесь
-                    </S.ModalLink>
+                    <S.ModalLink to={RoutesApp.SIGN_UP}>Регистрируйтесь здесь</S.ModalLink>
                   </>
                 )}
               </S.TextGroep>

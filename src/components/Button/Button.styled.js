@@ -3,7 +3,7 @@ import { textSizes } from "../../const";
 
 export const Button = styled.button`
   width: 100%;
-  height: 39px;
+  // height: 39px;
   border-radius: 6px;
   padding: 12px;
   background: rgba(31, 164, 108, 1);

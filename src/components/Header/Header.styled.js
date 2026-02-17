@@ -9,6 +9,13 @@ export const Header = styled.header`
   height: 64px;
   margin: 0 auto;
   background-color: #ffffff;
+
+  @media (max-width: 450px) {
+  width: 100%;
+  height: 64px;
+  margin: 0 auto;
+  background: rgb(244, 245, 246);
+  }  
 `;
 
 export const HeaderBlock = styled.div`
@@ -17,7 +24,6 @@ export const HeaderBlock = styled.div`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   top: 0;
   left: 0;
 
@@ -25,6 +31,11 @@ export const HeaderBlock = styled.div`
   padding-right: 120px;
   max-width: 1440px;
   margin: 0 auto;
+
+  @media (max-width: 450px) {
+  padding-left:16px;
+  padding-right:18px;
+  }  
 `;
 
 export const HeaderLinkText = styled(Link)`
@@ -36,7 +47,7 @@ export const HeaderLinkText = styled(Link)`
   text-decoration: none;
   outline: none;
   color: #000;
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -48,7 +59,7 @@ export const HeaderLinkExitText = styled(HeaderLinkText)`
     color: ${buttonStyles.active.color};
     transition: all 0.3s ease;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.medium.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -72,9 +83,9 @@ export const HeaderLogo = styled(Link)`
 export const HeaderLogoImg = styled.img`
   width: 144px;
   height: 19px;
-  @media (max-width: 600px) {
-    width: 109px;
-    height: 14px;
+  @media (max-width: 450px) {
+    width: 144px;
+    height: 19px;
   }
 `;
 
@@ -86,7 +97,8 @@ export const HeaderNav = styled.nav`
 export const HeaderLinks = styled.div`
   display: flex;
   gap: 48px;
-  @media (max-width: 600px) {
+  position: relative;
+  @media (max-width: 450px) {
     gap: 8px;
   }
 `;
@@ -111,7 +123,7 @@ export const HeaderNavLink = styled(NavLink)`
     transition: all 0.3s ease;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -123,24 +135,30 @@ export const MobileMenuButton = styled.button`
   cursor: pointer;
   display: none;
 
-  @media (max-width: 600px) {
-    display: block;
+  @media (max-width: 450px) {
+    display: flex;
+    gap:8px;
     &:hover {
       color: ${buttonStyles.active.color};
       transition: all 0.3s ease;
     }
+    img {
+      margin-top: 7px;
+      }
   }
 `;
 
 export const MobileDropdown = styled.div`
   position: absolute;
-  top: 100%;
-  right: 20px;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  top: 32px;
+  width: 160px;
+  right:0;
   z-index: 1001;
+  box-sizing: border-box;
+  border: 0.5px solid rgb(153, 153, 153);
+  border-radius: 6px;
+  box-shadow: 0px 20px 67px -12px rgba(0, 0, 0, 0.13);
+  background: rgb(255, 255, 255);
 `;
 
 export const MobileDropdownLink = styled.div`
@@ -150,7 +168,7 @@ export const MobileDropdownLink = styled.div`
   text-decoration: none;
   color: #000;
   outline: none;
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     font-weight: ${textSizes.small.fontWeight};
     font-size: ${textSizes.small.fontSize};
   }
@@ -172,10 +190,18 @@ export const MobileHeaderMenuItem = styled.div`
   height: 30px;
   padding: 7px 14px;
   border-radius: 24px;
-  margin-top: 10px;
+  margin: 10px;
   opacity: 0.4;
   background-color: ${(props) => (props.$isActive ? "#dbffe9" : " #f1f1f1")};
-
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 30px;
+  width: fit-content;
+  color: rgb(0, 0, 0);  
+  }
   p {
     font-size: 10px;
     font-weight: 400;
@@ -186,9 +212,16 @@ export const MobileHeaderMenuItem = styled.div`
 export const MobileMenuItemLink = styled(NavLink)`
   text-decoration: none;
   outline: none;
-  color: #000;
+  color: rgb(0, 0, 0);
+  font-family: Montserrat;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0%;
+  text-align: left;
+  
   &.active {
-    color: #1fa46c;
+    color: rgb(31, 164, 108);
     background-color: #dbffe9;
   }
 `;

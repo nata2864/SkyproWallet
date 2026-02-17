@@ -1,25 +1,33 @@
-import * as S from "./ExpenseForm .styled";
-import { textErrors } from "../../const";
-import { ModalBlok, Form } from "../AuthForm/AuthForm.styled";
-import Categories from "../Categories/Categories";
-import { useForm } from "../../hooks/useForm";
-import { useContext } from "react";
-import { ExpenseContext } from "../../context/ExpenseContext";
-import { toast } from "react-toastify";
-import { validateEmptyFields } from "../../Validators/validateEmptyFields";
-import { validateExpenseErrors } from "../../Validators/expenceValidator";
-import { useEffect } from "react";
-import { formatedDate, formatedInputDate } from "../../utils/utils";
+import * as S from './ExpenseForm.styled.js';
+import { textErrors } from '../../const';
+import { ModalBlok, Form } from './ExpenseForm.styled.js';
+import Categories from '../Categories/Categories';
+import { useForm } from '../../hooks/useForm';
+import { useContext, useEffect } from 'react';
+import { ExpenseContext } from '../../context/ExpenseContext';
+import { toast } from 'react-toastify';
+import { validateEmptyFields } from '../../Validators/validateEmptyFields';
+import { validateExpenseErrors } from '../../Validators/expenceValidator';
+import { formatedDate, formatedInputDate } from '../../utils/utils';
+import { useViewport } from '../../hooks/useViewport.js';
+import { useNavigate } from 'react-router-dom';
+import { RoutesApp } from '../../const';
 
 function ExpenseForm({ selectedExpense, onEditComplete }) {
+  const navigate = useNavigate();
   const { addNewExpense, expenses, editExpense } = useContext(ExpenseContext);
-
+  const isMobile = useViewport(451);
   const editingExpense = expenses.find(
     (expense) => expense._id === selectedExpense
   );
 
+  const handleNavigate = (event) => {
+    event.stopPropagation();
+    navigate('/');
+  };
+
   const handleCategoryChange = (category) => {
-    handleChange({ target: { name: "category", value: category } });
+    handleChange({ target: { name: 'category', value: category } });
   };
 
   const {
@@ -33,17 +41,16 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
     resetForm,
     setFormData,
   } = useForm({
-    initialValues: { name: "", date: "", amount: "", category: "" },
+    initialValues: { name: '', date: '', amount: '', category: '' },
 
     validate: (values) => {
-      const requiredFields = ["name", "date", "amount", "category"];
+      const requiredFields = ['name', 'date', 'amount', 'category'];
       const { hasEmpty, errors: emptyErrors } = validateEmptyFields(
         values,
         requiredFields
       );
 
       if (hasEmpty) {
-        toast.error("Все поля должны быть заполнены");
         return { isValid: false, newErrors: emptyErrors };
       }
 
@@ -70,6 +77,9 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
     e.preventDefault();
 
     if (!validateForm()) {
+      if (!isMobile) {
+        toast.error('Все поля должны быть заполнены');
+      }
       return;
     }
 
@@ -82,11 +92,16 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
     try {
       if (selectedExpense) {
         await editExpense({ id: selectedExpense, expense });
-        toast.success("Расход обновлён");
-        onEditComplete();
+        toast.success('Расход обновлён');
+        if (onEditComplete) {
+          // <-- Добавлена проверка
+          onEditComplete();
+        } else {
+          navigate(RoutesApp.MAIN);
+        }
       } else {
         await addNewExpense({ expense });
-        toast.success("Новый расход добавлен");
+        toast.success('Новый расход добавлен');
       }
 
       resetForm();
@@ -94,11 +109,19 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
       console.error(textErrors.addExpenseError, err.message);
     }
   };
-
   return (
     <ModalBlok>
+      {isMobile && (
+        <S.ToExpenses onClick={handleNavigate} to="/">
+          <img
+            src="/first-box/to-expenses.svg"
+            alt="выход на страницу расходов"
+          ></img>
+          <img src="/first-box/my-expenses.svg" alt="Мои расходы" />
+        </S.ToExpenses>
+      )}
       <S.TitleForm>
-        {selectedExpense ? "Редактирование" : "Новый расход"}
+        {selectedExpense ? 'Редактирование' : 'Новый расход'}
       </S.TitleForm>
       <Form onSubmit={handleSubmit}>
         <S.InputTitle>Описание</S.InputTitle>
@@ -108,8 +131,8 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
           type="text"
           value={formData.name}
           onChange={handleChange}
-          onFocus={() => handleFocus("name")}
-          onBlur={() => handleBlur("name")}
+          onFocus={() => handleFocus('name')}
+          onBlur={() => handleBlur('name')}
           $isFocused={focus.name}
           $error={errors.name}
         />
@@ -128,8 +151,8 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
           placeholder="Введите дату "
           value={formData.date}
           onChange={handleChange}
-          onFocus={() => handleFocus("date")}
-          onBlur={() => handleBlur("date")}
+          onFocus={() => handleFocus('date')}
+          onBlur={() => handleBlur('date')}
           $isFocused={focus.date}
           $error={errors.date}
         />
@@ -140,8 +163,8 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
           placeholder="Введите сумму"
           value={formData.amount}
           onChange={handleChange}
-          onFocus={() => handleFocus("amount")}
-          onBlur={() => handleBlur("amount")}
+          onFocus={() => handleFocus('amount')}
+          onBlur={() => handleBlur('amount')}
           $isFocused={focus.amount}
           $error={errors.amount}
         />
@@ -151,8 +174,8 @@ function ExpenseForm({ selectedExpense, onEditComplete }) {
           disabled={Object.values(errors).some((err) => err)}
         >
           {selectedExpense
-            ? "Сохранить редактирование"
-            : "Добавить новый расход"}
+            ? 'Сохранить редактирование'
+            : 'Добавить новый расход'}
         </S.ExpenseButton>
       </Form>
     </ModalBlok>

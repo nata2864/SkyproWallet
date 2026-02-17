@@ -1,11 +1,12 @@
-import * as S from "./TableRows.styled";
+import * as S from './TableRows.styled';
+import { useViewport } from '../../hooks/useViewport';
 
 export const TableFirstRow = () => (
   <S.RowHeader>
-    <S.Cell>Описание</S.Cell>
-    <S.Cell>Категория</S.Cell>
-    <S.Cell>Дата</S.Cell>
-    <S.Cell>Сумма</S.Cell>
+    <div>Описание</div>
+    <div>Категория</div>
+    <div>Дата</div>
+    <div>Сумма</div>
   </S.RowHeader>
 );
 
@@ -14,22 +15,45 @@ export const TableRow = ({
   category,
   date,
   amount,
-  onEdit,
+  onSelect,
   onDelete,
+  onEdit,
   isSelected,
-}) => (
-  <S.Row $isSelected={isSelected}>
-    <S.Cell>{description}</S.Cell>
-    <S.Cell>{category}</S.Cell>
-    <S.Cell>{date}</S.Cell>
-    <S.Cell>{amount}</S.Cell>
-    <S.Icons>
-      <S.IconButton $isSelected={isSelected} onClick={onEdit}>
-        <img src="/first-box/mini-pen.svg" alt="Иконка карандаша" />
-      </S.IconButton>
-      <S.IconButton $isSelected={isSelected} onClick={onDelete}>
-        <img src="/first-box/mini-bucket.svg" alt="Иконка корзинки" />
-      </S.IconButton>
-    </S.Icons>
-  </S.Row>
-);
+}) => {
+  const isMobile = useViewport(451);
+  //Теперь отдельная клетка с количеством и туда для десктопа отправляются иконки.
+  return (
+    <S.RowWrapper>
+      <S.Row $isSelected={isSelected} onClick={onSelect}>
+        <S.Cell title={description}>{description}</S.Cell>
+        <S.Cell>{category}</S.Cell>
+        <S.Cell>{date}</S.Cell>
+        <S.AmountCell>
+          <span>{amount}</span>
+          {!isMobile && (
+            <S.Icons>
+              <S.IconButton
+                $isSelected={isSelected}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEdit();
+                }}
+              >
+                <img src="/first-box/mini-pen.svg" alt="Иконка карандаша" />
+              </S.IconButton>
+              <S.IconButton
+                $isSelected={isSelected}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete();
+                }}
+              >
+                <img src="/first-box/mini-bucket.svg" alt="Иконка корзинки" />
+              </S.IconButton>
+            </S.Icons>
+          )}
+        </S.AmountCell>
+      </S.Row>
+    </S.RowWrapper>
+  );
+};

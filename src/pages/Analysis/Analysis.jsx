@@ -4,7 +4,6 @@ import { ExpenseProvider } from "../../context/ExpenseProvider";
 function AnalysisPage() {
   return (
     <div>
-      {/* <ExpenseProvider> */}
       <ExpenseProvider>
         <Analysis />
       </ExpenseProvider>

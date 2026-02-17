@@ -3,7 +3,6 @@ import { textSizes } from "../../const";
 
 export const BasisInput = styled.input`
   width: 100%;
-  max-width: 313px;
   height: 39px;
   box-sizing: border-box;
   border-radius: 6px;
